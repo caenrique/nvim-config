@@ -1,4 +1,4 @@
 let g:blamer_template = '<author> <author-time> <commit-short> <summary>'
 let g:blamer_date_format = '%Y-%m-%d'
 
-nnoremap <silent> <leader>b ToggleBlameLine<CR>
+nnoremap <silent> <leader>b :BlamerToggle<CR>
