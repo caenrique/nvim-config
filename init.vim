@@ -36,14 +36,14 @@ call plug#end()
 
 runtime! config/onedark.vim
 runtime! config/general-settings.vim
-runtime! config/commands.vim
-runtime! config/keymappings.vim
 runtime! config/fzf.vim
 runtime! config/blamer.vim
 runtime! config/autosession.vim
 runtime! config/nerdtree.vim
 runtime! config/lightline.vim
 runtime! config/coc.vim
+runtime! config/commands.vim
+runtime! config/keymappings.vim
 
 " Don't know why this doesn't work 
 " for fpath in split(globpath('~/.config/nvim/config', '*.vim'), '\n')

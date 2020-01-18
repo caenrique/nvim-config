@@ -1,5 +1,3 @@
-let mapleader = ","
-
 nmap <C-k> <C-y>
 nmap <C-j> <C-e>
 map <M-h> :tabprev<CR>
