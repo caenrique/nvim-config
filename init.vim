@@ -5,28 +5,41 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
+
+" Language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/nerdtree'
-Plug 'https://github.com/albfan/nerdtree-git-plugin'
-Plug 'itchyny/lightline.vim'
-Plug 'https://github.com/joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
+
+" Git integration
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
+Plug 'APZelos/blamer.nvim'
+
+" File navigations
+Plug 'scrooloose/nerdtree'
+Plug 'albfan/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" Sessions
 Plug 'DevWurm/autosession.vim'
+
+" Interface
+Plug 'itchyny/lightline.vim'
+Plug 'joshdick/onedark.vim'
+
+" Syntax
 Plug 'machakann/vim-sandwich'
-Plug 'APZelos/blamer.nvim'
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
+runtime! config/onedark.vim
+runtime! config/general-settings.vim
+runtime! config/commands.vim
+runtime! config/keymappings.vim
 runtime! config/fzf.vim
 runtime! config/blamer.vim
-runtime! config/onedark.vim
-runtime! config/commands.vim
-runtime! config/general-settings.vim
-runtime! config/keymappings.vim
 runtime! config/autosession.vim
 runtime! config/nerdtree.vim
 runtime! config/lightline.vim
