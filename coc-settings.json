@@ -1,5 +1,6 @@
 {
 "metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home",
+"coc.preferences.formatOnSaveFiletypes": ["scala", "json"],
 "languageserver": {
     "bash": {
       "command": "bash-language-server",

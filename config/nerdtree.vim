@@ -11,5 +11,5 @@ endfu
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-nnoremap <Leader>f :NERDTreeFind<Enter>
+nnoremap <C-p> :NERDTreeFind<Enter>
 nnoremap ff :NERDTreeToggle<Enter>

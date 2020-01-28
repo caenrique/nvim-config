@@ -1,12 +1,23 @@
+" AUTOCOMPLETION USING CTRL-SPACE or TAB
+"
 " https://github.com/neoclide/coc.nvim#example-vim-configuration
 inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" SELECT WITH ENTER
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Better display for messages
-set cmdheight=1
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 " don't give |ins-completion-menu| messages.
@@ -25,7 +36,6 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " gh - get hint on whatever's under the cursor
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -40,29 +50,17 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
-
-" List errors
-nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<cr>
-
-" list commands available in tsserver (and others)
-nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
-
-" restart when tsserver gets wonky
-nnoremap <silent> <leader>cR  :<C-u>CocRestart<CR>
-
 " view all errors
-nnoremap <silent> <leader>cl  :<C-u>CocList locationlist<CR>
-
-" manage extensions
-nnoremap <silent> <leader>cx  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>er  :<C-u>CocList diagnostics<CR>
 
 " rename the current word in the cursor
-nmap <leader>cr  <Plug>(coc-rename)
+nmap <leader>r  <Plug>(coc-rename)
 nmap <leader>cf  <Plug>(coc-format-selected)
 vmap <leader>cf  <Plug>(coc-format-selected)
 
 " run code actions
 vmap <leader>ca  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  <Plug>(coc-codeaction-selected)
+
+" quick fix current line problem
+nmap <leader>qf  <Plug>(coc-fix-current)

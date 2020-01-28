@@ -8,6 +8,7 @@ call plug#begin()
 
 " Language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 Plug 'sheerun/vim-polyglot'
 
 " Git integration
@@ -34,19 +35,31 @@ Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
+" Theme
 runtime! config/onedark.vim
-runtime! config/general-settings.vim
-runtime! config/fzf.vim
-runtime! config/blamer.vim
-runtime! config/autosession.vim
-runtime! config/nerdtree.vim
-runtime! config/lightline.vim
-runtime! config/coc.vim
-runtime! config/commands.vim
-runtime! config/keymappings.vim
 
-" Don't know why this doesn't work 
-" for fpath in split(globpath('~/.config/nvim/config', '*.vim'), '\n')
-" 	echo fpath
-"    runtime fpath
-" endfor
+runtime! config/general-settings.vim
+
+" Fuzzy search
+runtime! config/fzf.vim
+
+" Display git blame inline using virtual text
+runtime! config/blamer.vim
+
+" simple session management
+runtime! config/autosession.vim
+
+" File tree explorer
+runtime! config/nerdtree.vim
+
+" Status line
+runtime! config/lightline.vim
+
+" LSP pluggin
+runtime! config/coc.vim
+
+" Custom command and functions
+runtime! config/commands.vim
+
+" Custom keymappings
+runtime! config/keymappings.vim

@@ -1,6 +1,7 @@
 set hidden
 set nobackup
 set nowritebackup
+set noswapfile
 set noshowmode
 set termguicolors
 set splitright
