@@ -26,7 +26,8 @@ set shortmess+=c
 set signcolumn=yes
 
 " gd - go to definition of word under cursor
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :call CocAction('jumpDefinition')<CR>
+nmap <silent> gD :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 
 " gi - go to implementation
@@ -35,8 +36,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 " gr - find references
 nmap <silent> gr <Plug>(coc-references)
 
-" gh - get hint on whatever's under the cursor
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
+" K - get hint on whatever's under the cursor
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
@@ -51,7 +52,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " view all errors
-nnoremap <silent> <leader>er  :<C-u>CocList diagnostics<CR>
+nnoremap <silent> <leader>er  :<C-u>CocList --auto-preview diagnostics<CR>
 
 " rename the current word in the cursor
 nmap <leader>r  <Plug>(coc-rename)
@@ -64,3 +65,5 @@ nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 " quick fix current line problem
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')

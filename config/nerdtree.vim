@@ -13,3 +13,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 nnoremap <C-p> :NERDTreeFind<Enter>
 nnoremap ff :NERDTreeToggle<Enter>
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1

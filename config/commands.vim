@@ -31,3 +31,14 @@ function! RenameFile()
 endfunction
 
 command! RenameFile call RenameFile()
+
+fun! RemoveTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    keepp %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+command! RemoveTrailingWhiteSpace call RemoveTrailingWhitespaces()
+
+au BufWritePre * :call RemoveTrailingWhitespaces()

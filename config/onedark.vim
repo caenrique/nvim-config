@@ -4,3 +4,7 @@ let g:onedark_color_overrides = {
 
 let g:onedark_hide_endofbuffer = 1
 
+set termguicolors
+colorscheme onedark
+set background=dark
+highlight CursorLine guibg=#1b1c23
