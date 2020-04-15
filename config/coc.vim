@@ -66,4 +66,6 @@ nmap <leader>ca  <Plug>(coc-codeaction-selected)
 " quick fix current line problem
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+nnoremap <leader>cl :call CocAction('runCommand', 'metals.go-to-super-method')
+
 command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')

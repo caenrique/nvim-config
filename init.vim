@@ -13,11 +13,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'DevWurm/autosession.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
-Plug 'thaerkh/vim-indentguides'
 Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'caenrique/nvim-toggle-terminal'
 call plug#end()
 
 set autowrite
@@ -43,6 +43,7 @@ set expandtab
 set shiftwidth=2
 set shiftround
 set list
+set conceallevel=0
 let mapleader = ","
 
 runtime! config/*.vim

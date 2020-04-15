@@ -6,6 +6,11 @@ nnoremap k gk
 
 " Exit terminal easy
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+tnoremap <M-z> pwd\|pbcopy<CR><C-\><C-n>:cd <C-r>+<CR>i
+
+" Toggle terminal
+nnoremap <silent> <C-z> :call nvim_toggle_terminal#ToggleTerminal()<Enter>
+tnoremap <silent> <C-z> <C-\><C-n>:call nvim_toggle_terminal#ToggleTerminal()<Enter>
 
 " Tab navigation
 nnoremap tj :tabfirst<CR>
@@ -42,8 +47,3 @@ nnoremap <C-h> <C-w>H
 nnoremap <C-l> <C-w>L
 nnoremap <C-k> <C-w>K
 nnoremap <C-j> <C-w>J
-
-nnoremap <silent> <C-z> :call mappings#toggleterminal()<Enter>
-tnoremap <silent> <C-z> <C-\><C-n>:call mappings#toggleterminal()<Enter>
-
-

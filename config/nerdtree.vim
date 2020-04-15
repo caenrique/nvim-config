@@ -5,7 +5,7 @@ augroup filetype_nerdtree
 augroup END
 
 fu s:disable_lightline_on_nerdtree() abort
-    let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
+    let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&filetype')}), 'nerdtree') + 1
     call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
 endfu
 
