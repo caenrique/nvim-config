@@ -17,6 +17,7 @@ Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'caenrique/nvim-toggle-terminal'
+Plug 'caenrique/nvim-maximize-window-toggle'
 call plug#end()
 
 set autowrite
@@ -31,7 +32,6 @@ set inccommand=split
 set clipboard=unnamed
 set mouse=a
 set number
-set cursorline
 set lazyredraw
 set linebreak
 set ignorecase
@@ -43,6 +43,7 @@ set shiftwidth=2
 set shiftround
 set list
 set conceallevel=0
-let mapleader = ","
+
+map <Space> <Leader>
 
 runtime! config/*.vim
