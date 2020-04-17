@@ -29,3 +29,21 @@ function! functions#RemoveTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 
+function! functions#ToggleOnly()
+  if winnr("$") > 1
+    let l:origin = {
+      \ 'tabNumber' : tabpagenr(),
+      \ 'windowNumber' : winnr()
+    \}
+    tab sp
+    let w:origin = l:origin
+  elseif exists("w:origin") && index(tabpagebuflist(w:origin.tabNumber), bufnr()) >= 0
+    let l:originTabNumber = (w:origin.tabNumber < tabpagenr()) ? w:origin.tabNumber : w:origin.tabNumber - 1
+    let l:originWindowNumber = w:origin.windowNumber
+    tabclose
+    exec l:originTabNumber . "tabnext"
+    exec l:originWindowNumber . "wincmd w"
+  else
+    return 0
+  endif
+endfunction

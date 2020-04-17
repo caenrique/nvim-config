@@ -1,6 +1,6 @@
 autocmd BufRead,BufNewFile *.sbt set filetype=scala " Set scala as filetype when editing sbt files
 autocmd Filetype json syntax match Comment +\/\/.\+$+ " Support json comments
-autocmd BufWritePre * :call RemoveTrailingWhitespaces()
+autocmd BufWritePre * :call functions#RemoveTrailingWhitespaces()
 
 command! CloseHiddenBuffers call functions#CloseHiddenBuffers()
 command! RenameFile call functions#RenameFile()

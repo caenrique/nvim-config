@@ -60,12 +60,14 @@ nmap <leader>cf  <Plug>(coc-format-selected)
 vmap <leader>cf  <Plug>(coc-format-selected)
 
 " run code actions
-vmap <leader>ca  <Plug>(coc-codeaction-selected)
-nmap <leader>ca  <Plug>(coc-codeaction-selected)
+vmap <leader>ca  <Plug>(coc-codeaction-selected)<CR>
+nmap <leader>ca  <Plug>(coc-codeaction-selected)<CR>
 
 " quick fix current line problem
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-nnoremap <leader>cl :call CocAction('runCommand', 'metals.go-to-super-method')
+nnoremap <leader>cl :call CocAction('runCommand', 'metals.go-to-super-method')<CR>
 
 command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')
+
+let g:coc_global_extensions = ['coc-pairs']

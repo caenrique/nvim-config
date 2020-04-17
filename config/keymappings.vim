@@ -21,6 +21,8 @@ nnoremap tn :tabnew<CR>
 nnoremap tt :tabedit<Space>
 nnoremap td :tabclose<CR>
 
+nnoremap <silent> <M-o> :call functions#ToggleOnly()<Enter>
+
 " Splits navigation
 nnoremap gj <C-W>j
 nnoremap gk <C-W>k
