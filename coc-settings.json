@@ -1,5 +1,6 @@
 {
-"metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home",
+"metals.javaHome": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
+"coc.preferences.formatOnType": true,
 "coc.preferences.formatOnSaveFiletypes": ["scala", "json"],
 "coc.preferences.rootPatterns": [
   ".git",
