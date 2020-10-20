@@ -3,5 +3,4 @@ fu! CloseNerdTreeAndSaveSession()
     execute 'SessionSave'
 endfunction
 
-autocmd VimLeavePre * if (g:session_loaded == 1) | call CloseNerdTreeAndSaveSession() | endif
-
+autocmd VimLeave * call CloseNerdTreeAndSaveSession()

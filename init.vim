@@ -8,11 +8,10 @@ call plug#begin()
 Plug 'itchyny/lightline.vim' " Status bar
 Plug 'joshdick/onedark.vim' " Color theme
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP client
-Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'} " Scala LSP server
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy find
 Plug 'junegunn/fzf.vim' " Integration with fzf
-Plug 'scrooloose/nerdtree' " File tree explorer
-Plug 'albfan/nerdtree-git-plugin' " Git integration with nerdtree
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'DevWurm/autosession.vim' " Load vim sessions automaticaly
 Plug 'sheerun/vim-polyglot' " Syntax higlighting support for multiple languages
 Plug 'tpope/vim-fugitive' " Git commands in vim
