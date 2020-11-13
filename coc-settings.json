@@ -1,5 +1,4 @@
 {
-"metals.javaHome": "~/.sdkman/candidates/java/current",
 "coc.preferences.formatOnType": true,
 "coc.preferences.formatOnSaveFiletypes": ["scala", "json"],
 "coc.preferences.rootPatterns": [

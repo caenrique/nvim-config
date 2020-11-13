@@ -31,9 +31,9 @@ nmap <leader>F  <Plug>(coc-format-selected)
 xmap <leader>F  <Plug>(coc-format-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nnoremap <leader>n :call CocAction('runCommand', 'metals.new-scala-file')<Enter>
-nnoremap <leader>s :call CocAction('runCommand', 'metals.go-to-super-method')<CR>
+nnoremap <leader>s :call CocAction('runCommand', 'metals.goto-super-method')<CR>
 nnoremap <silent> <leader>c :<C-u>CocList commands<cr>
-nmap <silent> gd :call <SID>go_to_definition_in_new_tab()<CR>
+nmap <silent> gd :call CocAction('jumpDefinition')<CR>
 nmap <silent> gD :call CocAction('jumpDefinition')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -57,3 +57,6 @@ set updatetime=300 " You will have bad experience for diagnostic messages when i
 set shortmess+=c " don't give ins-completion-menu messages.
 set signcolumn=yes " always show signcolumns
 let g:coc_global_extensions = ['coc-pairs']
+
+
+call coc#config('metals.javaHome', $HOME . "/.sdkman/candidates/java/current")

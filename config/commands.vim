@@ -18,3 +18,9 @@ command! -nargs=1 -complete=dir Tcd tabnew | tcd <args>
 
 command! -nargs=1 -bang Replace call functions#search_and_replace("<args>", "<bang>")
 
+function! FormatJsonFunction() range
+  let command = a:firstline . "," . a:lastline . "!jq ."
+  execute command
+endfunction
+
+command! -range FormatJson <line1>,<line2>call FormatJsonFunction()
