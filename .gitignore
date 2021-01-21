@@ -1,2 +1,4 @@
 plugged/
 history/
+.session.vim
+.session.vim.backup
