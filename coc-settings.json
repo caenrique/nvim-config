@@ -1,5 +1,5 @@
 {
-"coc.preferences.formatOnType": true,
+"coc.preferences.formatOnType": true ,
 "coc.preferences.formatOnSaveFiletypes": ["scala", "json"],
 "coc.preferences.rootPatterns": [
   ".git",
@@ -15,5 +15,8 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-  }
+  },
+"metals.showInferredType": true,
+"metals.showImplicitArguments": true,
+"metals.showImplicitConversionsAndClasses": true
 }

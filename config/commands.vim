@@ -24,3 +24,5 @@ function! FormatJsonFunction() range
 endfunction
 
 command! -range FormatJson <line1>,<line2>call FormatJsonFunction()
+
+command! -nargs=1 CopySearch call functions#copy_search("<args>")

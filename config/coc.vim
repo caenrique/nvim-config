@@ -34,7 +34,6 @@ nnoremap <leader>n :call CocAction('runCommand', 'metals.new-scala-file')<Enter>
 nnoremap <leader>s :call CocAction('runCommand', 'metals.goto-super-method')<CR>
 nnoremap <silent> <leader>c :<C-u>CocList commands<cr>
 nmap <silent> gd :call CocAction('jumpDefinition')<CR>
-nmap <silent> gD :call CocAction('jumpDefinition')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -42,14 +41,16 @@ vmap <C-space>  <Plug>(coc-codeaction-selected)<CR>
 nmap <C-space>  <Plug>(coc-codeaction-selected)<CR>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<Tab>" : coc#refresh()
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nmap <C-K> <Plug>(coc-metals-expand-decoration)
 
 autocmd CursorHold * silent call CocActionAsync('highlight') " Highlight symbol under cursor on CursorHold
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 augroup mygroup
   autocmd!
-  autocmd FileType scala setl formatexpr=CocAction('formatSelected') " Setup formatexpr specified filetype(s).
+  autocmd FileType scala setl shiftwidth=2 softtabstop=2 expandtab formatexpr=CocAction('formatSelected') " Setup formatexpr specified filetype(s).
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp') " Update signature help on jump placeholder
 augroup end
 

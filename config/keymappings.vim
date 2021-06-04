@@ -6,7 +6,6 @@ nnoremap k gk
 
 " Exit terminal easy
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-tnoremap <M-z> pwd\|pbcopy<CR><C-\><C-n>:cd <C-r>+<CR>i
 
 nnoremap <silent> <leader>h :SwapBuffer('h')<CR>
 nnoremap <silent> <leader>j :SwapBuffer('j')<CR>
@@ -24,3 +23,9 @@ nnoremap gl <C-W>l
 nnoremap gh <C-W>h
 
 vnoremap . :'<,'>call functions#Repeat_with_visual_selection()<Enter>
+
+nnoremap <leader>= :Colors<CR>
+nnoremap <leader>- :call functions#toggleDarkAndLightTheme()<CR>
+
+nnoremap <C-p> "0p
+vnoremap <C-p> "0p

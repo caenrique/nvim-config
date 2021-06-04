@@ -82,3 +82,22 @@ function! functions#openNotesDir()
   endif
 endfunction
 
+function! functions#toggleDarkAndLightTheme()
+  if g:lightOrDarkTheme == "dark"
+    let g:lightOrDarkTheme = "light"
+    colorscheme delek
+    set background=light
+    highlight CursorLine guibg=#f5f5f5
+  else
+    let g:lightOrDarkTheme = "dark"
+    colorscheme onedark
+    set background=dark
+    highlight CursorLine guibg=#15161b
+  endif
+endfunction
+
+function! functions#copy_search(pattern)
+  let @c = ''
+  execute "g/" . a:pattern . "/y C"
+  let @+ = @c
+endfunction
