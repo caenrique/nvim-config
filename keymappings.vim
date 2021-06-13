@@ -1,16 +1,10 @@
+map <Space> <Leader>
+
 nnoremap <Leader><space> :nohlsearch<CR>
 
 " treat wrapped lines as normal lines
 nnoremap j gj
 nnoremap k gk
-
-" Exit terminal easy
-tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-
-nnoremap <silent> <leader>h :SwapBuffer('h')<CR>
-nnoremap <silent> <leader>j :SwapBuffer('j')<CR>
-nnoremap <silent> <leader>k :SwapBuffer('k')<CR>
-nnoremap <silent> <leader>l :SwapBuffer('l')<CR>
 
 " Tab navigation
 nnoremap th :tabprev<CR>
@@ -23,9 +17,6 @@ nnoremap gl <C-W>l
 nnoremap gh <C-W>h
 
 vnoremap . :'<,'>call functions#Repeat_with_visual_selection()<Enter>
-
-nnoremap <leader>= :Colors<CR>
-nnoremap <leader>- :call functions#toggleDarkAndLightTheme()<CR>
 
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p

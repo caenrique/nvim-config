@@ -1,18 +1,15 @@
 lua require('plugins')
+lua require("nvim-metals")
+lua require("options")
+lua require("settings.colorscheme")
+lua require("settings.lualine")
+lua require("settings.auto-session")
+lua require("settings.nvim-treesitter")
+
 autocmd BufWritePost plugins.lua PackerCompile
 
-lua require("options")
-
-map <Space> <Leader>
-
-source keymappings.vim
+source functions.vim
 source commands.vim
+source keymappings.vim
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "scala", "bash", "lua", "java", "json" },
-  highlight = {
-    enable = true              -- false will disable the whole extension
-  },
-}
-EOF
+let &fcs='eob: '
