@@ -23,11 +23,11 @@ vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
 
 -- LSP
-map("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<CR>")
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
+-- map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
 map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
@@ -147,4 +147,5 @@ dap.configurations.scala = {
 
 metals_config.on_attach = function(client, bufnr)
   require("metals").setup_dap()
+  require("lsp_signature").on_attach()
 end

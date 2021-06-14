@@ -1,4 +1,6 @@
-autocmd BufRead,BufNewFile *.sbt set filetype=scala " Set scala as filetype when editing sbt files
+autocmd BufRead,BufNewFile *.sbt set filetype=scala
+autocmd BufRead,BufNewFile *.sc set filetype=scala
+autocmd BufRead,BufNewFile *.conf set filetype=json
 autocmd Filetype json syntax match Comment +\/\/.\+$+ " Support json comments
 autocmd BufWritePre * :call functions#RemoveTrailingWhitespaces()
 autocmd TermOpen * call nvim_toggle_terminal#TerminalOptions()

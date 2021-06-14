@@ -72,9 +72,9 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["autosession.vim"] = {
+  ["auto-session"] = {
     loaded = true,
-    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/autosession.vim"
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/auto-session"
   },
   ["lualine.nvim"] = {
     loaded = true,

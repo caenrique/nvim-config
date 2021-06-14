@@ -24,5 +24,8 @@ return require("packer").startup {
     use { "kyazdani42/nvim-tree.lua", requires = {{ "kyazdani42/nvim-web-devicons" }} }
     use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
     use { 'folke/tokyonight.nvim' }
+    -- use { 'navarasu/onedark.nvim' }
+    use { "ray-x/lsp_signature.nvim" }
+    use { "windwp/nvim-autopairs" }
   end
 }
