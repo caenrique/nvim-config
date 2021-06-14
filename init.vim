@@ -1,7 +1,7 @@
 lua require('plugins')
 lua require("options")
 lua require("settings.nvim-metals")
-lua require("settings.colorscheme")
+lua require("settings.tokyonight")
 lua require("settings.lualine")
 lua require("settings.auto-session")
 lua require("settings.nvim-treesitter")
