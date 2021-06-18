@@ -7,7 +7,10 @@ lua require("settings.auto-session")
 lua require("settings.nvim-treesitter")
 lua require("settings.nvim-compe")
 lua require('settings.nvim-autopairs')
-" lua require('settings.onedark')
+lua require('gitsigns').setup()
+lua require('settings.telescope')
+lua require('settings.fugitive')
+lua require('settings.neogit')
 
 autocmd BufWritePost plugins.lua PackerCompile
 

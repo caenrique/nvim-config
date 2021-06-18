@@ -7,7 +7,7 @@ function! functions#CloseHiddenBuffers()
 
   for num in range(1, bufnr("$") + 1)
     if buflisted(num) && index(open_buffers, num) == -1
-      exec "bdelete ".num
+      exec "bdelete! ".num
     endif
   endfor
 endfunction

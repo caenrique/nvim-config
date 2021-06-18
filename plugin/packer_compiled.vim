@@ -76,9 +76,29 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/auto-session"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/diffview.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/lualine.nvim"
+  },
+  neogit = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/neogit"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -112,6 +132,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
+  playground = {
+    loaded = true,
+    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/playground"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/plenary.nvim"
@@ -127,10 +151,6 @@ _G.packer_plugins = {
   ["tokyonight.nvim"] = {
     loaded = true,
     path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/tokyonight.nvim"
-  },
-  ["vim-gitgutter"] = {
-    loaded = true,
-    path = "/Users/cesar.enrique/.local/share/nvim/site/pack/packer/start/vim-gitgutter"
   },
   ["vim-vsnip"] = {
     loaded = true,

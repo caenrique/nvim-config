@@ -20,3 +20,5 @@ vnoremap . :'<,'>call functions#Repeat_with_visual_selection()<Enter>
 
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
+
+nnoremap <Leader>g :Neogit<Enter>

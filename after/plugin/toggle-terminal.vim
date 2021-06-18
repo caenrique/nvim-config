@@ -1,7 +1,8 @@
 " Toggle terminal
-nnoremap <silent> <C-z> :ToggleTerminal<Enter>
-tnoremap <silent> <C-z> <C-\><C-n>:ToggleTerminal<Enter>
-nmap <silent> <C-t> :ToggleTabTerminal<Enter>
-tmap <silent> <C-t> <C-\><C-n>:ToggleTabTerminal<Enter>
+nnoremap <silent> <C-\> :ToggleTerminal<Enter>
+tnoremap <silent> <C-\> <C-\><C-n>:ToggleTerminal<Enter>
+nnoremap <silent> <C-t> :ToggleTabTerminal<Enter>
+tnoremap <silent> <C-t> <C-\><C-n>:ToggleTabTerminal<Enter>
+tnoremap <Esc> <C-\><C-n>
 
 let g:auto_start_insert = 0

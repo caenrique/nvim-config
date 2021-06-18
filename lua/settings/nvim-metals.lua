@@ -1,23 +1,11 @@
+require('utils')
 local cmd = vim.cmd
 local g = vim.g
 
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
 
-----------------------------------
--- VARIABLES ---------------------
-----------------------------------
 -- nvim-metals
 g["metals_server_version"] = "0.10.2+46-e7ab8592-SNAPSHOT"
 
-----------------------------------
--- OPTIONS -----------------------
-----------------------------------
 -- global
 vim.opt_global.completeopt = { "menu", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
@@ -26,7 +14,7 @@ vim.opt_global.shortmess:remove("F"):append("c")
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+-- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 -- map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
@@ -34,9 +22,11 @@ map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 map("n", "<leader>ws", '<cmd>lua require"metals".worksheet_hover()<CR>')
 map("n", "<leader>a", '<cmd>lua require"metals".open_all_diagnostics()<CR>')
+map("n", "<leader>k", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+map("n", "<leader>q", '<cmd>cclose<CR>')
 map("n", "<leader>d", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>") -- buffer diagnostics only
-map("n", "[c", "<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>")
-map("n", "]c", "<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>")
+map("n", ";N", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
+map("n", ";n", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
 map("n", "<leader>tt", [[<cmd>lua require("metals.tvp").toggle_tree_view()<CR>]])
 map("n", "<leader>tr", [[<cmd>lua require("metals.tvp").reveal_in_tree()<CR>]])
 
@@ -95,6 +85,7 @@ metals_config = require("metals").bare_config
 metals_config.settings = {
   showImplicitArguments = true,
   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  showInferredType = true,
 }
 
 -- Example of how to ovewrite a handler
