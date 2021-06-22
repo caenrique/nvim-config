@@ -11,6 +11,7 @@ lua require('gitsigns').setup()
 lua require('settings.telescope')
 lua require('settings.fugitive')
 lua require('settings.neogit')
+lua require('settings.sqls')
 
 autocmd BufWritePost plugins.lua PackerCompile
 
@@ -18,4 +19,4 @@ runtime! functions.vim
 runtime! commands.vim
 runtime! keymappings.vim
 
-let &fcs='eob: '
+let &fcs='eob: ' " Remove the ~ from left column on EndOfBuffer (empty lines at the end of file)

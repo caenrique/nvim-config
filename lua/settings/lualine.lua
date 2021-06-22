@@ -68,6 +68,15 @@ local function ins_right(component)
 end
 
 ins_left {
+  function()
+    local path = vim.fn.split(vim.fn.getcwd(), "/")
+    return path[#path]
+  end,
+  icon = '',
+  color = {fg = colors.fg, gui = 'bold'}
+}
+
+ins_left {
   'filename',
   condition = conditions.buffer_not_empty,
   color = {fg = colors.magenta, gui = 'bold'}
@@ -103,21 +112,6 @@ ins_right {
   end,
   icon = ' LSP:',
   color = {fg = '#ffffff', gui = 'bold'}
-}
-
--- Add components to right sections
-ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  upper = true, -- I'm not sure why it's upper case either ;)
-  condition = conditions.hide_in_width,
-  color = {fg = colors.green, gui = 'bold'}
-}
-
-ins_right {
-  'fileformat',
-  upper = true,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = {fg = colors.green, gui = 'bold'}
 }
 
 ins_right {

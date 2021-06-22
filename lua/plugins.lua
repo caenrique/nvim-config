@@ -31,5 +31,6 @@ return require("packer").startup {
     use {"sindrets/diffview.nvim"}
     use {"tpope/vim-fugitive"}
     use {"tpope/vim-rhubarb"}
+    use {'nanotee/sqls.nvim', requires = {"neovim/nvim-lspconfig"}}
   end
 }
