@@ -67,7 +67,9 @@ function M.open_journal_tomorrow()
   M.open_journal_for_date(tomorrow)
 end
 
-vim.keymap.set('n', '<leader>fn', function() require('telescope.builtin').find_files({ cwd = config.journal_base_dir }) end)
+vim.keymap.set('n', '<leader>fn', function()
+  require('telescope.builtin').find_files({ cwd = config.journal_base_dir })
+end)
 vim.keymap.set('n', '<leader>jj', M.open_journal_today)
 vim.keymap.set('n', '<leader>jh', M.open_journal_yesterday)
 vim.keymap.set('n', '<leader>jl', M.open_journal_tomorrow)

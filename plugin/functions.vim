@@ -18,19 +18,3 @@ function! functions#RemoveTrailingWhitespaces()
   keepp %s/\s\+$//e
   call cursor(l, c)
 endfunction
-
-function! functions#Repeat_with_visual_selection() range
-  let [l:first_line, l:column] = getpos("'<")[1:2]
-  let l:last_line = getpos("'>")[1]
-
-  for l:line in range(l:first_line, l:last_line)
-    exec "normal " . l:line . "G" . l:column . "|."
-  endfor
-endfunction
-
-function! functions#FormatJsonFunction() range
-  let command = a:firstline . "," . a:lastline . "!jq ."
-  execute command
-endfunction
-
-

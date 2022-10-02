@@ -71,3 +71,5 @@ require('feline').winbar.setup({
     },
   },
 })
+
+vim.api.nvim_create_user_command('FelineReload', 'source ~/.config/nvim/after/plugin/feline.lua', {})

@@ -9,7 +9,9 @@ vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 vim.keymap.set('n', '<leader>mc', require('telescope').extensions.metals.commands)
-vim.keymap.set('n', '<leader>C', function() require('telescope.builtin').find_files({prompt_title = 'neovim config', cwd = '~/.config/nvim/'}) end)
+vim.keymap.set('n', '<leader>C', function()
+  require('telescope.builtin').find_files({ prompt_title = 'neovim config', cwd = '~/.config/nvim/' })
+end)
 
 require('telescope').setup({
   defaults = {

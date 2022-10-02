@@ -2,15 +2,18 @@ if not pcall(require, 'possession') then
   return
 end
 
-vim.o.sessionoptions = 'curdir,tabpages,winsize,folds'
+vim.o.sessionoptions = 'curdir,tabpages,winsize'
 
 require('telescope').load_extension('possession')
 
 require('possession').setup {
+  autosave = {
+    current = true,
+  },
   hooks = {
     after_load = function(name, _)
       if string.find(name, "scala") then
-        vim.cmd('<CMD>MetalsRestartServer<CR>')
+        vim.cmd.MetalsRestartServer()
       end
     end,
   },

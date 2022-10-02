@@ -20,6 +20,4 @@ require('rest-nvim').setup({
   show_headers = false,
 })
 
-vim.cmd([[
-  command! Request tabnew | tcd ~/Projects/requests/ | enew | NeoTreeShow
-]])
+vim.api.nvim_create_user_command('Request', 'tabnew | tcd ~/Projects/requests/ | enew', {})
