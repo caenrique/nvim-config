@@ -1,3 +1,7 @@
+if not pcall(require, 'bqf') then
+  return
+end
+
 local fn = vim.fn
 
 function _G.qftf(info)

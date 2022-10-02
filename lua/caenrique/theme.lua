@@ -1,23 +1,27 @@
+if not pcall(require, 'catppuccin') then
+  return
+end
+
 local colors = require("catppuccin.palettes").get_palette()
 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 
 local M = {}
 
 M.vi_mode_colors = {
-    NORMAL = colors.green,
-    INSERT = colors.blue,
-    VISUAL = colors.flamingo,
-    OP = colors.green,
-    BLOCK = colors.flamingo,
-    REPLACE = colors.red,
-    ['V-REPLACE'] = colors.red,
-    ENTER = colors.sky,
-    MORE = colors.sky,
-    SELECT = colors.peach,
-    COMMAND = colors.red,
-    SHELL = colors.green,
-    TERM = colors.blue,
-    NONE = colors.yellow
+  NORMAL = colors.green,
+  INSERT = colors.blue,
+  VISUAL = colors.flamingo,
+  OP = colors.green,
+  BLOCK = colors.flamingo,
+  REPLACE = colors.red,
+  ['V-REPLACE'] = colors.red,
+  ENTER = colors.sky,
+  MORE = colors.sky,
+  SELECT = colors.peach,
+  COMMAND = colors.red,
+  SHELL = colors.green,
+  TERM = colors.blue,
+  NONE = colors.yellow
 }
 
 M.bg_statusline = colors.surface0
@@ -26,6 +30,13 @@ M.diff = {
   add = colors.green,
   removed = colors.red,
   changed = colors.blue
+}
+
+M.diagnostics = {
+  error = colors.red,
+  warning = colors.yellow,
+  info = colors.blue,
+  hint = colors.sky,
 }
 
 function M.setup()

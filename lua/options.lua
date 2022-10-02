@@ -44,9 +44,11 @@ opt.conceallevel = 0
 opt.undofile = true
 opt.undodir = vim.env.HOME .. '/.config/nvim/history'
 opt.cmdheight = 0
-opt.updatetime = 1000
+opt.updatetime = 250
 opt.termguicolors = true
 
 opt.breakindent = true
+
+vim.opt_global.shortmess:append("c")
 
 vim.api.nvim_set_option('fcs', 'eob: ') -- Remove the ~ from left column on EndOfBuffer (empty lines at the end of file)

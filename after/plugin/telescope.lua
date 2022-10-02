@@ -2,28 +2,15 @@ if not pcall(require, 'telescope') then
   return
 end
 
-local keymaps = require('caenrique.functions').keymaps
 local actions = require('telescope.actions')
 
-keymaps({
-  { '<leader>ff', "<cmd>lua require'telescope.builtin'.find_files()<cr>", description = 'Telescope find files' },
-  { '<leader>fg', "<cmd>lua require'telescope.builtin'.live_grep()<cr>", description = 'Telescope live grep' },
-  { '<leader>fb', "<cmd>lua require'telescope.builtin'.buffers()<cr>", description = 'Telescope find open buffers' },
-  { '<leader>fh', "<cmd>lua require'telescope.builtin'.help_tags()<cr>", description = 'Telescope find help docs' },
-  {
-    '<leader>mc',
-    "<cmd>lua require'telescope'.extensions.metals.commands()<cr>",
-    description = 'Telescope Metals commands',
-  },
-  {
-    '<leader>C',
-    "<cmd>lua require'telescope.builtin'.find_files({prompt_title = 'neovim config', cwd = '~/.config/nvim/'})<CR>",
-  },
-})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files)
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+vim.keymap.set('n', '<leader>mc', require('telescope').extensions.metals.commands)
+vim.keymap.set('n', '<leader>C', function() require('telescope.builtin').find_files({prompt_title = 'neovim config', cwd = '~/.config/nvim/'}) end)
 
--- keymap('n', '<leader>c', "<cmd>lua require'telescope.builtin'.commands()<cr>")
---keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>")
---
 require('telescope').setup({
   defaults = {
     file_previewer = require('telescope.previewers').vim_buffer_cat.new,

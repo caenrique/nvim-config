@@ -8,26 +8,20 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 lspconfig.pyright.setup({
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
+  capabilities = capabilities,
 })
-
-local sumneko_lua_commands = {}
-
-if pcall(require, 'stylua-nvim') then
-  sumneko_lua_commands.Format = {
-    function()
-      require('stylua-nvim').format_file()
-    end
-  }
-end
 
 lspconfig.sumneko_lua.setup({
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -53,14 +47,9 @@ lspconfig.sumneko_lua.setup({
   flags = {
     debounce_text_changes = 150,
   },
-  commands = sumneko_lua_commands,
 })
 
---Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-require'lspconfig'.jsonls.setup {
+require 'lspconfig'.jsonls.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)

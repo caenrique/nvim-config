@@ -8,7 +8,7 @@ require('packer').startup({
     -- 'folke/tokyonight.nvim',
     'lukas-reineke/indent-blankline.nvim',
     'neovim/nvim-lspconfig',
-    'rmagatti/auto-session',
+    { 'jedrzejboczar/possession.nvim', requires = { 'nvim-lua/plenary.nvim' }, },
     'sindrets/diffview.nvim',
     'terrortylor/nvim-comment',
     'tpope/vim-fugitive',
@@ -25,7 +25,6 @@ require('packer').startup({
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' },
     { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-    { 'rmagatti/session-lens', requires = { 'nvim-telescope/telescope.nvim' } },
     { 'SmiteshP/nvim-navic', requires = 'neovim/nvim-lspconfig' },
     { 'alvarosevilla95/luatab.nvim', requires = 'kyazdani42/nvim-web-devicons' },
     { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' },
@@ -65,7 +64,10 @@ require('packer').startup({
     {
       "nvim-neorg/neorg",
       requires = "nvim-lua/plenary.nvim"
-    }
+    },
+    'gaoDean/autolist.nvim',
+    { 'alvarosevilla95/luatab.nvim', requires = 'kyazdani42/nvim-web-devicons' },
+    { 'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim' }
   },
   config = {
     display = { non_interactive = false },

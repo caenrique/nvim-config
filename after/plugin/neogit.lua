@@ -10,4 +10,4 @@ require('neogit').setup({
   disable_context_highlighting = true,
 })
 
-require('caenrique.functions').keymap({'<Leader>g', ':Neogit<Enter>', description = 'Open Neogit tab page'})
+vim.keymap.set('n', '<Leader>g', ':Neogit<Enter>')

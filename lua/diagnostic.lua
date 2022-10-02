@@ -10,6 +10,4 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
 end
 
-require('caenrique.functions').keymap(
-  { '<leader>q', function() vim.diagnostic.setqflist() end, description = 'Set quickfix list to workspace diagnostics from lsp and open the quickfix window' }
-)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist)

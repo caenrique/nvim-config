@@ -14,7 +14,6 @@ require('feline').setup({
         components.vim_mode,
         components.cwd,
         components.git_branch,
-        -- components.navic,
       },
       {
         components.metals_status,
@@ -25,14 +24,37 @@ require('feline').setup({
         components.language_server,
       },
     },
+    inactive = {
+      {
+        components.cwd,
+        components.git_branch,
+      },
+      {},
+    }
   },
   vi_mode_colors = colors.vi_mode_colors,
+  force_inactive = {
+    filetypes = {
+      '^NvimTree$',
+      '^packer$',
+      '^startify$',
+      '^fugitive$',
+      '^fugitiveblame$',
+      '^qf$',
+      '^help$'
+    },
+    buftypes = {},
+    bufnames = {}
+  }
 })
 
 require('feline').winbar.setup({
   components = {
     active = {
-      { components.file_info },
+      {
+        components.file_info,
+        -- components.navic
+      },
       {
         components.git_diff.added,
         components.git_diff.removed,

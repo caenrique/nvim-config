@@ -30,12 +30,6 @@ function M.closeNeogitStatus()
   end
 end
 
-function M.format_code()
-  if vim.lsp.buf.format() == nil then
-    vim.cmd([[Format]])
-  end
-end
-
 -- config should be
 -- {
 --    open: one of [split, new_tab]

@@ -10,7 +10,6 @@ local luasnip = require('luasnip')
 local cmp = require('cmp')
 
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-vim.opt_global.shortmess:remove("F"):append("c")
 
 cmp.setup({
   snippet = {
@@ -20,7 +19,7 @@ cmp.setup({
   },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i' }),
-    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i' }),
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false }), { 'i' }),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -61,6 +60,9 @@ cmp.setup({
         latex_symbols = '[Latex]',
       },
     }),
+  },
+  view = {
+    entries = 'native'
   },
   experimental = {
     ghost_text = true,

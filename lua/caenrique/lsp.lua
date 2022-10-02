@@ -1,83 +1,28 @@
-local keymaps = require('caenrique.functions').keymaps
-local keymap = require('caenrique.functions').keymap
-
 local M = {}
--- require('legendary').bind_keymaps({ })
--- require('legendary').bind_keymaps({ })
 
 function M.setup_lsp_mappings(client, buffer)
+
   local capabilities = client.server_capabilities
-  keymaps({
-    {
-      '<c-o>',
-      function()
-        if require('caenrique.goto-definition-newtab').is_current_tab() then
-          require('caenrique.goto-definition-newtab').goto_previous()
-        else
-          local ctrlO = vim.api.nvim_replace_termcodes("<C-o>", true, false, true)
-          vim.api.nvim_feedkeys(ctrlO, 'n', false)
-        end
-      end,
-      description = 'go to previous buffer in the definitions jump list',
-    },
-    {
-      'gd',
-      function()
-        require('caenrique.goto-definition-newtab').goto_definition_tab()
-      end,
-      description = 'Go to definition in a new tab',
-    },
-    { 'gD', '<cmd>lua vim.lsp.buf.definition()<CR>', description = 'Go to definition' },
-    { 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', description = 'Hover' },
-    { '<leader>sh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', description = 'Signature help' },
-    { 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', description = 'Go to workspace symbol' },
-    { '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', description = 'Rename symbol under cursor' },
-    { '<C-f>', "<cmd>lua require('caenrique.functions').format_code()<CR>", description = 'Format code' },
-    { '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', description = 'Code action' },
-    { '<leader>k', '<cmd>lua vim.diagnostic.open_float()<CR>', description = 'Show diagnostics in a floating window' },
-    {
-      '<leader>d',
-      '<cmd>lua vim.diagnostic.setloclist()<CR>',
-      description = 'Add buffer diagnostics to the location list',
-    }, -- buffer diagnostics only
-    { '<C-[>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', description = 'Move to the previous diagnostic' },
-    { '<C-]>', '<cmd>lua vim.diagnostic.goto_next()<CR>', description = 'Move to the next diagnostic' },
-  }, { buffer = buffer })
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { buffer = buffer })
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = buffer })
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = buffer })
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = buffer })
+  vim.keymap.set('n', 'gws', vim.lsp.buf.workspace_symbol, { buffer = buffer })
+  vim.keymap.set('n', '<C-F>', vim.lsp.buf.format, { buffer = buffer })
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = buffer })
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = buffer })
+  vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float, { buffer = buffer })
+  vim.keymap.set('n', '<leader>d', vim.diagnostic.setloclist, { buffer = buffer })
+  vim.keymap.set('n', '<C-[>', vim.diagnostic.goto_prev, { buffer = buffer })
+  vim.keymap.set('n', '<C-]>', vim.diagnostic.goto_next, { buffer = buffer })
 
   local lsp_group = vim.api.nvim_create_augroup('lsp-autocmd', { clear = true })
 
-  if capabilities.documentFormattingProvider then
-    keymap({
-      '<C-F>',
-      function()
-        vim.lsp.buf.format()
-      end,
-      opts = { buffer = buffer },
-    })
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      callback = function()
-        vim.lsp.buf.format({ async = true })
-      end,
-      group = lsp_group,
-      buffer = buffer,
-    })
-  else
-    keymap({ '<C-F>', '<cmd>Format<CR>', opts = { buffer = buffer } })
-  end
-
+  -- Create a command `:Format` local to the LSP buffer
   if capabilities.codeLensProvider then
-    keymap({
-      '<leader>cl',
-      function()
-        vim.lsp.codelens.run()
-      end,
-      description = 'Run the code lens in the current line',
-      opts = { buffer = buffer },
-    })
+    vim.keymap.set('n', '<leader>cl', vim.lsp.codelens.run, { buffer = buffer })
     vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-      callback = function()
-        vim.lsp.codelens.refresh()
-      end,
+      callback = vim.lsp.codelens.refresh,
       group = lsp_group,
       buffer = buffer,
     })
@@ -85,16 +30,12 @@ function M.setup_lsp_mappings(client, buffer)
 
   if capabilities.documentHighlightProvider then
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-      callback = function()
-        vim.lsp.buf.document_highlight()
-      end,
+      callback = vim.lsp.buf.document_highlight,
       group = lsp_group,
       buffer = buffer,
     })
     vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-      callback = function()
-        vim.lsp.buf.clear_references()
-      end,
+      callback = vim.lsp.buf.clear_references,
       group = lsp_group,
       buffer = buffer,
     })

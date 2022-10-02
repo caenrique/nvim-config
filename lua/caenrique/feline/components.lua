@@ -2,9 +2,13 @@ local M = {}
 
 local colors = require('caenrique.theme')
 
-local function diagnostics_enabled(severity)
-  return require('feline.providers.lsp').diagnostics_exist(severity)
-end
+local rignt_sep = {
+  str = ' ',
+  hl = {
+    fg = 'NONE',
+    bg = colors.bg_statusline,
+  },
+}
 
 M.vim_mode = {
   provider = {
@@ -21,12 +25,7 @@ M.vim_mode = {
       style = 'bold',
     }
   end,
-  right_sep = {
-    str = ' ',
-    hl = {
-      bg = colors.bg_statusline
-    }
-  },
+  right_sep = rignt_sep,
   icon = '',
 }
 
@@ -58,13 +57,7 @@ M.git_diff = {
       bg = colors.bg_statusline,
       style = 'bold',
     },
-    right_sep = {
-      str = ' ',
-      hl = {
-        fg = 'NONE',
-        bg = colors.bg_statusline,
-      },
-    },
+    right_sep = rignt_sep,
   },
   removed = {
     provider = 'git_diff_removed',
@@ -73,13 +66,7 @@ M.git_diff = {
       bg = colors.bg_statusline,
       style = 'bold',
     },
-    right_sep = {
-      str = ' ',
-      hl = {
-        fg = 'NONE',
-        bg = colors.bg_statusline,
-      },
-    },
+    right_sep = rignt_sep,
   },
   changed = {
     provider = 'git_diff_changed',
@@ -88,19 +75,14 @@ M.git_diff = {
       bg = colors.bg_statusline,
       style = 'bold',
     },
-    right_sep = {
-      str = ' ',
-      hl = {
-        fg = 'NONE',
-        bg = colors.bg_statusline,
-      },
-    },
+    right_sep = rignt_sep,
   },
 }
 
 M.navic = {
   provider = function() return require('nvim-navic').get_location() end,
   enabled = function() return require('nvim-navic').is_available() end,
+  truncate_hide = true,
   hl = {
     bg = colors.bg_statusline,
     style = 'bold'
@@ -125,43 +107,45 @@ M.metals_status = {
   enabled = function()
     return vim.g['metals_status'] ~= nil
   end,
-  right_sep = {
-    str = ' ',
-    hl = {
-      fg = 'NONE',
-      bg = colors.bg_statusline,
-    },
-  },
+  right_sep = rignt_sep,
 }
 
 M.diagnostics = {
   errors = {
     provider = 'diagnostic_errors',
     icon = ' ',
-    enabled = function()
-      diagnostics_enabled(vim.diagnostic.severity.ERROR)
-    end,
+    hl = {
+      fg = colors.diagnostics.error,
+      bg = colors.bg_statusline
+    },
+    right_sep = rignt_sep,
   },
   warnings = {
     provider = 'diagnostic_warnings',
     icon = ' ',
-    enabled = function()
-      diagnostics_enabled(vim.diagnostic.severity.WARN)
-    end,
+    hl = {
+      fg = colors.diagnostics.warning,
+      bg = colors.bg_statusline
+    },
+    right_sep = rignt_sep,
   },
   hints = {
     provider = 'diagnostic_hints',
     icon = ' ',
-    enabled = function()
-      diagnostics_enabled(vim.diagnostic.severity.HINT)
-    end,
+    hl = {
+      fg = colors.diagnostics.hint,
+      bg = colors.bg_statusline
+    },
+    right_sep = rignt_sep,
   },
   info = {
     provider = 'diagnostic_info',
     icon = 'כֿ ',
-    enabled = function()
-      diagnostics_enabled(vim.diagnostic.severity.INFO)
-    end,
+    hl = {
+      fg = colors.diagnostics.info,
+      bg = colors.bg_statusline
+    },
+    right_sep = rignt_sep,
   },
 }
 
@@ -202,13 +186,14 @@ M.file_info = {
   provider = {
     name = 'file_info',
     opts = {
-      type = 'relative-path',
+      -- type = 'relative-path',
+      type = 'relative'
     },
   },
   short_provider = {
     name = 'file_info',
     opts = {
-      type = 'short-path',
+      type = 'unique',
     },
   },
   left_sep = {
@@ -229,6 +214,7 @@ M.cwd = {
     local path = vim.fn.split(vim.fn.getcwd(), '/')
     return path[#path]
   end,
+  truncate_hide = true,
   icon = ' ',
   hl = {
     style = 'bold',

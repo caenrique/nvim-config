@@ -1,0 +1,187 @@
+                                        
+                         
+fatal: /usr/local/share/nvim/runtime/doc/various.txt: '/usr/local/share/nvim/runtime/doc/various.txt' is outside repository at '/Users/cesar.enrique/.config/nvim'
+                                                  
+                                                                                                                                                                                                                                                     
+
+"lua/caenrique/journal.lua" 
+"lua/caenrique/journal.lua" 28L, 735B written
+Error detected while processing BufWritePost Autocommands for "*":
+E5108: Error executing lua [string ":lua"]:1: module 'trouble' not found:
+	no field package.preload['trouble']
+	no file './trouble.lua'
+	no file '/Users/cesar.enrique/Projects/Install/neovim/.deps/usr/share/luajit-2.1.0-beta3/trouble.lua'
+	no file '/usr/local/share/lua/5.1/trouble.lua'
+	no file '/usr/local/share/lua/5.1/trouble/init.lua'
+	no file '/Users/cesar.enrique/Projects/Install/neovim/.deps/usr/share/lua/5.1/trouble.lua'
+	no file '/Users/cesar.enrique/Projects/Install/neovim/.deps/usr/share/lua/5.1/trouble/init.lua'
+	no file '/Users/cesar.enrique/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/trouble.lua'
+	no file '/Users/cesar.enrique/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/trouble/init.lua'
+	no file '/Users/cesar.enrique/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/trouble.lua'
+	no file '/Users/cesar.enrique/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/trouble/init.lua'
+	no file './trouble.so'
+	no file '/usr/local/lib/lua/5.1/trouble.so'
+	no file '/Users/cesar.enrique/Projects/Install/neovim/.deps/usr/lib/lua/5.1/trouble.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+	no file '/Users/cesar.enrique/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/trouble.so'
+stack traceback:
+	[C]: in function 'require'
+	[string ":lua"]:1: in main chunk          
+"lua/caenrique/journal.lua" 28L, 735B written                                                                                                                                                                                                                                                                                                       
+                                                                                
+{
+  ["end"] = { 0, 28, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}                                                                                                                                                                
+{
+  ["end"] = { 0, 14, 2147483647, 0 },
+  start = { 0, 11, 1, 0 }
+}                                             
+Type  :qa  and press <Enter> to exit Nvim                                                                                                                                                                                         
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}                                   
+
+{
+  ["end"] = { 0, 4, 2147483647, 0 },
+  start = { 0, 2, 1, 0 }
+}
+"lua/caenrique/journal.lua" 29L, 766B written
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 14, 1, 0 }
+}
+{
+  ["end"] = { 0, 10, 2147483647, 0 },
+  start = { 0, 9, 1, 0 }
+}
+"lua/caenrique/journal.lua" 29L, 766B written
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 14, 1, 0 }
+}
+{
+  ["end"] = { 0, 5, 2147483647, 0 },
+  start = { 0, 1, 1, 0 }
+}
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 24, 1, 0 }
+}
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 16, 1, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 19, 2147483647, 0 },
+  start = { 0, 19, 1, 0 }
+}
+{
+  ["end"] = { 0, 20, 2147483647, 0 },
+  start = { 0, 19, 1, 0 }
+}
+{
+  ["end"] = { 0, 25, 2147483647, 0 },
+  start = { 0, 23, 1, 0 }
+}
+{
+  ["end"] = { 0, 25, 2147483647, 0 },
+  start = { 0, 23, 1, 0 }
+}
+fatal: /usr/local/share/nvim/runtime/doc/various.txt: '/usr/local/share/nvim/runtime/doc/various.txt' is outside repository at '/Users/cesar.enrique/.config/nvim'
+
+"lua/caenrique/journal.lua" 28L, 735B written
+{
+  ["end"] = { 0, 28, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 14, 2147483647, 0 },
+  start = { 0, 11, 1, 0 }
+}
+Type  :qa  and press <Enter> to exit Nvim
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}                                                                                                                                                                                    
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}                                        
+
+{
+  ["end"] = { 0, 4, 2147483647, 0 },
+  start = { 0, 2, 1, 0 }
+}
+"lua/caenrique/journal.lua" 29L, 766B written
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 14, 1, 0 }
+}
+{
+  ["end"] = { 0, 10, 2147483647, 0 },
+  start = { 0, 9, 1, 0 }
+}
+"lua/caenrique/journal.lua" 29L, 766B written
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 14, 1, 0 }
+}
+{
+  ["end"] = { 0, 5, 2147483647, 0 },
+  start = { 0, 1, 1, 0 }
+}
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 24, 1, 0 }
+}
+{
+  ["end"] = { 0, 29, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 16, 1, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 19, 2147483647, 0 },
+  start = { 0, 19, 1, 0 }
+}
+{
+  ["end"] = { 0, 20, 2147483647, 0 },
+  start = { 0, 19, 1, 0 }
+}
+{
+  ["end"] = { 0, 25, 2147483647, 0 },
+  start = { 0, 23, 1, 0 }
+}
+{
+  ["end"] = { 0, 25, 2147483647, 0 },
+  start = { 0, 23, 1, 0 }
+}
+fatal: /usr/local/share/nvim/runtime/doc/various.txt: '/usr/local/share/nvim/runtime/doc/various.txt' is outside repository at '/Users/cesar.enrique/.config/nvim'
+
+"lua/caenrique/journal.lua" 28L, 735B written
+{
+  ["end"] = { 0, 28, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 14, 2147483647, 0 },
+  start = { 0, 11, 1, 0 }
+}
+Type  :qa  and press <Enter> to exit Nvim
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}
+{
+  ["end"] = { 0, 21, 2147483647, 0 },
+  start = { 0, 15, 1, 0 }
+}                                                                                                    
+                                                       

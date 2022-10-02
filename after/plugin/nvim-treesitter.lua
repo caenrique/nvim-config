@@ -6,6 +6,13 @@ vim.wo.foldmethod = 'expr'
 vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.wo.foldlevel = 99
 
+local group = vim.api.nvim_create_augroup("tree-sitter", { clear = true })
+vim.api.nvim_create_autocmd("WinEnter", {
+  pattern = { "scala", "sbt", "java", "lua", "json" },
+  callback = "normal zx",
+  group = group,
+})
+
 require('nvim-treesitter.configs').setup({
   ensure_installed = { 'scala', 'python', 'lua', 'json', 'bash', 'java', 'dockerfile', 'markdown', 'norg', 'http' },
   sync_install = false,
