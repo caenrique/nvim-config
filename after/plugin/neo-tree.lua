@@ -2,12 +2,8 @@ require("neo-tree").setup({
   window = {
     width = 50,
     mappings = {
-      ["<space>"] = {
-        "toggle_node",
-        nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-      },
-      ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
+      ["o"] = "open",
       ["<esc>"] = "revert_preview",
       ["P"] = { "toggle_preview", config = { use_float = true } },
       ["s"] = "open_split",
@@ -26,7 +22,7 @@ require("neo-tree").setup({
         "add",
         -- some commands may take optional config options, see `:h neo-tree-mappings` for details
         config = {
-          show_path = "none" -- "none", "relative", "absolute"
+          show_path = "relative" -- "none", "relative", "absolute"
         }
       },
       ["A"] = "add_directory", -- also accepts the config.show_path option.
@@ -46,9 +42,8 @@ require("neo-tree").setup({
   filesystem = {
     use_libuv_file_watcher = true,
     group_empty_dirs = true,
+    follow_current_file = true,
   },
 })
-
-require("neo-tree").setup()
 
 vim.keymap.set('n', '<C-n>', ':Neotree filesystem toggle<CR>')

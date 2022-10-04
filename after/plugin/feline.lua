@@ -2,12 +2,34 @@ if not pcall(require, 'feline') then
   return
 end
 
-local colors = require('caenrique.theme')
+local colors = require('caenrique.theme').colors()
+local catppuccin = require('catppuccin.palettes').get_palette()
 local components = require('caenrique.feline.components')
+
+local function focus(component, focus_color)
+  focus_color = focus_color or catppuccin.teal
+  return vim.tbl_deep_extend('force', component, {
+    left_sep = { hl = { bg = focus_color } },
+    right_sep = { hl = { bg = focus_color } },
+    hl = { bg = focus_color, fg = '#000000', style = 'bold' }
+  })
+end
+
+local function invert_colors(component)
+  local fg = component.hl.fg
+  local bg = component.hl.bg
+
+  return vim.tbl_deep_extend('force', component, {
+    left_sep = { hl = { bg = fg } },
+    right_sep = { hl = { bg = fg } },
+    hl = { bg = fg, style = 'bold', fg = bg }
+  })
+end
 
 vim.o.laststatus = 3
 
 require('feline').setup({
+  theme = catppuccin,
   components = {
     active = {
       {
@@ -49,19 +71,21 @@ require('feline').setup({
 })
 
 require('feline').winbar.setup({
+  theme = catppuccin,
   components = {
     active = {
       {
-        components.file_info,
+        focus(components.file_info, catppuccin.mauve),
         -- components.navic
       },
       {
-        components.git_diff.added,
-        components.git_diff.removed,
-        components.git_diff.changed,
+        invert_colors(components.git_diff.added),
+        invert_colors(components.git_diff.removed),
+        invert_colors(components.git_diff.changed),
       },
     },
     inactive = {
+
       { components.file_info },
       {
         components.git_diff.added,
@@ -72,4 +96,4 @@ require('feline').winbar.setup({
   },
 })
 
-vim.api.nvim_create_user_command('FelineReload', 'source ~/.config/nvim/after/plugin/feline.lua', {})
+vim.api.nvim_create_user_command('FelineReload', 'luafile ~/.config/nvim/after/plugin/feline.lua', {})

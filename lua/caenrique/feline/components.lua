@@ -1,14 +1,16 @@
 local M = {}
 
-local colors = require('caenrique.theme')
+local colors = require('caenrique.theme').colors()
 
-local rignt_sep = {
-  str = ' ',
-  hl = {
-    fg = 'NONE',
-    bg = colors.bg_statusline,
-  },
-}
+local function right_sep(color)
+  return {
+    str = ' ',
+    hl = {
+      fg = 'NONE',
+      bg = color
+    },
+  }
+end
 
 M.vim_mode = {
   provider = {
@@ -21,26 +23,26 @@ M.vim_mode = {
     return {
       name = require('feline.providers.vi_mode').get_mode_highlight_name(),
       bg = require('feline.providers.vi_mode').get_mode_color(),
-      fg = colors.bg_statusline,
+      fg = colors.background,
       style = 'bold',
     }
   end,
-  right_sep = rignt_sep,
+  right_sep = right_sep(colors.statusline.background),
   icon = '',
 }
 
 M.git_branch = {
   provider = 'git_branch',
   hl = {
-    fg = 'white',
-    bg = colors.bg_statusline,
+    fg = colors.text,
+    bg = colors.statusline.background,
     style = 'bold',
   },
   left_sep = {
     str = '  ',
     hl = {
       fg = 'NONE',
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
     },
   },
   icon = {
@@ -54,60 +56,44 @@ M.git_diff = {
     provider = 'git_diff_added',
     hl = {
       fg = colors.diff.add,
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
       style = 'bold',
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
   removed = {
     provider = 'git_diff_removed',
     hl = {
       fg = colors.diff.removed,
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
       style = 'bold',
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
   changed = {
     provider = 'git_diff_changed',
     hl = {
       fg = colors.diff.changed,
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
       style = 'bold',
     },
-    right_sep = rignt_sep,
-  },
-}
-
-M.navic = {
-  provider = function() return require('nvim-navic').get_location() end,
-  enabled = function() return require('nvim-navic').is_available() end,
-  truncate_hide = true,
-  hl = {
-    bg = colors.bg_statusline,
-    style = 'bold'
-  },
-  left_sep = {
-    str = '  ',
-    hl = {
-      fg = 'NONE',
-      bg = colors.bg_statusline,
-    },
+    right_sep = right_sep(colors.statusline.background),
   },
 }
 
 M.metals_status = {
   provider = function()
-    return vim.g['metals_status']
+    return string.gsub(vim.g['metals_status'], '[%%]', '%%%1')
   end,
+  icon = '',
   hl = {
-    fg = 'white',
-    bg = colors.bg_statusline,
+    fg = colors.text,
+    bg = colors.statusline.background,
   },
   enabled = function()
     return vim.g['metals_status'] ~= nil
   end,
-  right_sep = rignt_sep,
+  right_sep = right_sep(colors.statusline.background),
 }
 
 M.diagnostics = {
@@ -116,36 +102,36 @@ M.diagnostics = {
     icon = ' ',
     hl = {
       fg = colors.diagnostics.error,
-      bg = colors.bg_statusline
+      bg = colors.statusline.background
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
   warnings = {
     provider = 'diagnostic_warnings',
     icon = ' ',
     hl = {
       fg = colors.diagnostics.warning,
-      bg = colors.bg_statusline
+      bg = colors.statusline.background
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
   hints = {
     provider = 'diagnostic_hints',
     icon = ' ',
     hl = {
       fg = colors.diagnostics.hint,
-      bg = colors.bg_statusline
+      bg = colors.statusline.background
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
   info = {
     provider = 'diagnostic_info',
     icon = 'כֿ ',
     hl = {
       fg = colors.diagnostics.info,
-      bg = colors.bg_statusline
+      bg = colors.statusline.background
     },
-    right_sep = rignt_sep,
+    right_sep = right_sep(colors.statusline.background),
   },
 }
 
@@ -171,13 +157,14 @@ M.language_server = {
     return next(clients) ~= nil
   end,
   hl = {
-    bg = colors.bg_statusline,
+    bg = colors.statusline.background,
+    fg = colors.text,
   },
   right_sep = {
     str = ' ',
     hl = {
       fg = 'NONE',
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
     },
   },
 }
@@ -200,12 +187,13 @@ M.file_info = {
     str = ' ',
     hl = {
       fg = 'NONE',
-      bg = colors.bg_statusline,
+      bg = colors.statusline.background,
     },
   },
   hl = {
     style = 'bold',
-    bg = colors.bg_statusline,
+    fg = colors.text,
+    bg = colors.statusline.background,
   },
 }
 
@@ -218,8 +206,8 @@ M.cwd = {
   icon = ' ',
   hl = {
     style = 'bold',
-    fg = 'white',
-    bg = colors.bg_statusline,
+    fg = colors.text,
+    bg = colors.statusline.background,
   },
 }
 

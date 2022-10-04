@@ -5,7 +5,7 @@
 -- Create a note with the selection as content. Prompt for file name, and replace with link
 -- [x] Telescope integration for journal and notes
 -- Scratch notes buffer
-
+--
 local M = {}
 
 local config = {
@@ -13,6 +13,19 @@ local config = {
   extension = '.md',
   date_pattern = '%Y-%m-%d',
 }
+
+local function insert_metadata(buffer, title, tags)
+  local delim = '---'
+  local created_at = os.date('%Y-%m-%d %X', os.time())
+  local lines = {
+    delim,
+    'title: ' .. title,
+    'created_at: ' .. created_at,
+    'tags: ' .. (tags or ''),
+    delim
+  }
+  vim.api.nvim_buf_set_lines(buffer, 0, 0, true, lines)
+end
 
 -- local group = vim.api.nvim_create_augroup("journal", { clear = true })
 function M.setup(conf)
@@ -30,10 +43,6 @@ local function parse_date(date_str)
   return date
 end
 
-local function make_filename(date)
-  return date.year .. '/' .. date.month .. '/' .. date.day .. '-' .. date.day_of_the_week .. config.extension
-end
-
 local function skip_weekend(today, dx)
   local time = today + dx
   local day = os.date('%A', time)
@@ -46,10 +55,20 @@ end
 
 function M.open_journal_for_date(date_string)
   local date = parse_date(date_string)
-  local filename = config.journal_base_dir .. '/' .. make_filename(date)
+  local path = config.journal_base_dir .. '/' .. date.year .. '/' .. date.month
+  local filename = date.day .. '-' .. date.day_of_the_week .. config.extension
 
-  vim.fn.mkdir(vim.fn.expand(filename .. ':p:h'), 'p')
-  vim.cmd.edit(filename)
+  if next(vim.fs.find(filename, { path = vim.fs.normalize(path), type = 'file' })) ~= nil then
+    vim.cmd('edit ' .. path .. '/' .. filename)
+  elseif vim.fn.buflisted(vim.fs.normalize(path .. '/' .. filename)) > 0 then
+    vim.cmd('edit ' .. path .. '/' .. filename)
+  else
+    vim.fn.mkdir(path, 'p')
+    vim.cmd('edit ' .. path .. '/' .. filename)
+    local buffer = vim.api.nvim_win_get_buf(0)
+    local title = 'Journal of ' .. os.date('%A %d of %B %Y', os.time(date))
+    insert_metadata(buffer, title, '#journal')
+  end
 end
 
 function M.open_journal_today()

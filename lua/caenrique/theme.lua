@@ -2,58 +2,57 @@ if not pcall(require, 'catppuccin') then
   return
 end
 
-local colors = require("catppuccin.palettes").get_palette()
-vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
-
 local M = {}
 
-M.vi_mode_colors = {
-  NORMAL = colors.green,
-  INSERT = colors.blue,
-  VISUAL = colors.flamingo,
-  OP = colors.green,
-  BLOCK = colors.flamingo,
-  REPLACE = colors.red,
-  ['V-REPLACE'] = colors.red,
-  ENTER = colors.sky,
-  MORE = colors.sky,
-  SELECT = colors.peach,
-  COMMAND = colors.red,
-  SHELL = colors.green,
-  TERM = colors.blue,
-  NONE = colors.yellow
-}
+function M.colors()
+  return {
+    diagnostics = {
+      error = 'red',
+      warning = 'yellow',
+      info = 'blue',
+      hint = 'sky',
+    },
+    diff        = {
+      add = 'green',
+      removed = 'red',
+      changed = 'blue',
+    },
+    statusline  = {
+      background = 'surface0',
+    },
+    text        = 'text',
+    background  = 'base',
+  }
+end
 
-M.bg_statusline = colors.surface0
-
-M.diff = {
-  add = colors.green,
-  removed = colors.red,
-  changed = colors.blue
-}
-
-M.diagnostics = {
-  error = colors.red,
-  warning = colors.yellow,
-  info = colors.blue,
-  hint = colors.sky,
-}
-
-function M.setup()
+function M.setup(flavor)
+  vim.g.catppuccin_flavour = flavor
   require('catppuccin').setup({
     term_colors = true,
     compile = {
       enabled = true,
     },
+    dim_inactive = {
+      enabled = true,
+      shade = "dark",
+      percentage = 0.25,
+    },
     integrations = {
-      neotree = {
-        enabled = true,
-      },
+      neotree = true,
       neogit = true,
+      telescope = true,
+      cmp = true,
+      gitsigns = true,
     },
   })
 
   vim.cmd('colorscheme catppuccin')
 end
+
+vim.api.nvim_create_user_command('Theme', function(params)
+  vim.cmd('Catppuccin ' .. params.args)
+  local theme = require("catppuccin.palettes").get_palette(params.args)
+  require('feline').use_theme(theme)
+end, { nargs = 1, complete = function() return { 'latte', 'frappe', 'macchiato', 'mocha' } end })
 
 return M

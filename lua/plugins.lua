@@ -62,7 +62,8 @@ require('packer').startup({
     },
     { "catppuccin/nvim", as = "catppuccin" },
     'gaoDean/autolist.nvim',
-    { 'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim' }
+    { 'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim' },
+    'norcalli/nvim-colorizer.lua'
   },
   config = {
     display = { non_interactive = false },
