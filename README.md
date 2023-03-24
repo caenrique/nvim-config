@@ -1,5 +1,6 @@
-# Bootstrap
+# Setup
 
-    git clone git@github.com:caenrique/nvim-config.git ~/.config/nvim/ && \
-    git clone git@github.com:wbthomason/packer.nvim.git ~/.local/share/nvim/site/pack/packer/start/packer.nvim && \
-    nvim --headless -u ~/.config/nvim/lua/plugins.lua -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+Neovim configuration using [Lazy.nvim](https://github.com/folke/lazy.nvim).
+
+Clone the repository under `~/.config/nvim` or `$NVIM_APPNAME`. The bootstraping should be automatic
+the first time that nvim is opened.
