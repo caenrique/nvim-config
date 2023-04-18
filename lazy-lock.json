@@ -1,7 +1,6 @@
 {
   "LuaSnip": { "branch": "master", "commit": "a835e3d680c5940b61780c6af07885db95382478" },
   "auto-session": { "branch": "main", "commit": "3514a1a801a9012ba2c0dd28b156823bb1467caf" },
-  "buffer-term.nvim": { "branch": "main", "commit": "5d2a30d69288398d9e1e25a87822187ff6da6daa" },
   "catppuccin": { "branch": "main", "commit": "128af65c3a23c94b324dc8d7f02a34feee8722d4" },
   "cmp-emoji": { "branch": "main", "commit": "19075c36d5820253d32e2478b6aaf3734aeaafa0" },
   "cmp-git": { "branch": "main", "commit": "a798a25b21e7204597f56029af2e8a17d65e2518" },
@@ -14,8 +13,10 @@
   "feline.nvim": { "branch": "master", "commit": "d48b6f92c6ccdd6654c956f437be49ea160b5b0c" },
   "fidget.nvim": { "branch": "main", "commit": "688b4fec4517650e29c3e63cfbb6e498b3112ba1" },
   "gitsigns.nvim": { "branch": "main", "commit": "b1f9cf7c5c5639c006c937fc1819e09f358210fc" },
+  "heirline.nvim": { "branch": "master", "commit": "750a112a1cfaf2a7cd2d67a2d67f8f463b00d8af" },
   "indent-blankline.nvim": { "branch": "master", "commit": "018bd04d80c9a73d399c1061fa0c3b14a7614399" },
   "lazy.nvim": { "branch": "main", "commit": "690f9e88e2a7dc92bcb0cca85f778a3e99fe1f7e" },
+  "lazygit.nvim": { "branch": "main", "commit": "32bffdebe273e571588f25c8a708ca7297928617" },
   "lspkind-nvim": { "branch": "master", "commit": "c68b3a003483cf382428a43035079f78474cd11e" },
   "luatab.nvim": { "branch": "master", "commit": "79d53c11bd77274b49b50f1d6fdb10529d7354b7" },
   "metals": { "branch": "main", "commit": "51e88e4f5eeadbd92a75cae71c5cbb75f3cb6765" },
@@ -37,6 +38,7 @@
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
   "promise-async": { "branch": "main", "commit": "7fa127fa80e7d4d447e0e2c78e99af4355f4247b" },
   "session-lens": { "branch": "main", "commit": "b15e36782d01abacf6cd44e12f3292632064ab91" },
+  "spelunker.vim": { "branch": "master", "commit": "a0bc530f62798bbe053905555a4aa9ed713485eb" },
   "stylua-nvim": { "branch": "main", "commit": "ce59a353f02938cba3e0285e662fcd3901cd270f" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "580b6c48651cabb63455e97d7e131ed557b8c7e2" },
   "telescope.nvim": { "branch": "master", "commit": "c1a2af0af69e80e14e6b226d3957a064cd080805" }

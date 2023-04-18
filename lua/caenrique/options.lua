@@ -51,3 +51,10 @@ vim.opt.guicursor = {
 
 -- Do not load matchit plugin that comes bundled with neovim. It creates mappings that interfere with my own and I don't use it
 vim.g.loaded_matchit = true
+
+-- Fold options
+vim.o.foldcolumn = 'auto'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+

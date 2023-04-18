@@ -8,15 +8,16 @@ return {
     local function metals_keymaps(bufnr)
       vim.keymap.set('n', '<leader>ws', require('metals').hover_worksheet, { buffer = bufnr })
       vim.keymap.set('n', '<leader>sf', require('metals').run_scalafix, { buffer = bufnr })
-      vim.keymap.set('n', '<C-i>', require('metals').organize_imports, { buffer = bufnr })
+      vim.keymap.set('n', '<leader>i', require('metals').organize_imports, { buffer = bufnr })
       vim.keymap.set('n', '<leader>tv', require('metals.tvp').toggle_tree_view, { buffer = bufnr })
       vim.keymap.set('n', '<leader>tr', require('metals.tvp').reveal_in_tree, { buffer = bufnr })
     end
 
-    local function organize_imports_autocmd()
+    local function organize_imports_autocmd(bufnr)
       vim.api.nvim_create_autocmd('BufWritePre', {
         callback = require('metals').organize_imports,
         group = nvim_metals_group,
+        buffer = bufnr,
       })
     end
 
@@ -33,12 +34,13 @@ return {
       showImplicitArguments = true,
       showInferredType = true,
       excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
+      enableSemanticHighlighting = true,
     }
 
     metals_config.on_attach = function(client, bufnr)
       require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
       metals_keymaps(bufnr)
-      organize_imports_autocmd()
+      organize_imports_autocmd(bufnr)
     end
 
     vim.api.nvim_create_autocmd('FileType', {

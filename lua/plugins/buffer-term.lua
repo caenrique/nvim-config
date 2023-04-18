@@ -1,8 +1,16 @@
+local function tab_terminal(id)
+  vim.cmd.tabnew()
+  require('buffer-term').toggle(id)
+end
+
 return {
   'caenrique/buffer-term.nvim',
-  config = true,
+  dev = true,
+  config = function()
+    require('buffer-term').setup()
+  end,
   keys = {
-    { '<Esc>', '<C-\\><C-n>', mode = 't' },
+    -- { '<Esc>', '<C-\\><C-n>', mode = 't' },
     { '<C-;>', function() require('buffer-term').toggle_last() end, mode = { 'n', 't' } },
     { ';a', function() require('buffer-term').toggle('a') end, mode = { 'n', 't' } },
     { ';s', function() require('buffer-term').toggle('s') end, mode = { 'n', 't' } },

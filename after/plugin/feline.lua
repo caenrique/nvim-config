@@ -1,4 +1,4 @@
-if not pcall(require, 'feline') then
+if not pcall(require, 'feline') or true then
   return
 end
 

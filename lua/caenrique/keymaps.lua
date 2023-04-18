@@ -16,7 +16,8 @@ vim.keymap.set({ 'n', 'v' }, 'k', "v:count ? 'k' : 'gk'", { expr = true })
 vim.keymap.set('v', '[', '"ss[<C-R>s]<esc>')
 vim.keymap.set('v', '{', '"ss{<C-R>s}<esc>')
 vim.keymap.set('v', '(', '"ss(<C-R>s)<esc>')
-vim.keymap.set('v', '"', '"ss"<C-R>s"<esc>')
+vim.keymap.set('v', '<leader>"', '"ss"<C-R>s"<esc>')
 vim.keymap.set('v', "'", '"ss\\"<C-R>s\\"<esc>')
 
+vim.keymap.set('n', '<Tab>', 'za')
 -- TODO: Find a proper mapping for next/previous occurence for a find command (find in line with f). It's slow because I use `;` for other mappings
