@@ -40,7 +40,7 @@ return {
     metals_config.on_attach = function(client, bufnr)
       require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
       metals_keymaps(bufnr)
-      organize_imports_autocmd(bufnr)
+      -- organize_imports_autocmd(bufnr)
     end
 
     vim.api.nvim_create_autocmd('FileType', {

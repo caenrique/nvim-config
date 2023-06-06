@@ -20,4 +20,10 @@ vim.keymap.set('v', '<leader>"', '"ss"<C-R>s"<esc>')
 vim.keymap.set('v', "'", '"ss\\"<C-R>s\\"<esc>')
 
 vim.keymap.set('n', '<Tab>', 'za')
+vim.keymap.set('n', '<C-i>', '<C-i>zz')
+vim.keymap.set('n', '<C-o>', '<C-o>zz')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
 -- TODO: Find a proper mapping for next/previous occurence for a find command (find in line with f). It's slow because I use `;` for other mappings
+
+vim.keymap.set('i', '<C-BS>', "col('.') == 1 ? '<C-W><C-F>' : '<C-W>'", { expr = true })

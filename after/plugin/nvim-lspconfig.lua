@@ -62,3 +62,10 @@ require 'lspconfig'.jsonls.setup {
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
 }
+
+require'lspconfig'.tsserver.setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
+  end,
+}

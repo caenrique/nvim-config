@@ -58,3 +58,12 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+
+-- Diff options
+vim.g.diff_translations = false
+vim.opt.diffopt = {
+  'internal',
+  'linematch:60',
+  'algorithm:histogram',
+  'indent-heuristic'
+}

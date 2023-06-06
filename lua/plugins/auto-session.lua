@@ -15,7 +15,8 @@ return {
     require('auto-session').setup {
       log_level = 'error',
       auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-      pre_save_cmds = { closeBuffers }
+      pre_save_cmds = { closeBuffers },
+      auto_session_use_git_branch = true,
     }
   end
 }

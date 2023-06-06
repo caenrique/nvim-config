@@ -25,5 +25,9 @@ return {
         end,
       }
     })
+
+    vim.api.nvim_create_user_command('ReloadStatusColum', function()
+      vim.o.statuscolumn = "%{%v:lua.require'heirline'.eval_statuscolumn()%}"
+    end, {})
   end
 }

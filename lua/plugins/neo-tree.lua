@@ -5,17 +5,12 @@ return {
     'MunifTanjim/nui.nvim',
     { 's1n7ax/nvim-window-picker', version = 'v1.*' }
   },
-  init = function()
-    vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-    vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-    vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-    vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
-  end,
   config = function()
     local fc = require('neo-tree.sources.filesystem.components')
 
     require('neo-tree').setup({
       enable_git_status = false,
+      enable_diagnostics = false,
       window = {
         width = 40,
         mappings = {
@@ -30,6 +25,8 @@ return {
             local result = fc.name(config, node, state)
             if node:get_depth() == 1 and node.type ~= 'message' and string.len(result.text) >= 40 then
               result.text = vim.fn.fnamemodify(node.path, ':t')
+            elseif node.type ~= 'message' and string.len(result.text) >= 40 then
+              result.text = vim.fn.pathshorten(node.name, 3)
             end
             return result
           end,
