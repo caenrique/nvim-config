@@ -5,6 +5,10 @@ cmd('Delete', function(args)
   vim.cmd('bdelete' .. (args.bang and '!' or ''))
 end, { bang = true })
 
+-- cmd('MarkdownToJira', function()
+--   vim.cmd('read !pandoc -f gfm -w jira')
+-- end, {})
+
 vim.api.nvim_create_autocmd('BufNewFile', {
   pattern = 'postmortem-*.md',
   command = '0read ~/Notes/templates/postmortem.md',

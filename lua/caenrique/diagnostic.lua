@@ -13,5 +13,3 @@ end
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist)
 vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist)
 vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float)
-vim.keymap.set('n', '<C-[>', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<C-]>', vim.diagnostic.goto_next)

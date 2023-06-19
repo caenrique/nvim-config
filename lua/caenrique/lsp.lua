@@ -25,6 +25,10 @@ function M.setup_lsp_mappings(client, buffer)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = buffer })
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = buffer })
 
+
+  vim.keymap.set('n', '<C-[>', vim.diagnostic.goto_prev, { buffer = buffer })
+  vim.keymap.set('n', '<C-]>', vim.diagnostic.goto_next, { buffer = buffer })
+
   local lsp_group = vim.api.nvim_create_augroup('lsp-autocmd', { clear = true })
 
   if capabilities.codeLensProvider then

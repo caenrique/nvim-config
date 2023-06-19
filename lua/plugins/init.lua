@@ -19,4 +19,6 @@ return {
   'neovim/nvim-lspconfig',
   'nvim-lua/plenary.nvim',
   'sbdchd/neoformat',
+
+  'tpope/vim-fugitive',
 }

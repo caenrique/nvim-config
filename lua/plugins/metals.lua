@@ -1,5 +1,5 @@
 return {
-  'scalameta/nvim-metals',
+  dir = '~/Projects/github.com/caenrique/nvim-metals',
   name = 'metals',
   dependencies = 'mfussenegger/nvim-dap',
   config = function()
@@ -20,6 +20,12 @@ return {
         buffer = bufnr,
       })
     end
+
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'MetalsStatusChanged',
+      command = 'redrawstatus',
+      group = nvim_metals_group,
+    })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if pcall(require, 'cmp_nvim_lsp') then
