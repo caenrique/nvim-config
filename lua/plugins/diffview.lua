@@ -59,7 +59,7 @@ return {
       'DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges', {})
   end,
   keys = {
-    { '<leader>d', '<cmd>silent DiffviewOpen<CR>' }
+    { '<leader>d', '<cmd>silent DiffPullRequest<CR>' }
   },
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
 }

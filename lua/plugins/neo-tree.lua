@@ -7,7 +7,9 @@ return {
   },
   config = function()
     local fc = require('neo-tree.sources.filesystem.components')
+
     local events = require('neo-tree.events')
+
 
     local function toggleGitAdd(state)
       local node = state.tree:get_node()
@@ -185,6 +187,7 @@ return {
           }
         },
         use_libuv_file_watcher = true,
+        not_sure = true,
         group_empty_dirs = true,
         follow_current_file = true,
       }
