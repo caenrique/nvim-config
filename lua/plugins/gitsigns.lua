@@ -22,15 +22,16 @@ return {
       end, { expr = true })
 
       -- Actions
-      keymap({ 'n', 'v' }, '<leader>lsh', ':Gitsigns stage_hunk<CR>')
-      keymap({ 'n', 'v' }, '<leader>lrh', ':Gitsigns reset_hunk<CR>')
       keymap('n', '<leader>lsb', gs.stage_buffer)
       keymap('n', '<leader>lu', gs.undo_stage_hunk)
       keymap('n', '<leader>lR', gs.reset_buffer)
-      keymap('n', '<leader>lk', gs.preview_hunk_inline)
-      keymap('n', '<leader>lb', gs.toggle_current_line_blame)
-      keymap('n', '<leader>ld', gs.diffthis)
+      keymap('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
       keymap('n', '<leader>lD', function() gs.diffthis('~') end)
+
+      keymap('n', '<leader>lb', gs.toggle_current_line_blame)
+      keymap('n', '<leader>K', gs.preview_hunk_inline)
+      keymap({ 'n', 'v' }, '<leader>s', ':Gitsigns stage_hunk<CR>')
+      keymap({ 'n', 'v' }, '<leader>u', ':Gitsigns reset_hunk<CR>')
 
       -- Text object
       keymap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
