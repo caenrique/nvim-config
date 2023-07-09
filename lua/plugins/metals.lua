@@ -9,6 +9,8 @@ return {
       vim.keymap.set('n', '<leader>ws', require('metals').hover_worksheet, { buffer = bufnr })
       vim.keymap.set('n', '<leader>sf', require('metals').run_scalafix, { buffer = bufnr })
       vim.keymap.set('n', '<leader>i', require('metals').organize_imports, { buffer = bufnr })
+      vim.keymap.set('n', '<leader>tv', require('metals.tvp').toggle_tree_view, { buffer = bufnr })
+      vim.keymap.set('n', '<leader>tr', require('metals.tvp').reveal_in_tree, { buffer = bufnr })
     end
 
     vim.api.nvim_create_autocmd('User', {
