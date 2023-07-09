@@ -32,8 +32,6 @@ return {
   init = init,
   opts = function()
     vim.g.catppuccin_flavour = 'mocha'
-    local colors = require('catppuccin.palettes').get_palette()
-    local sticky_color = require('catppuccin.utils.colors').brighten(colors.blue, -0.7)
 
     return {
       term_colors = true,
@@ -52,14 +50,34 @@ return {
         cmp = true,
         gitsigns = true,
       },
-      custom_highlights = {
-        TSComment                    = { fg = colors.surface2, style = { 'italic' } },
-        TreesitterContext            = { bg = sticky_color, style = { 'bold' } },
-        TreesitterContextLineNumber  = { fg = colors.text, bg = sticky_color, style = { 'bold' } },
-        StatusColumnBorder           = { fg = colors.blue, bg = colors.base },
-        StatusColumnBuffer           = { fg = 'NONE', bg = 'NONE' },
-        StatusColumnBufferCursorLine = { fg = 'NONE', bg = colors.lavender },
-      }
+      custom_highlights = function(colors)
+        local util = require('catppuccin.utils.colors')
+        local sticky_color = util.brighten(colors.blue, -0.7)
+        local diffChangeColor = util.blend(colors.blue, colors.base, 0.3)
+
+        local blend = function(color) return util.blend(color, colors.base, 0.3) end
+        -- vim.print(colors)
+        return {
+          TSComment                    = { fg = colors.surface2, style = { 'italic' } },
+          TreesitterContext            = { bg = sticky_color, style = { 'bold' } },
+          TreesitterContextLineNumber  = { fg = colors.text, bg = sticky_color, style = { 'bold' } },
+          StatusColumnBorder           = { fg = colors.blue, bg = colors.base },
+          StatusColumnBuffer           = { fg = 'NONE', bg = 'NONE' },
+          StatusColumnBufferCursorLine = { fg = 'NONE', bg = colors.lavender },
+          DiffAdd                      = { fg = colors.green },
+          DiffDelete                   = { fg = colors.red },
+          DiffText                     = { fg = colors.text, bg = util.blend(colors.blue, colors.base, 0.6) },
+          DiffChange                   = { bg = diffChangeColor },
+          -- NeoTree Git
+          NeoTreeGitAdded              = { bg = blend(colors.green) },
+          NeoTreeGitConflict           = { bg = blend(colors.red) },
+          NeoTreeGitDeleted            = { bg = blend(colors.red) },
+          NeoTreeGitModified           = { bg = blend(colors.yellow) },
+          NeoTreeGitUnstaged           = { bg = blend(colors.red) },
+          NeoTreeGitUntracked          = { bg = blend(colors.yellow), fg = colors.yellow },
+          NeoTreeGitStaged             = { bg = blend(colors.green) },
+        }
+      end
     }
   end,
 }

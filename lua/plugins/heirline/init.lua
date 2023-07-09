@@ -4,7 +4,6 @@ return {
   config = function()
     require('plugins.heirline.disable').disable_statuscolumn({
       buftype = { 'nofile', 'terminal' },
-      filetype = 'NeogitStatus'
     })
 
     require('heirline').setup({

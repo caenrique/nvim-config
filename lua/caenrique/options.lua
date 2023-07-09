@@ -63,6 +63,7 @@ vim.o.foldenable = true
 vim.g.diff_translations = false
 vim.opt.diffopt = {
   'internal',
+  'filler',
   'linematch:60',
   'algorithm:histogram',
   'indent-heuristic'

@@ -21,7 +21,7 @@ lspconfig.pyright.setup({
 lspconfig.lua_ls.setup({
   commands = {
     Format = {
-      require("stylua-nvim").format_file
+      require('stylua-nvim').format_file
     }
   },
   on_attach = function(client, bufnr)
@@ -63,9 +63,26 @@ require 'lspconfig'.jsonls.setup {
   end,
 }
 
-require'lspconfig'.tsserver.setup {
+require 'lspconfig'.tsserver.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
+}
+
+require 'lspconfig'.smithy_ls.setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
+  end,
+  cmd = {
+    'cs', 'launch', 'com.disneystreaming.smithy:smithy-language-server:0.0.10', '--', '0'
+  },
+  init_options = {
+    statusBarProvider = 'show-message',
+    isHttpEnabled = true,
+    compilerOptions = {
+      snippetAutoIndent = false,
+    },
+  }
 }

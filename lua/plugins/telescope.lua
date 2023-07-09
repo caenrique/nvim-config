@@ -13,7 +13,12 @@ return {
         file_previewer = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
         color_devicons = true,
-        layout_config = { prompt_position = 'top' },
+        layout_config = {
+          prompt_position = 'top',
+          vertical = {
+            width = 0.5
+          },
+        },
         sorting_strategy = 'ascending',
         mappings = {
           i = {
@@ -27,7 +32,7 @@ return {
         -- Your special builtin config goes in here
         buffers = {
           sort_lastused = true,
-          theme = 'dropdown',
+          -- theme = 'dropdown',
           previewer = false,
           mappings = {
             i = {
@@ -41,10 +46,10 @@ return {
           auto_quoting = true, -- enable/disable auto-quoting
           -- define mappings, e.g.
           mappings = {
-                           -- extend mappings
+            -- extend mappings
             i = {
-                ['<C-k>'] = require("telescope-live-grep-args.actions").quote_prompt(),
-                ['<C-i>'] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = ' --iglob ' }),
+                ['<C-k>'] = require('telescope-live-grep-args.actions').quote_prompt(),
+                ['<C-i>'] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = ' --iglob ' }),
             },
           },
         },
@@ -57,7 +62,7 @@ return {
     { '<leader>ff', function() require('telescope.builtin').find_files() end },
 
     -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim#grep-argument-examples
-    { '<leader>fg', function() require('telescope.builtin').extensions.live_grep_args.live_grep_args() end },
+    { '<leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end },
     { '<leader>fl', function() require('telescope.builtin').resume() end },
     { '<leader>fb', function() require('telescope.builtin').buffers() end },
     { '<leader>fh', function() require('telescope.builtin').help_tags() end },
