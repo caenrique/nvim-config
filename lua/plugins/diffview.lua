@@ -29,6 +29,8 @@ return {
       keymaps = {
         file_panel = {
           { 'n', '<C-n>', actions.toggle_files, { desc = 'Toggle the file panel.' } },
+          { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
+          { 'n', '<tab>', actions.toggle_stage_entry },
         },
         view = {
           -- Find how to make these silent

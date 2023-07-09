@@ -27,7 +27,7 @@ return {
       end
     end
 
-    local function gitResetAll(state)
+    local function gitResetAll()
       local cmd = { 'git', 'reset', 'HEAD' }
       vim.fn.system(cmd)
       events.fire_event(events.GIT_EVENT)
@@ -147,6 +147,7 @@ return {
               ['s'] = 'git_add_file',
               ['gr'] = 'git_revert_file',
               ['cc'] = 'git_commit',
+              ['c'] = 'none',
               ['gp'] = 'git_push',
               ['gg'] = 'git_commit_and_push',
           },

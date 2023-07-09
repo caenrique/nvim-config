@@ -13,14 +13,6 @@ return {
       vim.keymap.set('n', '<leader>tr', require('metals.tvp').reveal_in_tree, { buffer = bufnr })
     end
 
-    local function organize_imports_autocmd(bufnr)
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        callback = require('metals').organize_imports,
-        group = nvim_metals_group,
-        buffer = bufnr,
-      })
-    end
-
     vim.api.nvim_create_autocmd('User', {
       pattern = 'MetalsStatusChanged',
       command = 'redrawstatus',
