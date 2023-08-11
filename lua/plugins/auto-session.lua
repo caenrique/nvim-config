@@ -1,5 +1,6 @@
 return {
-  'TC72/auto-session',
+  dir = "~/Projects/github.com/caenrique/auto-session/.worktrees/fix-delete-session-git-branch",
+  dev = true,
   config = function()
     local function closeBuffers()
       local bufTypes = { 'terminal', 'nofile' }
@@ -13,10 +14,10 @@ return {
     end
 
     require('auto-session').setup {
-      log_level = 'error',
+      log_level = 'warn',
       auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
       pre_save_cmds = { closeBuffers },
-      auto_session_use_git_branch = true,
+      auto_session_use_git_branch = false,
     }
   end
 }

@@ -33,7 +33,7 @@ vim.keymap.set('n', 'N', general_previous)
 
 vim.keymap.set('x', 'p', 'p:let @+=@0<CR>:let @"=@0<CR>', { silent = true })
 
-vim.keymap.set('n', '<leader><space>', ':nohlsearch<CR>')
+vim.keymap.set('n', '<leader><esc>', ':nohlsearch<CR>')
 vim.keymap.set('n', 'th', ':tabprev<CR>')
 vim.keymap.set('n', 'tl', ':tabnext<CR>')
 vim.keymap.set('n', 'td', ':tabclose<CR>')
@@ -43,7 +43,6 @@ vim.keymap.set('n', 'gk', '<C-W>k')
 vim.keymap.set('n', 'gj', '<C-W>j')
 vim.keymap.set('v', '<C-r>', '"hy:%s/<C-r>h//gc<left><left><left>')
 vim.keymap.set('n', '<C-6>', '<C-^>')
-vim.keymap.set('n', '<C-q>', '<C-w>q')
 
 vim.keymap.set({ 'n', 'v' }, 'j', "v:count ? 'j' : 'gj'", { expr = true })
 vim.keymap.set({ 'n', 'v' }, 'k', "v:count ? 'k' : 'gk'", { expr = true })
@@ -59,5 +58,8 @@ vim.keymap.set('n', '<Tab>', 'za')
 vim.keymap.set('n', '<C-i>', '<C-i>zz')
 vim.keymap.set('n', '<C-o>', '<C-o>zz')
 -- TODO: Find a proper mapping for next/previous occurence for a find command (find in line with f). It's slow because I use `;` for other mappings
+--
+vim.keymap.set('n', '<C-q>', 'q')
+vim.keymap.set('n', 'q', '<cmd>copen<cr>')
 
 vim.keymap.set('i', '<C-BS>', "col('.') == 1 ? '<C-W><C-F>' : '<C-W>'", { expr = true })

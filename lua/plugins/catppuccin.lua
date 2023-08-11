@@ -76,6 +76,7 @@ return {
           NeoTreeGitUnstaged           = { bg = blend(colors.red) },
           NeoTreeGitUntracked          = { bg = blend(colors.yellow), fg = colors.yellow },
           NeoTreeGitStaged             = { bg = blend(colors.green) },
+          WinSeparator                 = { fg = colors.overlay0 },
         }
       end
     }

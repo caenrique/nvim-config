@@ -1,12 +1,9 @@
 return {
   'alvarosevilla95/luatab.nvim',
-  'feline-nvim/feline.nvim',
   'kyazdani42/nvim-web-devicons',
   'lukas-reineke/indent-blankline.nvim',
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
   'kevinhwang91/nvim-bqf',
-  'TimUntersberger/neogit',
-  'TC72/auto-session',
   { 'windwp/nvim-autopairs', config = true },
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   {
@@ -18,7 +15,4 @@ return {
   'ckipp01/stylua-nvim',
   'neovim/nvim-lspconfig',
   'nvim-lua/plenary.nvim',
-  'sbdchd/neoformat',
-
-  'tpope/vim-fugitive',
 }

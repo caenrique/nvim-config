@@ -1,6 +1,6 @@
 return {
   'nvim-telescope/telescope.nvim',
-  version = '0.1.*',
+  -- version = '0.1.*',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-live-grep-args.nvim',
@@ -40,6 +40,18 @@ return {
             },
           },
         },
+        quickfixhistory = {
+          mappings = {
+            i = {
+                ['<CR>'] = function(prompt_bufnr)
+                local nr = require('telescope.actions.state').get_selected_entry().nr
+                actions.close(prompt_bufnr)
+                vim.cmd(nr .. 'chistory')
+                vim.cmd 'botright copen'
+              end
+            }
+          }
+        }
       },
       extensions = {
         live_grep_args = {
@@ -49,7 +61,7 @@ return {
             -- extend mappings
             i = {
                 ['<C-k>'] = require('telescope-live-grep-args.actions').quote_prompt(),
-                ['<C-i>'] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = ' --iglob ' }),
+                ['<C-e>'] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = ' --iglob ' }),
             },
           },
         },
@@ -60,12 +72,13 @@ return {
   end,
   keys = {
     { '<leader>ff', function() require('telescope.builtin').find_files() end },
+    { '<leader><leader>', function() require('telescope.builtin').resume() end },
 
     -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim#grep-argument-examples
     { '<leader>fg', function() require('telescope').extensions.live_grep_args.live_grep_args() end },
-    { '<leader>fl', function() require('telescope.builtin').resume() end },
     { '<leader>fb', function() require('telescope.builtin').buffers() end },
     { '<leader>fh', function() require('telescope.builtin').help_tags() end },
     { '<leader>mc', function() require('telescope').extensions.metals.commands() end },
+    { '<leader>qq', function() require('telescope.builtin').quickfixhistory() end },
   }
 }

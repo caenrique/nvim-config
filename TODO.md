@@ -8,35 +8,25 @@
 ## Feline
 - [x] Sign column randomly? breaks. FIXED?
 
-## Neogit
-- Neogit randomly? opens in insert mode
-- Neogit completly breaks the ui when git props for password to commit
+## Fugitive
+- Fugitive completly breaks the ui when git props for password to commit
 
 ## Fidget
-- warning of breaking changes
+- [x] warning of breaking changes
 
 ## Neovim Core
 - Files open with folds closed
 
 ## Diffview
-- 'press ENTER' prompt when using <TAB> to switch files is anoying. Temp fix to set cmdheight=2
+- [x] 'press ENTER' prompt when using <TAB> to switch files is anoying. Temp fix to set cmdheight=2
 
 # Improvements
 
 - Add code snippets for scala
 - Picker for maven depenencies
 
-## Neo tree
-
-- Make Git status for files have different background colors
-    * Untracked -> grey
-    * Unstaged -> blue
-    * Staged -> green
-    * Deleted -> red
-    * Renamed -> ???
-
 # Investigate
 
 ## Diffview
-- Merge conflicts
-- Inspect differences between branches
+- [x] Merge conflicts
+- [x] Inspect differences between branches

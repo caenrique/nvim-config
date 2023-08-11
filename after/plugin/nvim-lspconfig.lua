@@ -56,21 +56,21 @@ lspconfig.lua_ls.setup({
   },
 })
 
-require 'lspconfig'.jsonls.setup {
+lspconfig.jsonls.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
 }
 
-require 'lspconfig'.tsserver.setup {
+lspconfig.tsserver.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
   end,
 }
 
-require 'lspconfig'.smithy_ls.setup {
+lspconfig.smithy_ls.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
@@ -85,4 +85,11 @@ require 'lspconfig'.smithy_ls.setup {
       snippetAutoIndent = false,
     },
   }
+}
+
+lspconfig.marksman.setup {
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
+  end,
 }

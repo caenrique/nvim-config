@@ -21,18 +21,3 @@ require('lazy').setup('plugins', {
     path = '~/Projects/github.com/caenrique',
   }
 })
-
-vim.api.nvim_create_user_command('Reload',
-  function(params)
-    for _, plugin_name in ipairs(params.fargs) do
-      local plugin = require('lazy.core.config').plugins[plugin_name]
-      require('lazy.core.loader').reload(plugin)
-    end
-  end,
-  {
-    nargs = '*',
-    complete = function()
-      return vim.tbl_keys(require('lazy.core.config').plugins)
-    end
-  }
-)

@@ -3,7 +3,7 @@ if not pcall(require, 'nvim-treesitter') then
 end
 
 require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'scala', 'python', 'lua', 'json', 'bash', 'java', 'dockerfile', 'markdown', 'vim', 'smithy' },
+  ensure_installed = { 'scala', 'python', 'lua', 'json', 'bash', 'java', 'dockerfile', 'markdown', 'vim', 'smithy', 'http' },
   sync_install = false,
   indent = {
     enable = true,

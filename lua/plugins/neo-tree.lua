@@ -7,31 +7,6 @@ return {
   },
   config = function()
     local fc = require('neo-tree.sources.filesystem.components')
-    local events = require('neo-tree.events')
-
-    local function toggleGitAdd(state)
-      local node = state.tree:get_node()
-      if node.type == 'message' or node.type == 'directory' then
-        return
-      end
-      local path = node:get_id()
-      local git_status = node.extra.git_status
-      if git_status:sub(1, 1) == ' ' or git_status:sub(1, 1) == '?' then
-        local cmd = { 'git', 'add', path }
-        vim.fn.system(cmd)
-        events.fire_event(events.GIT_EVENT)
-      else
-        local cmd = { 'git', 'reset', '--', path }
-        vim.fn.system(cmd)
-        events.fire_event(events.GIT_EVENT)
-      end
-    end
-
-    local function gitResetAll()
-      local cmd = { 'git', 'reset', 'HEAD' }
-      vim.fn.system(cmd)
-      events.fire_event(events.GIT_EVENT)
-    end
 
     require('neo-tree').setup({
       enable_git_status = true,
@@ -137,22 +112,6 @@ return {
             ['o'] = 'open',
         },
       },
-      git_status = {
-        window = {
-          mappings = {
-              ['<Tab>'] = toggleGitAdd,
-              ['A'] = 'git_add_all',
-              ['U'] = gitResetAll,
-              ['u'] = 'git_unstage_file',
-              ['s'] = 'git_add_file',
-              ['gr'] = 'git_revert_file',
-              ['cc'] = 'git_commit',
-              ['c'] = 'none',
-              ['gp'] = 'git_push',
-              ['gg'] = 'git_commit_and_push',
-          },
-        },
-      },
       filesystem = {
         components = {
           name = function(config, node, state)
@@ -203,15 +162,6 @@ return {
     { '<C-b>', function()
       require('neo-tree.command').execute({
         source = 'buffers',
-        position = 'left',
-        toggle = true,
-        reveal = true,
-      })
-    end
-    },
-    { '<C-g>', function()
-      require('neo-tree.command').execute({
-        source = 'git_status',
         position = 'left',
         toggle = true,
         reveal = true,

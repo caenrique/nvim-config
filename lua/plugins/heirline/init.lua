@@ -16,7 +16,7 @@ return {
           local buf = args.buf
           if vim.api.nvim_buf_is_valid(buf) then
             local buftype = vim.tbl_contains({ 'prompt', 'nofile', 'quickfix' }, vim.bo[buf].buftype)
-            local filetype = vim.tbl_contains({ 'gitcommit', 'fugitive', 'Trouble', 'packer' }, vim.bo[buf].filetype)
+            local filetype = vim.tbl_contains({ 'gitcommit', 'FUGITIVE', 'Trouble', 'packer' }, vim.bo[buf].filetype)
             return buftype or filetype
           else
             return true

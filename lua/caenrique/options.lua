@@ -40,7 +40,13 @@ vim.o.breakindent = true
 
 vim.opt_global.shortmess:append('c')
 
-vim.api.nvim_set_option('fcs', 'eob: ') -- Remove the ~ from left column on EndOfBuffer (empty lines at the end of file)
+-- vim.api.nvim_set_option('fcs', 'eob: ') -- Remove the ~ from left column on EndOfBuffer (empty lines at the end of file)
+
+-- vim.opt.fillchars:remove { 'eob' }
+-- vim.opt_global.fillchars:append {
+--   eob = ' ',
+--
+-- }
 
 vim.opt.guicursor = {
   'n-c-ve-v:hor30',

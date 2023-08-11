@@ -1,7 +1,6 @@
 return {
-  dir = '~/Projects/github.com/caenrique/nvim-metals',
+  'scalameta/nvim-metals',
   name = 'metals',
-  dependencies = 'mfussenegger/nvim-dap',
   config = function()
     local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
 
@@ -12,12 +11,6 @@ return {
       vim.keymap.set('n', '<leader>tv', require('metals.tvp').toggle_tree_view, { buffer = bufnr })
       vim.keymap.set('n', '<leader>tr', require('metals.tvp').reveal_in_tree, { buffer = bufnr })
     end
-
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'MetalsStatusChanged',
-      command = 'redrawstatus',
-      group = nvim_metals_group,
-    })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if pcall(require, 'cmp_nvim_lsp') then
