@@ -5,6 +5,10 @@ cmd('Delete', function(args)
   vim.cmd('bdelete' .. (args.bang and '!' or ''))
 end, { bang = true })
 
+cmd('LastModified', function()
+  vim.print(vim.fn.strftime('%c', vim.fn.getftime(vim.fn.expand('%'))))
+end, {})
+
 -- cmd('MarkdownToJira', function()
 --   vim.cmd('read !pandoc -f gfm -w jira')
 -- end, {})
@@ -16,13 +20,13 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 })
 
 vim.api.nvim_create_autocmd('BufNewFile', {
-  pattern = 'JIRA-*.md',
+  pattern = 'jira-*.md',
   command = '0read ~/Notes/templates/jira.md',
   group = 'templates',
 })
 
 vim.api.nvim_create_autocmd('BufNewFile', {
-  pattern = 'PR-*.md',
+  pattern = 'pr-*.md',
   command = '0read ~/Notes/templates/PR.md',
   group = 'templates',
 })

@@ -1,18 +1,74 @@
 return {
-  'alvarosevilla95/luatab.nvim',
-  'kyazdani42/nvim-web-devicons',
-  'lukas-reineke/indent-blankline.nvim',
-  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
-  'kevinhwang91/nvim-bqf',
-  { 'windwp/nvim-autopairs', config = true },
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  "dhruvasagar/vim-table-mode",
+  "almo7aya/openingh.nvim",
+  -- 'alvarosevilla95/luatab.nvim',
+  "kevinhwang91/nvim-bqf",
+  "ckipp01/stylua-nvim",
+  "neovim/nvim-lspconfig",
+  "nvim-lua/plenary.nvim",
+  -- 'richardbizik/nvim-toc',
+  "artemave/workspace-diagnostics.nvim",
+  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  { "windwp/nvim-autopairs", config = true },
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = { 'saadparwaiz1/cmp_luasnip', 'L3MON4D3/LuaSnip', 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path',
-      'onsails/lspkind-nvim', 'hrsh7th/cmp-nvim-lsp-signature-help', 'hrsh7th/cmp-emoji', 'hrsh7th/cmp-nvim-lua',
-      'petertriho/cmp-git' }
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    opts = {
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "gnn", -- set to `false` to disable one of the mappings
+          node_incremental = "grn",
+          scope_incremental = "grc",
+          node_decremental = "grm",
+        },
+      },
+    },
   },
-  'ckipp01/stylua-nvim',
-  'neovim/nvim-lspconfig',
-  'nvim-lua/plenary.nvim',
+  { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "onsails/lspkind-nvim",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-nvim-lua",
+      "petertriho/cmp-git",
+    },
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        injected_languages = false,
+        show_exact_scope = true,
+        highlight = { "Function", "Label" },
+        priority = 500,
+        include = {
+          node_type = {
+            scala = { "for_expression", "match_expression", "case_clause" },
+          },
+        },
+      },
+      exclude = {
+        filetypes = {
+          "dashboard",
+        },
+      },
+    },
+  },
 }

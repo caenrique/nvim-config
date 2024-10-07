@@ -1,9 +1,25 @@
-if not pcall(require, 'nvim-treesitter') then
+if not pcall(require, "nvim-treesitter") then
   return
 end
 
-require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'scala', 'python', 'lua', 'json', 'bash', 'java', 'dockerfile', 'markdown', 'vim', 'smithy', 'http' },
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "scala",
+    "python",
+    "lua",
+    "json",
+    "bash",
+    "java",
+    "dockerfile",
+    "markdown",
+    "vim",
+    "smithy",
+    "http",
+    "yaml",
+    "query",
+    "vimdoc",
+    "unison",
+  },
   sync_install = false,
   indent = {
     enable = true,
@@ -14,10 +30,10 @@ require('nvim-treesitter.configs').setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'grn',
-      scope_incremental = 'grc',
-      node_decremental = 'grm',
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
     },
   },
   playground = {
@@ -26,16 +42,16 @@ require('nvim-treesitter.configs').setup({
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
+      toggle_query_editor = "o",
+      toggle_hl_groups = "i",
+      toggle_injected_languages = "t",
+      toggle_anonymous_nodes = "a",
+      toggle_language_display = "I",
+      focus_language = "f",
+      unfocus_language = "F",
+      update = "R",
+      goto_node = "<cr>",
+      show_help = "?",
     },
   },
 })

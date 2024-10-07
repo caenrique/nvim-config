@@ -13,4 +13,5 @@ return {
   macro_rec = require('plugins.heirline.components.macro-rec'),
   search_count = require('plugins.heirline.components.search-count'),
   utils = require('plugins.heirline.components.utils'),
+  navic = require('plugins.heirline.components.navic')
 }

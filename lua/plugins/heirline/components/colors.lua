@@ -1,6 +1,6 @@
 local utils = require('heirline.utils')
 
-return {
+local hi = {
   bright_bg = utils.get_highlight('Folded').bg,
   bright_fg = utils.get_highlight('Folded').fg,
   bg = utils.get_highlight('Normal').bg,
@@ -13,7 +13,7 @@ return {
   orange = utils.get_highlight('Constant').fg,
   purple = utils.get_highlight('Statement').fg,
   cyan = utils.get_highlight('Special').fg,
-  diag_warn = utils.get_highlight('DiagnosticWarn').fg,
+  diag_warn = utils.get_highlight('DiagnosticWarn').guifg,
   diag_error = utils.get_highlight('DiagnosticError').fg,
   diag_hint = utils.get_highlight('DiagnosticHint').fg,
   diag_info = utils.get_highlight('DiagnosticInfo').fg,
@@ -21,3 +21,7 @@ return {
   git_add = utils.get_highlight('DiffAdd').fg,
   git_change = utils.get_highlight('DiffChange').fg,
 }
+
+-- vim.print(hi)
+
+return hi

@@ -1,32 +1,58 @@
 # Issues
 
 ## Auto session
-- Session manager doesn't delete session when using a session per git branch. [issue](https://github.com/rmagatti/auto-session/issues/245)
+- [?] Session manager doesn't delete session when using a session per git branch. [issue](https://github.com/rmagatti/auto-session/issues/245)
 - Session corrupted on start up a lot of times
 - Add auto-completion for commands that expect a session name
 
-## Feline
-- [x] Sign column randomly? breaks. FIXED?
-
-## Fugitive
-- Fugitive completly breaks the ui when git props for password to commit
-
-## Fidget
-- [x] warning of breaking changes
-
 ## Neovim Core
-- Files open with folds closed
-
-## Diffview
-- [x] 'press ENTER' prompt when using <TAB> to switch files is anoying. Temp fix to set cmdheight=2
+- [!] Files open with folds closed
 
 # Improvements
 
 - Add code snippets for scala
-- Picker for maven depenencies
+- Srink paths based on package name and common patters:
+    - `src`
+    - `scala/com/siriusxm/playback`
+    - `scala/com/siriusxm/playbackservices`
 
-# Investigate
+# Windowline
 
-## Diffview
-- [x] Merge conflicts
-- [x] Inspect differences between branches
+- [ ] better color to see active buffer
+- [ ] fix diagnostics color
+- [ ] fix filetype icon color
+- [ ] add navic after filename
+- [ ] show only file name
+- [x] remove rounded corners and effects
+
+# Cursorline
+
+- Better contrast with background
+
+# Statusline
+
+- Better contrast with background
+
+# Git
+
+- Git Worktrees better integration (there is a plugin)
+
+- Pull main while on other branch
+- Rebase current branch on top of origin/main
+- Change branch and directory at the same time (switch between worktrees)
+- Create worktree
+- Delete worktree
+
+# Sbt integration
+
+- Run sbt server on fist command
+- Run commands agains sbt server and provide a notification with result status
+- Open the log window for sbt
+- Needs to react to cwd changes
+
+`Sbt` command
+`:Sbt formatAll`
+`:Sbt! formatAll`
+`:Sbt`
+
+- configurable hook to shutdown the server on nvim exit
