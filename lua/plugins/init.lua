@@ -8,23 +8,8 @@ return {
   "nvim-lua/plenary.nvim",
   -- 'richardbizik/nvim-toc',
   "artemave/workspace-diagnostics.nvim",
-  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  -- { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
   { "windwp/nvim-autopairs", config = true },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    opts = {
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gnn", -- set to `false` to disable one of the mappings
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
-        },
-      },
-    },
-  },
   { "L3MON4D3/LuaSnip", version = "v2.*", build = "make install_jsregexp" },
   {
     "hrsh7th/nvim-cmp",

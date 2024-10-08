@@ -60,10 +60,12 @@ vim.opt.guicursor = {
 vim.g.loaded_matchit = true
 
 -- Fold options
-vim.o.foldcolumn = "auto"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+vim.o.foldlevelstart = -1
+vim.wo.foldlevel = 99
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldtext = "v:lua.vim.treesitter.foldtext()"
+vim.wo.foldenable = true
 
 -- vim.o.shada = nil
 

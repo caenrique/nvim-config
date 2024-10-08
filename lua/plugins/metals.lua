@@ -27,6 +27,11 @@ return {
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities()) or {}
     end
 
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    }
+
     local metals_config = require("metals").bare_config()
 
     metals_config.capabilities = capabilities

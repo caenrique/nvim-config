@@ -14,6 +14,11 @@ local capabilities = vim.tbl_deep_extend(
   require("cmp_nvim_lsp").default_capabilities()
 )
 
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
 lspconfig.pyright.setup({
   on_attach = function(client, bufnr)
     require("caenrique.lsp").setup_lsp_mappings(client, bufnr)

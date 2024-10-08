@@ -1,17 +1,5 @@
 local M = {}
 
-local function peekOrHover()
-  local result, ufo = pcall(require, "ufo")
-  if result then
-    local winid = ufo.peekFoldedLinesUnderCursor()
-    if not winid then
-      vim.lsp.buf.hover()
-    end
-  else
-    vim.lsp.buf.hover()
-  end
-end
-
 function M.setup_lsp_mappings(client, buffer)
   local capabilities = client.server_capabilities
 
@@ -19,7 +7,7 @@ function M.setup_lsp_mappings(client, buffer)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = buffer })
   vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buffer })
-  vim.keymap.set("n", "K", peekOrHover)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer })
   vim.keymap.set("n", "gws", vim.lsp.buf.workspace_symbol, { buffer = buffer })
   vim.keymap.set("n", "<C-F>", vim.lsp.buf.format, { buffer = buffer })
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = buffer })
