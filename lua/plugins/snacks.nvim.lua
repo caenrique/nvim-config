@@ -2,22 +2,77 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = true },
-    indent = { enabled = false },
-    input = { enabled = false },
+    animate = { enabled = true },
+    indent = {
+      enabled = false,
+      indent = {
+        priority = 1,
+        enabled = false, -- enable indent guides
+        char = '│',
+        only_scope = false, -- only show indent guides of the scope
+        only_current = false, -- only show indent guides in the current window
+        hl = { 'SnacksIndent' }, ---@type string|string[] hl groups for indent guides
+        -- can be a list of hl groups to cycle through
+        -- hl = {
+        --     "SnacksIndent1",
+        --     "SnacksIndent2",
+        --     "SnacksIndent3",
+        --     "SnacksIndent4",
+        --     "SnacksIndent5",
+        --     "SnacksIndent6",
+        --     "SnacksIndent7",
+        --     "SnacksIndent8",
+        -- },
+      }, -- animate scopes. Enabled by default for Neovim >= 0.10
+      -- Works on older versions but has to trigger redraws during animation.
+      ---@class snacks.indent.animate: snacks.animate.Config
+      ---@field enabled? boolean
+      --- * out: animate outwards from the cursor
+      --- * up: animate upwards from the cursor
+      --- * down: animate downwards from the cursor
+      --- * up_down: animate up or down based on the cursor position
+      ---@field style? "out"|"up_down"|"down"|"up"
+      animate = {
+        enabled = false,
+      },
+      ---@class snacks.indent.Scope.Config: snacks.scope.Config
+      scope = {
+        enabled = true, -- enable highlighting the current scope
+        priority = 200,
+        char = '│',
+        underline = false, -- underline the start of the scope
+        only_current = true, -- only show scope in the current window
+        hl = 'SnacksIndentScope', ---@type string|string[] hl group for scopes
+      },
+      -- filter for buffers to enable indent guides
+      filter = function(buf)
+        return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ''
+      end,
+    },
+    input = { enabled = true },
     notifier = {
       enabled = true,
       timeout = 3000,
     },
     picker = { enabled = true },
-    quickfile = { enabled = false },
-    scope = { enabled = false },
-    scroll = { enabled = false },
-    statuscolumn = { enabled = false },
+    scope = { enabled = true },
+    statuscolumn = {
+      left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
+      right = { 'fold', 'git' }, -- priority of signs on the right (high to low)
+      folds = {
+        open = true, -- show open fold icons
+        git_hl = false, -- use Git Signs hl for fold icons
+      },
+      git = {
+        -- patterns to match Git signs
+        patterns = { 'GitSign', 'MiniDiffSign' },
+      },
+      refresh = 50, -- refresh at most every 50ms
+    },
     words = { enabled = false },
     styles = {
       notification = {

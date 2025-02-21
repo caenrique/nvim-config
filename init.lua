@@ -20,8 +20,15 @@ vim.opt.number = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
+vim.o.fillchars = 'eob: ,fold: '
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+
+vim.o.cmdheight = 1
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -105,3 +112,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 
 require('config.lazy')
+require('config.lsp')
+require('config.diagnostics')
+require('config.keymaps')
+
+vim.cmd.colorscheme('catppuccin')
