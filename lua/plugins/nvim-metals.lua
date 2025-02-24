@@ -62,4 +62,21 @@ return {
       group = nvim_metals_group,
     })
   end,
+  specs = {
+    {
+      'nvim-telescope/telescope.nvim',
+      version = '0.1.8',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+      },
+      keys = {
+        {
+          '<leader>mc',
+          function()
+            require('telescope').extensions.metals.commands()
+          end,
+        },
+      },
+    },
+  },
 }

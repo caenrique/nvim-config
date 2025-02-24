@@ -1,52 +1,72 @@
 return {
+  prompt = ' ',
+  sources = {},
+  focus = 'input',
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
   opts = {
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
-    explorer = { enabled = true },
-    animate = { enabled = true },
-    indent = {
-      enabled = false,
-      indent = {
-        priority = 1,
-        enabled = false, -- enable indent guides
-        char = '│',
-        only_scope = false, -- only show indent guides of the scope
-        only_current = false, -- only show indent guides in the current window
-        hl = { 'SnacksIndent' }, ---@type string|string[] hl groups for indent guides
-        -- can be a list of hl groups to cycle through
-        -- hl = {
-        --     "SnacksIndent1",
-        --     "SnacksIndent2",
-        --     "SnacksIndent3",
-        --     "SnacksIndent4",
-        --     "SnacksIndent5",
-        --     "SnacksIndent6",
-        --     "SnacksIndent7",
-        --     "SnacksIndent8",
-        -- },
-      }, -- animate scopes. Enabled by default for Neovim >= 0.10
-      -- Works on older versions but has to trigger redraws during animation.
-      ---@class snacks.indent.animate: snacks.animate.Config
-      ---@field enabled? boolean
-      --- * out: animate outwards from the cursor
-      --- * up: animate upwards from the cursor
-      --- * down: animate downwards from the cursor
-      --- * up_down: animate up or down based on the cursor position
-      ---@field style? "out"|"up_down"|"down"|"up"
-      animate = {
-        enabled = false,
+    dashboard = {
+      width = 90,
+      sections = {
+        { section = 'header' },
+        { section = 'keys', icon = '󰘳 ', title = 'Keymaps', indent = 3, gap = 0, padding = 1 },
+        {
+          -- pane = 2,
+          icon = ' ',
+          desc = 'Browse Repo',
+          padding = 1,
+          key = 'b',
+          action = function()
+            Snacks.gitbrowse()
+          end,
+        },
+        function()
+          local in_git = Snacks.git.get_root() ~= nil
+          local cmds = {
+            {
+              icon = ' ',
+              title = 'Open PRs',
+              cmd = "gh pr list -L 5 --json title,createdAt --jq '.[] | [.title, (.createdAt | fromdate | strftime(\"%Y-%m-%d %H:%M UTC\"))] | @tsv' | awk -v FS='\\t' -v OFS='\\t' '{printf \"%-60s %-20s\\n\",substr($1, 1, 58),substr($2,1,20)}'",
+              key = 'P',
+              action = function()
+                vim.fn.jobstart('gh pr list --web', { detach = true })
+              end,
+              height = 5,
+              indent = 3,
+            },
+            {
+              icon = ' ',
+              title = 'Git Status',
+              cmd = 'git --no-pager diff --stat -B -M -C',
+              height = 10,
+              indent = 2,
+            },
+          }
+          return vim.tbl_map(function(cmd)
+            return vim.tbl_extend('force', {
+              -- pane = 2,
+              section = 'terminal',
+              enabled = in_git,
+              padding = 1,
+              ttl = 5 * 60,
+            }, cmd)
+          end, cmds)
+        end,
+        { section = 'startup' },
       },
+    },
+    explorer = { enabled = true },
+    indent = {
+      enabled = true,
       ---@class snacks.indent.Scope.Config: snacks.scope.Config
+      indent = {
+        hl = 'SnacksIndentBlank', ---@type string|string[] hl group for scopes
+      },
       scope = {
-        enabled = true, -- enable highlighting the current scope
-        priority = 200,
-        char = '│',
-        underline = false, -- underline the start of the scope
         only_current = true, -- only show scope in the current window
-        hl = 'SnacksIndentScope', ---@type string|string[] hl group for scopes
+        hl = 'SnacksIndentChunk', ---@type string|string[] hl group for scopes
       },
       -- filter for buffers to enable indent guides
       filter = function(buf)
@@ -58,7 +78,59 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true },
+    picker = {
+      sources = {
+        grep = {
+          finder = 'grep',
+          regex = true,
+          format = 'file',
+          show_empty = true,
+          live = true, -- live grep by default
+          supports_live = true,
+          formatters = {
+            file = {
+              filename_first = false,
+              truncate = 40,
+            },
+          },
+          layout = {
+            hidden = {},
+          },
+        },
+      },
+      formatters = {
+        file = {
+          filename_first = true,
+          truncate = 60,
+        },
+      },
+      layout = {
+        cycle = true,
+        hidden = { 'preview' },
+        --- Use the default layout or vertical if the window is too narrow
+        preset = function()
+          return vim.o.columns >= 160 and 'default' or 'vertical'
+        end,
+      },
+      layouts = {
+        vertical = {
+          layout = {
+            backdrop = false,
+            width = 0.8,
+            min_width = 80,
+            height = 0.9,
+            min_height = 30,
+            box = 'vertical',
+            border = 'rounded',
+            title = '{title} {live} {flags}',
+            title_pos = 'center',
+            { win = 'preview', title = '{preview}', height = 0.5, border = 'bottom' },
+            { win = 'input', height = 1, border = 'none' },
+            { win = 'list', border = 'top' },
+          },
+        },
+      },
+    },
     scope = { enabled = true },
     statuscolumn = {
       left = { 'mark', 'sign' }, -- priority of signs on the left (high to low)
@@ -73,10 +145,52 @@ return {
       },
       refresh = 50, -- refresh at most every 50ms
     },
-    words = { enabled = false },
+    words = { enabled = true },
     styles = {
-      notification = {
-        -- wo = { wrap = true } -- Wrap notifications
+      terminal = {
+        bo = {
+          filetype = 'snacks_terminal',
+        },
+        wo = {},
+        keys = {
+          q = 'hide',
+          gf = function(self)
+            local f = vim.fn.findfile(vim.fn.expand('<cfile>'), '**')
+            if f == '' then
+              Snacks.notify.warn('No file under cursor')
+            else
+              self:hide()
+              vim.schedule(function()
+                vim.cmd('e ' .. f)
+              end)
+            end
+          end,
+          term_normal = {
+            '<esc>',
+            function(self)
+              self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+              if self.esc_timer:is_active() then
+                self.esc_timer:stop()
+                vim.cmd('stopinsert')
+              else
+                self.esc_timer:start(200, 0, function() end)
+                return '<esc>'
+              end
+            end,
+            mode = 't',
+            expr = true,
+            desc = 'Double escape to normal mode',
+          },
+          toggle_terminal = {
+            '<C-/>',
+            function(self)
+              Snacks.terminal()
+            end,
+            mode = 't',
+            expr = true,
+            desc = 'toggle terminal in terminal mode',
+          },
+        },
       },
     },
     gitbrowse = { enabled = true },
@@ -525,13 +639,6 @@ return {
         Snacks.terminal()
       end,
       desc = 'Toggle Terminal',
-    },
-    {
-      '<c-_>',
-      function()
-        Snacks.terminal()
-      end,
-      desc = 'which_key_ignore',
     },
     {
       ']]',

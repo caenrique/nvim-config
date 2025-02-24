@@ -70,8 +70,16 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
+-- Show which line your cursor is on only on the current window
+local cursorline_group = vim.api.nvim_create_augroup('cursor-line-auto-command', {})
+vim.api.nvim_create_autocmd('WinEnter', {
+  group = cursorline_group,
+  command = 'set cursorline',
+})
+vim.api.nvim_create_autocmd('WinLeave', {
+  group = cursorline_group,
+  command = 'set nocursorline',
+})
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10

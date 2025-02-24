@@ -21,6 +21,17 @@ return { -- Collection of various small independent plugins/modules
     require('mini.diff').setup()
     require('mini.bracketed').setup()
 
+    require('mini.map').setup({
+      window = {
+        winblend = 90,
+      },
+      integrations = {
+        require('mini.map').gen_integration.builtin_search(),
+        require('mini.map').gen_integration.diagnostic(),
+        -- require('mini.map').gen_integration.diff(),
+      },
+    })
+
     -- require('mini.tabline').setup()
 
     -- Section for repository name under ~/Projects folder
@@ -32,7 +43,11 @@ return { -- Collection of various small independent plugins/modules
       local _, _, domain, org, dir = cwd:find('~/Projects/([^/]+)/([^/]+)/([^/]+)')
 
       if domain and org and dir then
-        cwd = domain .. '/' .. org .. '/' .. dir
+        if domain == 'ghe.siriusxm.com' then
+          cwd = org .. '/' .. dir
+        else
+          cwd = domain .. '/' .. org .. '/' .. dir
+        end
       end
 
       local trail = cwd:sub(-1) == '/' and '' or '/'
@@ -72,6 +87,8 @@ return { -- Collection of various small independent plugins/modules
       use_icons = vim.g.have_nerd_font,
     })
     vim.o.laststatus = 3
+
+    a = 5
 
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim
