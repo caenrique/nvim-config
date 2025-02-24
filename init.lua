@@ -122,6 +122,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('config.lazy')
 require('config.lsp')
 require('config.diagnostics')
-require('config.keymaps')
 
 vim.cmd.colorscheme('catppuccin')
