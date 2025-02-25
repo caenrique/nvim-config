@@ -17,6 +17,7 @@ return {
           bgText = util.blend('#2ea043', colors.base, 0.4),
         },
       }
+
       return {
         DiffAdd = { bg = diff.add.bg },
         DiffDelete = { bg = diff.delete.bg },
@@ -28,5 +29,23 @@ return {
         SnacksIndentBlank = { fg = util.blend('#FFFFFF', colors.base, 0.1) },
       }
     end,
+    integrations = {
+      gitsigns = true,
+      native_lsp = {
+        enabled = true,
+        virtual_text = {
+          errors = { 'italic' },
+          hints = { 'italic' },
+          warnings = { 'italic' },
+          information = { 'italic' },
+        },
+        underlines = {
+          errors = { 'undercurl' },
+          hints = { 'undercurl' },
+          warnings = { 'undercurl' },
+          information = { 'undercurl' },
+        },
+      },
+    },
   },
 }

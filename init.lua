@@ -20,7 +20,22 @@ vim.opt.number = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
-vim.o.fillchars = 'eob: ,fold: '
+-- Diff options
+vim.g.diff_translations = false
+vim.opt.diffopt = {
+  'internal',
+  'closeoff',
+  'filler',
+  -- "linematch:60",
+  'algorithm:myers',
+  -- "indent-heuristic",
+}
+
+vim.opt_global.fillchars:append({
+  eob = ' ',
+  fold = ' ',
+})
+
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -28,7 +43,7 @@ vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.

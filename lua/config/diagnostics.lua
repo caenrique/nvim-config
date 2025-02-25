@@ -5,7 +5,7 @@ if vim.g.have_nerd_font then
   for type, icon in pairs(signs) do
     diagnostic_signs[vim.diagnostic.severity[type]] = icon
   end
-  vim.diagnostic.config { signs = { text = diagnostic_signs } }
+  vim.diagnostic.config { signs = { text = diagnostic_signs }, virtual_text = true, underline = true }
 end
 
 vim.keymap.set('n', '<leader>k', vim.diagnostic.open_float, { desc = 'diagnostic open float' })
