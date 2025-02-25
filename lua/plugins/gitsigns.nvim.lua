@@ -32,9 +32,9 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       opts = {
         custom_section = function()
           local gitstatus = vim.b.gitsigns_status_dict or {}
-          local add = gitstatus.added and '%#@diff.plus#+' .. gitstatus.added or ''
-          local changed = gitstatus.changed and '%#@diff.delta#~' .. gitstatus.changed or ''
-          local deleted = gitstatus.removed and '%#@diff.minus#-' .. gitstatus.removed or ''
+          local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added or ''
+          local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed or ''
+          local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed or ''
           return add .. ' ' .. changed .. ' ' .. deleted
         end,
       },

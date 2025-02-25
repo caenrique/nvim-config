@@ -15,27 +15,11 @@ return { -- Collection of various small independent plugins/modules
     require('mini.surround').setup()
 
     require('mini.icons').setup()
-    -- require('mini.git').setup()
-    -- require('mini.diff').setup()
     require('mini.bracketed').setup({
       comment = { suffix = '', options = {} },
     })
 
-    -- require('mini.map').setup({
-    --   window = {
-    --     winblend = 90,
-    --   },
-    --   integrations = {
-    --     require('mini.map').gen_integration.builtin_search(),
-    --     require('mini.map').gen_integration.diagnostic(),
-    --     -- require('mini.map').gen_integration.diff(),
-    --   },
-    -- })
-
-    -- require('mini.tabline').setup()
-
-    -- Section for repository name under ~/Projects folder
-    local section_projectname = function(args)
+    local section_projectname = function(_)
       local icon = ' '
       local cwd = vim.fn.getcwd(0)
       cwd = vim.fn.fnamemodify(cwd, ':~')
@@ -54,9 +38,6 @@ return { -- Collection of various small independent plugins/modules
       return icon .. cwd .. trail
     end
 
-    -- Simple and easy statusline.
-    --  You could remove this setup call if you don't like it,
-    --  and try some other statusline plugin
     local statusline = require('mini.statusline')
     -- set use_icons to true if you have a Nerd Font
     statusline.setup({
@@ -75,7 +56,7 @@ return { -- Collection of various small independent plugins/modules
             for _, server in pairs(vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
               table.insert(names, server.name)
             end
-            return ' ' .. table.concat(names, ' ')
+            return #names > 0 and ' ' .. table.concat(names, ' ') or ''
           end
           local location = 'Ln %l, Col %v'
           local search = function()
