@@ -2,6 +2,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
   'lewis6991/gitsigns.nvim',
   enabled = true,
   opts = {
+    current_line_blame = true,
     on_attach = function(bufnr)
       local gitsigns = require('gitsigns')
 

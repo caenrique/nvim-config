@@ -38,7 +38,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client and client.server_capabilities['foldingRangeProvider'] then
       vim.opt.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-      vim.opt.foldtext = 'v:lua.vim.lsp.foldtext()'
     end
 
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then

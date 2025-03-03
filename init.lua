@@ -39,6 +39,7 @@ vim.opt_global.fillchars:append({
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldtext = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
