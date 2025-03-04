@@ -10,11 +10,6 @@ return {
         'lazy.nvim',
         'snacks.nvim',
       },
-      -- always enable unless `vim.g.lazydev_enabled = false`
-      -- This is the default
-      enabled = function(root_dir)
-        return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
-      end,
     },
   },
 }
