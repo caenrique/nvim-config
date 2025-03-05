@@ -1,0 +1,68 @@
+{
+  "if then else": {
+    "scope": "scala",
+    "prefix": "if then else",
+    "body": "if ${1:???} then ${2:???} else ${0:???}",
+    "description": "one line if/then/else expression"
+  },
+  "for yield": {
+    "scope": "scala",
+    "prefix": "for yield",
+    "body": "for {\n\t${1:name} <- ${2:from}\n} yield ${3:???}",
+    "description": "for yield mapping"
+  },
+  "macro": {
+    "scope": "scala",
+    "prefix": "macro:",
+    "body": "inline def ${1:methodName}(${2:arg}: ${3:ArgType}): ${4:ResType} =\n\t${ $1Expr('$2) }\n\nprivate def $1Expr($2Expr: Expr[$3])(using QuoteContext): Expr[$4] =\n\t${0:???}",
+    "description": "Macro definition"
+  },
+  "given as": {
+    "scope": "scala",
+    "prefix": "given:",
+    "body": "given ${1:name} as ${2:Type} ${3:= ${0:???}}",
+    "description": "given declaration"
+  },
+  "extension": {
+    "scope": "scala",
+    "prefix": "extension def",
+    "body": "extension (${1:self}: ${2:Self}) {\n\tdef ${3:methodName} = ${0:???}",
+    "description": "Entension method declaration"
+  },
+  "def": {
+    "scope": "scala",
+    "prefix": "def:",
+    "body": "def ${1:methodName}(${2:}): ${3:Type} = {\n\t${0:???}\n}",
+    "description": "Method declaration"
+  },
+  "def-multiline": {
+    "scope": "scala",
+    "prefix": "def:multiline",
+    "body": "def ${1:methodName}(${2:}): ${3:Type} = {\n\t${0:???}\n}",
+    "description": "multiline Method declaration"
+  },
+  "enum": {
+    "scope": "scala",
+    "prefix": "enum:",
+    "body": "enum ${1:Color} {\n\tcase ${0:Red, Green, Blue\n}",
+    "description": "simple enum definition"
+  },
+  "enum-parameterizedparameterized": {
+    "scope": "scala",
+    "prefix": "enum:parameterized",
+    "body": "enum ${1:Color}(${2:val rgb: Int}) {\n\tcase ${3:Red} extends $1(${4:0xFF0000})\n\tcase ${5:Green} extends $1(${6:0x00FF00})\n}",
+    "description": "parameterized enum definition"
+  },
+  "case class": {
+    "scope": "scala",
+    "prefix": "case class:",
+    "body": "case class ${1:className}(${2:param}: ${3:type})",
+    "description": "Case class definition"
+  },
+  "main": {
+    "scope": "scala",
+    "prefix": "@main def",
+    "body": "@main def ${1:myApp}(${2:arg1: T1, arg2: T2, otherArgs: T*}) =\n\t${0:???}",
+    "description": "Main method definition"
+  }
+}

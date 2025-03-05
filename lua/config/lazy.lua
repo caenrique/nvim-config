@@ -27,9 +27,15 @@ require('lazy').setup({
     -- import your plugins
     { import = 'plugins' },
   },
+  dev = {
+    path = '~/Projects/nvim-plugins',
+    patterns = { 'caenrique' },
+    falback = true,
+  },
+
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { 'habamax' } },
+  -- install = { colorscheme = { 'catppuccin' } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })

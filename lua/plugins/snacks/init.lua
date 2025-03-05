@@ -5,7 +5,16 @@ return {
     bigfile = { enabled = true },
     dashboard = require('plugins.snacks.dashboard'),
     explorer = { enabled = true },
-    gitbrowse = { enabled = true },
+    gitbrowse = {
+      url_patterns = {
+        ['ghe.siriusxm.com'] = {
+          branch = '/tree/{branch}',
+          file = '/blob/{branch}/{file}#L{line_start}-L{line_end}',
+          permalink = '/blob/{commit}/{file}#L{line_start}-L{line_end}',
+          commit = '/commit/{commit}',
+        },
+      },
+    },
     indent = require('plugins.snacks.indent'),
     input = { enabled = true },
     notifier = { timeout = 3000 },

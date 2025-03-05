@@ -1,7 +1,8 @@
 return {
   'scalameta/nvim-metals',
   dependencies = 'nvim-lua/plenary.nvim',
-  name = 'metals',
+  dev = false,
+  ft = { 'scala', 'sbt', 'java' },
   config = function()
     local nvim_metals_group = vim.api.nvim_create_augroup('nvim-metals', { clear = true })
 
@@ -16,18 +17,9 @@ return {
       map('<leader>mi', require('metals').organize_imports, 'Organize [I]mports')
       map('<leader>mtv', require('metals.tvp').toggle_tree_view, 'Toggle [T]ree [V]iew')
       map('<leader>mtr', require('metals.tvp').reveal_in_tree, '[T]ree [R]eveal')
-
-      -- vim.api.nvim_create_user_command(
-      --   'ScalaPackage',
-      --   require('telescope').extensions.scaladex.scaladex.search,
-      --   { desc = 'Search scala dependencies' }
-      -- )
     end
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- if pcall(require, 'cmp_nvim_lsp') then
-    --   capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities()) or {}
-    -- end
 
     capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
@@ -48,9 +40,7 @@ return {
       -- serverVersion = '1.4.2+80-2b937bb1-SNAPSHOT',
     }
 
-    metals_config.on_attach = function(client, bufnr)
-      -- require('caenrique.lsp').setup_lsp_mappings(client, bufnr)
-      -- require('workspace-diagnostics').populate_workspace_diagnostics(client, bufnr)
+    metals_config.on_attach = function(_, bufnr)
       metals_keymaps(bufnr)
     end
 
@@ -62,21 +52,13 @@ return {
       group = nvim_metals_group,
     })
   end,
-  specs = {
+  keys = {
     {
-      'nvim-telescope/telescope.nvim',
-      version = '0.1.8',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-      },
-      keys = {
-        {
-          '<leader>mc',
-          function()
-            require('telescope').extensions.metals.commands()
-          end,
-        },
-      },
+      '<leader>mc',
+      function()
+        require('metals').commands()
+      end,
+      desc = 'Command palette for Metals',
     },
   },
 }
