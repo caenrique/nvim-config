@@ -25,8 +25,9 @@ vim.g.maplocalleader = '\\'
 require('lazy').setup({
   spec = {
     -- import your plugins
-    { import = 'plugins' },
+    { import = 'caenrique.plugins' },
   },
+  ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
     path = '~/Projects/nvim-plugins',
     patterns = { 'caenrique' },

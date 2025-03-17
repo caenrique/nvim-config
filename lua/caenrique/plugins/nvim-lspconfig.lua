@@ -21,9 +21,23 @@ return {
             completion = {
               callSnippet = 'Replace',
             },
-            diagnostics = { disable = { 'missing-fields' } },
+            diagnostics = { disable = { 'missing-fields', 'duplicate-set-field' } },
           },
         },
+      },
+      markdown_oxide = {
+        capabilities = {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        },
+        on_attach = function(client, _)
+          vim.api.nvim_create_user_command('Daily', function(args)
+            client:exec_cmd({ command = 'jump', arguments = { args.args } })
+          end, { desc = 'Open daily note', nargs = '*' })
+        end,
       },
     }
 
@@ -32,12 +46,14 @@ return {
       'stylua', -- Used to format Lua code
       'yaml-language-server',
       'jsonls',
-      'marksman',
+      -- 'marksman',
+      'markdown_oxide',
     })
     require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
     require('mason-lspconfig').setup({
-      automatic_installation = true,
+      ensure_installed = {}, -- explicitly set to an empty table (installs populated via mason-tool-installer)
+      automatic_installation = false,
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}

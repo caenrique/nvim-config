@@ -19,6 +19,20 @@ return { -- Collection of various small independent plugins/modules
       comment = { suffix = '', options = {} },
     })
 
+    -- Open Snacks.explorer action to be assigned to a mouse click event
+    _G.openExplorerAction = function(_, _, button, _)
+      if button == 'l' then
+        Snacks.explorer()
+      end
+    end
+
+    -- Open vim.cmd.LspInfo action to be assigned to a mouse click event
+    _G.openLspInfo = function(_, _, button, _)
+      if button == 'l' then
+        vim.cmd.LspInfo()
+      end
+    end
+
     local section_projectname = function(_)
       local icon = ' '
       local cwd = vim.fn.getcwd(0)
@@ -35,7 +49,9 @@ return { -- Collection of various small independent plugins/modules
       end
 
       local trail = cwd:sub(-1) == '/' and '' or '/'
-      return icon .. cwd .. trail
+      local clickRegionStart = '%@v:lua.openExplorerAction@'
+      local clickRegionEnd = '%X'
+      return clickRegionStart .. icon .. cwd .. trail .. clickRegionEnd
     end
 
     local statusline = require('mini.statusline')
@@ -56,7 +72,10 @@ return { -- Collection of various small independent plugins/modules
             for _, server in pairs(vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
               table.insert(names, server.name)
             end
-            return #names > 0 and ' ' .. table.concat(names, ' ') or ''
+            local clickRegionStart = '%@v:lua.openLspInfo@'
+            local clickRegionEnd = '%X'
+
+            return #names > 0 and clickRegionStart .. ' ' .. table.concat(names, ' ') .. clickRegionEnd or ''
           end
           local location = 'Ln %l, Col %v'
           local search = function()

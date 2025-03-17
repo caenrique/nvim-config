@@ -21,6 +21,23 @@ return {
 
     signature = { enabled = true },
 
+    completion = {
+      accept = { auto_brackets = { enabled = false } },
+      ghost_text = { enabled = true },
+      keyword = { range = 'full' },
+      list = { selection = { auto_insert = false } },
+      menu = {
+        max_height = 15,
+        draw = {
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description', gap = 1 },
+            { 'source_name' },
+          },
+        },
+      },
+    },
+
     appearance = {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp

@@ -98,8 +98,10 @@ return {
     )
   end,
   keys = {
-    { '<leader>d', '<cmd>silent DiffPullRequest<CR>', desc = 'Diff pull request' },
-    { '<leader>D', '<cmd>silent DiffPullRequestByCommit<CR>', desc = 'Diff pull request by commit' },
+    { '<leader>gd', '<cmd>silent DiffviewOpen<CR>', desc = '[G]it [D]iff' },
+    { '<leader>gfh', '<cmd>silent DiffviewFileHistory<CR>', desc = '[G]it [F]ile [H]istory' },
+    { '<leader>gD', '<cmd>silent DiffPullRequest<CR>', desc = '[G]it [D]iff (pull request)' },
+    { '<leader>gcd', '<cmd>silent DiffPullRequestByCommit<CR>', desc = '[G]it [C]ommit by commit [D]iff (pull request)' },
   },
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffPullRequest', 'DiffPullRequestByCommit' },
 }
