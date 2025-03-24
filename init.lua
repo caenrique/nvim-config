@@ -81,10 +81,10 @@ vim.opt.inccommand = 'split'
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
-require('caenrique.config.lazy') -- setup for lazy.nvim package manager
-require('caenrique.config.keymaps') -- general keymaps
-require('caenrique.config.lsp') -- lsp settings and keymaps that are added when there is an language server attached
-require('caenrique.config.diagnostics') -- diagnostics configuration
-require('caenrique.config.autocommands') -- commnads that run when triggered by a neovim event
+require('caenrique.lazy') -- setup for lazy.nvim package manager
 
 vim.cmd.colorscheme('catppuccin')
+
+-- vim.keymap.set('n', '<leader>r', require('caenrique.config.scala-cli-test-runner').run_test_file)
+vim.keymap.set('n', '<leader>Tw', require('caenrique.scala-cli-test-runner').run_tests_workspace)
+vim.keymap.set('n', '<leader>Ts', require('caenrique.scala-cli-test-runner').run_test_file)

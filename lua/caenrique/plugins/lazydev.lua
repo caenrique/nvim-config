@@ -10,6 +10,7 @@ return {
         'lazy.nvim',
         'snacks.nvim',
         'quicker.nvim',
+        'render-markdown.nvim',
       },
     },
   },

@@ -15,7 +15,21 @@ return {
         },
       },
     },
-    indent = require('caenrique.plugins.snacks.indent'),
+    indent = {
+      enabled = true,
+      ---@class snacks.indent.Scope.Config: snacks.scope.Config
+      indent = {
+        hl = 'SnacksIndentBlank', ---@type string|string[] hl group for scopes
+      },
+      scope = {
+        only_current = true, -- only show scope in the current window
+        hl = 'SnacksIndentChunk', ---@type string|string[] hl group for scopes
+      },
+      -- filter for buffers to enable indent guides
+      filter = function(buf)
+        return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ''
+      end,
+    },
     input = { enabled = true },
     notifier = { timeout = 3000 },
     picker = require('caenrique.plugins.snacks.picker'),
@@ -374,6 +388,11 @@ return {
       function()
         Snacks.picker.lsp_workspace_symbols({
           live = false,
+          matcher = {
+            fuzzy = false,
+            filename_bonus = false,
+            file_pos = false,
+          },
         })
       end,
       desc = 'LSP Workspace Symbols',
@@ -491,8 +510,30 @@ return {
         })
       end,
     },
+    {
+      '<leader>sn',
+      desc = '[S]earch [N]otes',
+      function()
+        Snacks.picker.files({ cwd = '/Users/cesar.enrique/Notes/', title = 'Find Notes' })
+      end,
+    },
+    {
+      '<leader>sgn',
+      desc = '[S]earch [G]rep [N]otes',
+      function()
+        Snacks.picker.grep({ cwd = '/Users/cesar.enrique/Notes/', title = 'Grep Notes' })
+      end,
+    },
   },
   init = function()
+    vim.api.nvim_create_autocmd('FileType', {
+      group = vim.api.nvim_create_augroup('indent_guides_disabled_in_markdown', { clear = true }),
+      pattern = 'markdown',
+      callback = function()
+        vim.b.snacks_indent = false
+      end,
+    })
+
     vim.api.nvim_create_autocmd('User', {
       pattern = 'VeryLazy',
       callback = function()
