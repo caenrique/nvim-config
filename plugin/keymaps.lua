@@ -23,3 +23,7 @@ vim.keymap.set({ 'n', 'x' }, '<leader>p', '"*p')
 vim.keymap.set({ 'n', 'x' }, '<leader>y', '"*y')
 
 vim.keymap.set('n', 'dm', require('caenrique.delete-mark').delete_marks)
+
+vim.keymap.set('n', 'th', '<cmd>tabprev<cr>', { desc = 'Go to the [T]ab to the left' })
+vim.keymap.set('n', 'tl', '<cmd>tabnext<cr>', { desc = 'Go to the [T]ab to the right' })
+vim.keymap.set('n', 'td', '<cmd>tabclose<cr>', { desc = '[T]ab [D]delete' })
