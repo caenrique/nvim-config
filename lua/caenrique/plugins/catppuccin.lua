@@ -31,6 +31,7 @@ return {
         SnacksIndentBlank = { fg = util.blend('#FFFFFF', colors.base, 0.1) },
         GitSignsChange = { fg = colors.blue },
         GitSignsChangeInline = { bg = diff.add.bgText, fg = diff.add.text },
+        BlinkCmpGhostText = { fg = util.darken(colors.text, 0.5), bg = colors.base },
       }
     end,
     integrations = {

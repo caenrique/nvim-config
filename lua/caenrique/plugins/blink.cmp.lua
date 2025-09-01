@@ -1,7 +1,7 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = 'rafamadriz/friendly-snippets',
+  dependencies = { 'rafamadriz/friendly-snippets', { 'xzbdmw/colorful-menu.nvim' } },
 
   -- use a release tag to download pre-built binaries
   version = 'v0.12.3',
@@ -23,16 +23,32 @@ return {
 
     completion = {
       accept = { auto_brackets = { enabled = false } },
-      ghost_text = { enabled = true },
+      ghost_text = {
+        enabled = true,
+      },
       keyword = { range = 'full' },
       list = { selection = { auto_insert = false } },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 500,
+      },
       menu = {
+        auto_show = false,
         max_height = 15,
         draw = {
           columns = {
             { 'kind_icon' },
             { 'label', 'label_description', gap = 1 },
-            { 'source_name' },
+          },
+          components = {
+            label = {
+              width = { fill = true, max = 200 },
+              -- text = function(ctx) return require('colorful-menu').blink_components_text(ctx) end,
+              -- highlight = function(ctx) return require('colorful-menu').blink_components_highlight(ctx) end,
+            },
+            label_description = {
+              width = { fill = true, max = 200 },
+            },
           },
         },
       },

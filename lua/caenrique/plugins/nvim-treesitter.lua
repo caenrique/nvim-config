@@ -17,9 +17,19 @@ return { -- Highlight, edit, and navigate code
       'vim',
       'vimdoc',
       'scala',
+      'pkl',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = 'gnn',
+        node_incremental = 'grn',
+        scope_incremental = 'grc',
+        node_decremental = 'grm',
+      },
+    },
     highlight = {
       enable = true,
       -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.

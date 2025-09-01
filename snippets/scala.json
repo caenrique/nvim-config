@@ -64,5 +64,11 @@
     "prefix": "@main def",
     "body": "@main def ${1:myApp}(${2:arg1: T1, arg2: T2, otherArgs: T*}) =\n\t${0:???}",
     "description": "Main method definition"
+  },
+  "toolkit": {
+    "scope": "scala",
+    "prefix": "toolkit",
+    "body": "//> using toolkit typelevel:latest",
+    "description": "Typelevel toolkit scala-cli using clause"
   }
 }

@@ -4,18 +4,16 @@
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
 
 -- Show which line your cursor is on only on the current window
 local cursorline_group = vim.api.nvim_create_augroup('cursor-line-auto-command', {})
-vim.api.nvim_create_autocmd('WinEnter', {
+vim.api.nvim_create_autocmd({ 'WinEnter', 'InsertLeave' }, {
   group = cursorline_group,
   command = 'set cursorline',
 })
-vim.api.nvim_create_autocmd('WinLeave', {
+vim.api.nvim_create_autocmd({ 'WinLeave', 'InsertEnter' }, {
   group = cursorline_group,
   command = 'set nocursorline',
 })
@@ -23,7 +21,5 @@ vim.api.nvim_create_autocmd('WinLeave', {
 -- keymap for quickfix list to close it qith 'q'
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'qf',
-  callback = function()
-    vim.keymap.set('n', 'q', '<CMD>q<CR>', { buffer = true })
-  end,
+  callback = function() vim.keymap.set('n', 'q', '<CMD>q<CR>', { buffer = true }) end,
 })

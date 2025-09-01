@@ -25,35 +25,24 @@ return {
           },
         },
       },
-      markdown_oxide = {
-        capabilities = {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            },
-          },
-        },
-        on_attach = function(client, _)
-          vim.api.nvim_create_user_command('Daily', function(args)
-            client:exec_cmd({ command = 'jump', arguments = { args.args } })
-          end, { desc = 'Open daily note', nargs = '*' })
-        end,
-      },
     }
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
       'yaml-language-server',
+      'ts_ls',
       'jsonls',
       -- 'marksman',
-      'markdown_oxide',
+      'pkl-lsp',
+      'gopls',
     })
     require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
     require('mason-lspconfig').setup({
       ensure_installed = {}, -- explicitly set to an empty table (installs populated via mason-tool-installer)
       automatic_installation = false,
+      automatic_enable = true,
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
@@ -63,5 +52,11 @@ return {
         end,
       },
     })
+
+    -- pkl-lsp config
+    vim.g.pkl_neovim = {
+      start_command = { vim.fn.stdpath('data') .. '/mason/bin/' .. 'pkl-lsp' },
+      pkl_cli_path = vim.fn.stdpath('data') .. '/mason/packages/',
+    }
   end,
 }

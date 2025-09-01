@@ -9,10 +9,13 @@ return { -- Collection of various small independent plugins/modules
     --  - ci'  - [C]hange [I]nside [']quote
     -- require('mini.ai').setup({ n_lines = 500 })
 
-    -- Add/delete/replace surroundings (brackets, quotes, etc.) - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+    -- Add/delete/replace surroundings (brackets, quotes, etc.)
+    -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
+
+    require('mini.pairs').setup()
 
     require('mini.icons').setup()
     require('mini.bracketed').setup({
@@ -21,16 +24,12 @@ return { -- Collection of various small independent plugins/modules
 
     -- Open Snacks.explorer action to be assigned to a mouse click event
     _G.openExplorerAction = function(_, _, button, _)
-      if button == 'l' then
-        Snacks.explorer()
-      end
+      if button == 'l' then Snacks.explorer() end
     end
 
     -- Open vim.cmd.LspInfo action to be assigned to a mouse click event
     _G.openLspInfo = function(_, _, button, _)
-      if button == 'l' then
-        vim.cmd.LspInfo()
-      end
+      if button == 'l' then vim.cmd.LspInfo() end
     end
 
     local section_projectname = function(_)

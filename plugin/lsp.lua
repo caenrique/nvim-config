@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+    map('<leader>cl', vim.lsp.codelens.run, '[C]ode [L]ens Run', { 'n' })
     map('<leader>r', vim.lsp.buf.rename, '[R]ename', { 'n', 'x' })
 
     local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -36,29 +37,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- LSP Document symbols for breadcrumbs at the winbar
-    if client and client.server_capabilities.documentSymbolProvider then
-      require('nvim-navic').attach(client, event.buf)
-    end
+    if client and client.server_capabilities.documentSymbolProvider then require('nvim-navic').attach(client, event.buf) end
 
     -- LSP folds
-    if client and client.server_capabilities.foldingRangeProvider then
-      vim.opt.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-    end
+    -- if client and client.server_capabilities.foldingRangeProvider then vim.opt_local.foldexpr = 'v:lua.vim.lsp.foldexpr()' end
 
     -- LSP inlay hints
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-      map('<leader>th', function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-      end, '[T]oggle Inlay [H]ints')
+      map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })) end, '[T]oggle Inlay [H]ints')
     end
 
     -- LPS code lenses
     if client and client.server_capabilities.codeLensProvider then
       vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'CursorHold', 'LspAttach', 'BufEnter' }, {
         buffer = event.buf,
-        callback = function()
-          vim.lsp.codelens.refresh({ bufnr = 0 })
-        end,
+        callback = function() vim.lsp.codelens.refresh({ bufnr = 0 }) end,
       })
     end
   end,

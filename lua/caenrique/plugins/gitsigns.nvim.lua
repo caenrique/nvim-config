@@ -40,16 +40,18 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       end
 
       -- Navigation
-      map('n', ']c', function()
-        gitsigns.nav_hunk('next')
-      end, { desc = 'Next Hunk' })
+      map('n', ']c', function() gitsigns.nav_hunk('next') end, { desc = 'Next Hunk' })
 
-      map('n', '[c', function()
-        gitsigns.nav_hunk('prev')
-      end, { desc = 'Prev Hunk' })
-      map('n', '<leader>K', function()
-        require('gitsigns').preview_hunk_inline()
-      end, { desc = 'Show hunk diff inline' })
+      map('n', '[c', function() gitsigns.nav_hunk('prev') end, { desc = 'Prev Hunk' })
+      map('n', '<leader>K', function() require('gitsigns').preview_hunk_inline() end, { desc = 'Show hunk diff inline' })
+
+      -- Hunk Actions
+      map('n', '<leader>hs', gitsigns.stage_hunk)
+      map('n', '<leader>hr', gitsigns.reset_hunk)
+
+      map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+
+      map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
     end,
   },
   specs = {

@@ -1,6 +1,6 @@
 return {
   'scalameta/nvim-metals',
-  dependencies = 'nvim-lua/plenary.nvim',
+  dependencies = { 'mfussenegger/nvim-dap' },
   dev = false,
   ft = { 'scala', 'sbt', 'java' },
   config = function()
@@ -31,33 +31,37 @@ return {
     metals_config.capabilities = capabilities
     metals_config.init_options.statusBarProvider = 'off'
     metals_config.settings = {
-      showImplicitArguments = true,
-      showInferredType = true,
       excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
       enableSemanticHighlighting = true,
       defaultBspToBuildTool = true,
       autoImportBuild = 'all',
+      superMethodLensesEnabled = true,
+      inlayHints = {
+        byNameParameters = { enable = true },
+        hintsInPatternMatch = { enable = true },
+        implicitArguments = { enable = true },
+        implicitConversions = { enable = true },
+        inferredTypes = { enable = true },
+        typeParameters = { enable = true },
+      },
       -- serverVersion = '1.4.2+80-2b937bb1-SNAPSHOT',
     }
 
     metals_config.on_attach = function(_, bufnr)
+      require('metals').setup_dap()
       metals_keymaps(bufnr)
     end
 
     vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'scala', 'sbt', 'java' },
-      callback = function()
-        require('metals').initialize_or_attach(metals_config)
-      end,
+      callback = function() require('metals').initialize_or_attach(metals_config) end,
       group = nvim_metals_group,
     })
   end,
   keys = {
     {
       '<leader>mc',
-      function()
-        require('metals').commands()
-      end,
+      function() require('metals').commands() end,
       desc = 'Command palette for Metals',
     },
   },

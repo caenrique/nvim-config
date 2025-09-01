@@ -11,6 +11,7 @@ return {
         'snacks.nvim',
         'quicker.nvim',
         'render-markdown.nvim',
+        'nvim-dap-view',
       },
     },
   },
