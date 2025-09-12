@@ -12,6 +12,7 @@ return {
         'quicker.nvim',
         'render-markdown.nvim',
         'nvim-dap-view',
+        'smart-splits.nvim',
       },
     },
   },

@@ -1,36 +1,8 @@
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
   config = function()
-    -- Better Around/Inside textobjects
-    --
-    -- Examples:
-    --  - va)  - [V]isually select [A]round [)]paren
-    --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-    --  - ci'  - [C]hange [I]nside [']quote
-    -- require('mini.ai').setup({ n_lines = 500 })
-
-    -- Add/delete/replace surroundings (brackets, quotes, etc.)
-    -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-    -- - sd'   - [S]urround [D]elete [']quotes
-    -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
-
-    require('mini.pairs').setup()
-
     require('mini.icons').setup()
-    require('mini.bracketed').setup({
-      comment = { suffix = '', options = {} },
-    })
-
-    -- Open Snacks.explorer action to be assigned to a mouse click event
-    _G.openExplorerAction = function(_, _, button, _)
-      if button == 'l' then Snacks.explorer() end
-    end
-
-    -- Open vim.cmd.LspInfo action to be assigned to a mouse click event
-    _G.openLspInfo = function(_, _, button, _)
-      if button == 'l' then vim.cmd.LspInfo() end
-    end
 
     local section_projectname = function(_)
       local icon = ' '
@@ -48,9 +20,7 @@ return { -- Collection of various small independent plugins/modules
       end
 
       local trail = cwd:sub(-1) == '/' and '' or '/'
-      local clickRegionStart = '%@v:lua.openExplorerAction@'
-      local clickRegionEnd = '%X'
-      return clickRegionStart .. icon .. cwd .. trail .. clickRegionEnd
+      return icon .. cwd .. trail
     end
 
     local statusline = require('mini.statusline')
@@ -71,10 +41,8 @@ return { -- Collection of various small independent plugins/modules
             for _, server in pairs(vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
               table.insert(names, server.name)
             end
-            local clickRegionStart = '%@v:lua.openLspInfo@'
-            local clickRegionEnd = '%X'
 
-            return #names > 0 and clickRegionStart .. ' ' .. table.concat(names, ' ') .. clickRegionEnd or ''
+            return #names > 0 and ' ' .. table.concat(names, ' ') or ''
           end
           local location = 'Ln %l, Col %v'
           local search = function()

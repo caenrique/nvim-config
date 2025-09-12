@@ -1,7 +1,7 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = { 'rafamadriz/friendly-snippets', { 'xzbdmw/colorful-menu.nvim' } },
+  dependencies = { 'rafamadriz/friendly-snippets', { 'xzbdmw/colorful-menu.nvim' }, { 'ribru17/blink-cmp-spell' } },
 
   -- use a release tag to download pre-built binaries
   version = 'v0.12.3',
@@ -67,13 +67,34 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lazydev', 'lsp', 'path', 'snippets', 'spell', 'buffer' },
       providers = {
         lazydev = {
           name = 'LazyDev',
           module = 'lazydev.integrations.blink',
           -- make lazydev completions top priority (see `:h blink.cmp`)
           score_offset = 100,
+        },
+        spell = {
+          name = 'Spell',
+          module = 'blink-cmp-spell',
+          opts = {
+            -- EXAMPLE: Only enable source in `@spell` captures, and disable it
+            -- in `@nospell` captures.
+            enable_in_context = function()
+              local curpos = vim.api.nvim_win_get_cursor(0)
+              local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
+              local in_spell_capture = false
+              for _, cap in ipairs(captures) do
+                if cap.capture == 'spell' then
+                  in_spell_capture = true
+                elseif cap.capture == 'nospell' then
+                  return false
+                end
+              end
+              return in_spell_capture
+            end,
+          },
         },
       },
     },

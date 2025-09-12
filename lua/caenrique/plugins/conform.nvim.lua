@@ -4,10 +4,8 @@ return { -- Autoformat
   cmd = { 'ConformInfo' },
   keys = {
     {
-      '<leader>f',
-      function()
-        require('conform').format({ async = true, lsp_format = 'fallback' })
-      end,
+      '<C-f>',
+      function() require('conform').format({ async = true, lsp_format = 'fallback' }) end,
       mode = '',
       desc = '[F]ormat buffer',
     },
@@ -45,9 +43,7 @@ return { -- Autoformat
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
-      if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-        return
-      end
+      if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
       local disable_filetypes = { c = false, cpp = false }
       return {
         timeout_ms = 500,

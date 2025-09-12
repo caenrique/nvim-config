@@ -52,6 +52,11 @@ return {
       metals_keymaps(bufnr)
     end
 
+    metals_config.cmd_env = {
+      COURSIER_REPOSITORIES = os.getenv('COURSIER_REPOSITORIES'),
+      COURSIER_CREDENTIALS = os.getenv('COURSIER_CREDENTIALS'),
+    }
+
     vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'scala', 'sbt', 'java' },
       callback = function() require('metals').initialize_or_attach(metals_config) end,

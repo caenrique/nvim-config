@@ -5,7 +5,6 @@ return {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.
     { 'williamboman/mason.nvim', opts = {} },
-    'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
 
     -- Useful status updates for LSP.
@@ -29,28 +28,18 @@ return {
 
     require('mason-tool-installer').setup({
       ensure_installed = {
-        'lua_ls',
-        'stylua', -- Used to format Lua code
+        'lua-language-server',
         'yaml-language-server',
-        'ts_ls',
-        'jsonls',
+        'typescript-language-server',
+        'json-lsp',
+        'markdown-oxide',
         'pkl-lsp',
-        'gopls',
+        'stylua', -- Used to format Lua code
+        'zk', -- note taking cli tool
       },
     })
 
-    require('mason-lspconfig').setup({
-      ensure_installed = {}, -- explicitly set to an empty table (installs populated via mason-tool-installer)
-      automatic_enable = true,
-      -- handlers = {
-      --   function(server_name)
-      --     local server = servers[server_name] or {}
-      --     server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-      --     server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
-      --     require('lspconfig')[server_name].setup(server)
-      --   end,
-      -- },
-    })
+    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls' })
 
     -- pkl-lsp config
     vim.g.pkl_neovim = {
