@@ -25,7 +25,12 @@ return {
         },
       }
 
-      vim.keymap.set('n', '<leader>dt', function() require('dap').toggle_breakpoint() end, { desc = 'Dap Toggle Breakpoint' })
+      vim.keymap.set(
+        'n',
+        '<leader>dt',
+        function() require('dap').toggle_breakpoint() end,
+        { desc = 'Dap Toggle Breakpoint' }
+      )
       vim.keymap.set('n', '<leader>dc', function() require('dap').continue() end, { desc = 'Dap Continue' })
       vim.keymap.set('n', '<leader>dr', function() require('dap').repl.toggle() end, { desc = 'Dap Repl Toggle' })
       vim.keymap.set('n', '<leader>dK', function() require('dap.ui.widgets').hover() end, { desc = 'Dap Hover' })
@@ -40,7 +45,7 @@ return {
     ---@type dapview.Config
     opts = {
       winbar = {
-        sections = { 'repl', 'watches', 'scopes', 'breakpoints', 'threads' },
+        sections = { 'breakpoints', 'console', 'repl', 'watches', 'scopes', 'threads' },
         -- Must be one of the sections declared above (except for "console")
         default_section = 'repl',
         controls = {

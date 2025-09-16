@@ -36,6 +36,63 @@ return {
     --- @field edit? boolean
     --- @field type? note_type
     --- @field tags? string[]
+    ---
+    --- @class PrivateCreateNoteParams : CreateNoteParams
+    --- @field title string
+    --- @field content? string[]
+    --- @field range? boolean
+
+    --- Create a new note
+    --- @param params PrivateCreateNoteParams
+    local function _create_note(params)
+      if params.title == '' then return end
+
+      local cleaned_title = params.title:gsub('%s+#.*$', '')
+
+      local commandOptions = {
+        title = cleaned_title,
+        edit = true,
+        -- group = NOTE_TYPE.default,
+        insertLinkAtLocation = util.get_lsp_location_from_caret(),
+      }
+
+      if params.range ~= nil and params.range then
+        commandOptions.insertLinkAtLocation = util.get_lsp_location_from_selection()
+      end
+
+      if params.edit ~= nil then commandOptions.edit = params.edit end
+      if params.type ~= nil then commandOptions.group = params.type end
+      if params.insertLink ~= nil and not params.insertLink then commandOptions.insertLinkAtLocation = nil end
+
+      if params.content ~= nil then
+        commandOptions.content = table.concat(params.content, '\n')
+        if commandOptions.insertLinkAtLocation ~= nil then
+          commandOptions.insertLinkAtLocation = util.get_lsp_location_from_selection()
+        end
+      end
+
+      local tags = params.tags or {}
+      for tag in params.title:gmatch('%s+(#%S+)') do
+        table.insert(tags, tag)
+      end
+
+      if next(tags) ~= nil then commandOptions.extra = { tags = table.concat(tags, ' ') } end
+
+      vim.notify(vim.inspect(commandOptions))
+
+      local path = nil
+      if params.type == NOTE_TYPE.daily then path = vim.fn.expand('~') .. '/Notes/daily' end
+
+      vim.notify(path)
+
+      require('zk.api').new(path, commandOptions, function(err, res)
+        if err then
+          vim.notify(vim.inspect(err))
+        else
+          vim.notify('Note created at ' .. res.path)
+        end
+      end)
+    end
 
     --- Create a new note
     --- @param params? CreateNoteParams
@@ -43,51 +100,15 @@ return {
       params = params or {}
 
       local selected_text = get_selected_text()
-      vim.ui.input({ prompt = 'Note title:' }, function(title)
-        if title == nil or title == '' then return end
 
-        local cleaned_title = title:gsub('%s+#.*$', '')
-
-        local commandOptions = {
-          title = cleaned_title,
-          edit = true,
-          -- group = NOTE_TYPE.default,
-          insertLinkAtLocation = util.get_lsp_location_from_caret(),
-        }
-
-        if params.edit ~= nil then commandOptions.edit = params.edit end
-        if params.type ~= nil then commandOptions.group = params.type end
-        if params.insertLink ~= nil and not params.insertLink then commandOptions.insertLinkAtLocation = nil end
-
-        if selected_text ~= nil then
-          commandOptions.content = table.concat(selected_text, '\n')
-          if commandOptions.insertLinkAtLocation ~= nil then
-            commandOptions.insertLinkAtLocation = util.get_lsp_location_from_selection()
-          end
-        end
-
-        local tags = params.tags or {}
-        for tag in title:gmatch('%s+(#%S+)') do
-          table.insert(tags, tag)
-        end
-
-        if next(tags) ~= nil then commandOptions.extra = { tags = table.concat(tags, ' ') } end
-
-        vim.notify(vim.inspect(commandOptions))
-
-        local path = nil
-        if params.type == NOTE_TYPE.daily then path = vim.fn.expand('~') .. '/Notes/daily' end
-
-        vim.notify(path)
-
-        require('zk.api').new(path, commandOptions, function(err, res)
-          if err then
-            vim.notify(vim.inspect(err))
-          else
-            vim.notify('Note created at ' .. res.path)
-          end
-        end)
-      end)
+      if params and params.type == NOTE_TYPE.source and selected_text then
+        _create_note(vim.tbl_extend('force', params, { title = selected_text[1], range = true, insertLink = true }))
+      else
+        vim.ui.input(
+          { prompt = 'Note title:' },
+          function(title) _create_note(vim.tbl_extend('keep', params, { title = title, content = selected_text })) end
+        )
+      end
     end
 
     vim.api.nvim_create_user_command(
@@ -123,20 +144,26 @@ return {
     vim.keymap.set(
       { 'n', 'x', 'v' },
       '<leader>nn',
-      create_note,
-      { desc = '[N]otes: Create a new [N]ote and insert a link here' }
+      function() create_note({ insertLink = false }) end,
+      { desc = '[N]otes: Create a new [N]ote' }
     )
     vim.keymap.set(
       { 'n', 'x', 'v' },
       '<leader>nN',
-      function() create_note({ insertLink = false }) end,
-      { desc = '[N]otes: Create a new [N]ote without inserting a link' }
+      create_note,
+      { desc = '[N]otes: Create a new [N]ote and insert a link' }
     )
     vim.keymap.set(
       { 'n', 'x', 'v' },
       '<leader>ns',
-      function() create_note({ type = NOTE_TYPE.source }) end,
+      function() create_note({ type = NOTE_TYPE.source, insertLink = false }) end,
       { desc = '[N]otes: Create a new [S]ource note' }
+    )
+    vim.keymap.set(
+      { 'n', 'x', 'v' },
+      '<leader>nS',
+      function() create_note({ type = NOTE_TYPE.source }) end,
+      { desc = '[N]otes: Create a new [S]ource note and insert a Link' }
     )
     vim.keymap.set('n', '<leader>nl', ':ZkInsertLink<CR>', { desc = '[N]otes: Insert a [L]ink' })
     vim.keymap.set('n', '<leader>nt', ':ZkTags<CR>', { desc = '[N]otes: search by [T]ag' })

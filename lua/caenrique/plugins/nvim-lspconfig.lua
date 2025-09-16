@@ -36,6 +36,7 @@ return {
         'pkl-lsp',
         'stylua', -- Used to format Lua code
         'zk', -- note taking cli tool
+        'rust-analyzer',
       },
     })
 
