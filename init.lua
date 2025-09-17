@@ -17,9 +17,10 @@ vim.opt.diffopt = {
   'internal',
   'closeoff',
   'filler',
-  -- "linematch:60",
-  'algorithm:myers',
-  -- "indent-heuristic",
+  'linematch:60',
+  'algorithm:histogram',
+  'inline:simple',
+  'indent-heuristic',
 }
 
 vim.opt_global.fillchars:append({
