@@ -4,28 +4,8 @@ return { -- Collection of various small independent plugins/modules
     require('mini.surround').setup()
     require('mini.icons').setup()
 
-    local section_projectname = function(_)
-      local icon = ' '
-      local cwd = vim.fn.getcwd(0)
-      cwd = vim.fn.fnamemodify(cwd, ':~')
-
-      local _, _, domain, org, dir = cwd:find('~/Projects/([^/]+)/([^/]+)/([^/]+)')
-
-      if domain and org and dir then
-        if domain == 'ghe.siriusxm.com' then
-          cwd = org .. '/' .. dir
-        else
-          cwd = domain .. '/' .. org .. '/' .. dir
-        end
-      end
-
-      local trail = cwd:sub(-1) == '/' and '' or '/'
-      return icon .. cwd .. trail
-    end
-
-    local statusline = require('mini.statusline')
     -- set use_icons to true if you have a Nerd Font
-    statusline.setup({
+    require('mini.statusline').setup({
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
@@ -33,7 +13,26 @@ return { -- Collection of various small independent plugins/modules
           local diagnostics = MiniStatusline.section_diagnostics({
             trunc_width = 75,
           })
-          local projectname = section_projectname()
+
+          local projectname = function(_)
+            local icon = ' '
+            local cwd = vim.fn.getcwd(0)
+            cwd = vim.fn.fnamemodify(cwd, ':~')
+
+            local _, _, domain, org, dir = cwd:find('~/Projects/([^/]+)/([^/]+)/([^/]+)')
+
+            if domain and org and dir then
+              if domain == 'ghe.siriusxm.com' then
+                cwd = org .. '/' .. dir
+              else
+                cwd = domain .. '/' .. org .. '/' .. dir
+              end
+            end
+
+            local trail = cwd:sub(-1) == '/' and '' or '/'
+            return icon .. cwd .. trail
+          end
+
           local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
 
           local lsp_servers = function()
