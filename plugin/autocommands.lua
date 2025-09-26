@@ -48,3 +48,13 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     if vim.fn.isdirectory(dir) == 0 then vim.fn.mkdir(dir, 'p') end
   end,
 })
+
+-- Wezterm integration -> Set tab title to neovim
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function() Wezterm.set_tab_title('neovim') end,
+  group = group,
+})
+vim.api.nvim_create_autocmd('VimLeave', {
+  callback = function() Wezterm.set_tab_title('') end,
+  group = group,
+})
