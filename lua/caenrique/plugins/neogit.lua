@@ -7,11 +7,10 @@ return {
   opts = {
     disable_context_highlighting = true,
     -- graph_style = 'ascii',
-    process_pinner = true,
+    process_spinner = true,
     commit_date_format = vim.fn.strftime('%c'),
     log_date_format = vim.fn.strftime('%c'),
-    remember_settings = false,
-    auto_refresh = false,
+    auto_refresh = true,
     kind = 'split_below',
     git_services = {
       ['github.com'] = 'https://github.com/${owner}/${repository}/compare/${branch_name}?expand=1',
@@ -23,16 +22,8 @@ return {
     },
     console_timeout = 5000,
     commit_editor = {
-      kind = 'vsplit',
+      kind = 'auto',
       show_staged_diff = false,
-      -- Accepted values:
-      -- "split" to show the staged diff below the commit editor
-      -- "vsplit" to show it to the right
-      -- "split_above" Like :top split
-      -- "vsplit_left" like :vsplit, but open to the left
-      -- "auto" "vsplit" if window would have 80 cols, otherwise "split"
-      -- staged_diff_split_kind = 'split',
-      spell_check = true,
     },
   },
   keys = {
