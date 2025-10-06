@@ -12,7 +12,7 @@ return {
     log_date_format = vim.fn.strftime('%c'),
     remember_settings = false,
     auto_refresh = false,
-    -- kind = 'floating',
+    kind = 'split_below',
     git_services = {
       ['github.com'] = 'https://github.com/${owner}/${repository}/compare/${branch_name}?expand=1',
       ['ghe.siriusxm.com'] = 'https://ghe.siriusxm.com/${owner}/${repository}/compare/${branch_name}?expand=1',
@@ -23,7 +23,6 @@ return {
     },
   },
   keys = {
-
     { '<leader>gg', function() require('neogit').open() end, desc = 'Git status buffer' },
   },
 }

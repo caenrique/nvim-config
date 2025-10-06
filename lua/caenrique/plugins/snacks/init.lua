@@ -67,6 +67,7 @@ return {
     -- Other
     { '<leader>N', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
     { '<c-/>', function() Snacks.terminal() end, desc = 'Toggle Terminal' },
+    { '<leader>gb', function() Snacks.gitbrowse() end, desc = 'Browse file on Remote' },
   },
   init = function()
     vim.api.nvim_create_autocmd('FileType', {
