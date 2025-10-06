@@ -28,9 +28,7 @@ return {
     cycle = true,
     hidden = { 'preview' },
     --- Use the default layout or vertical if the window is too narrow
-    preset = function()
-      return vim.o.columns >= 160 and 'default' or 'vertical'
-    end,
+    preset = function() return vim.o.columns >= 160 and 'default' or 'vertical' end,
   },
   layouts = {
     vertical = {

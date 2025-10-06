@@ -78,3 +78,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
+local capabilities = {
+  workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+  },
+}
+capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+
+vim.lsp.config('*', {
+  capabilities = capabilities,
+})

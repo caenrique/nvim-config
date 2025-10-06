@@ -37,10 +37,11 @@ return {
         'stylua', -- Used to format Lua code
         'zk', -- note taking cli tool
         'rust-analyzer',
+        'terraform-ls',
       },
     })
 
-    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls' })
+    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls', 'terraformls' })
 
     -- pkl-lsp config
     vim.g.pkl_neovim = {
