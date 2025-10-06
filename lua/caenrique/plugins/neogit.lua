@@ -21,6 +21,7 @@ return {
       snacks = true,
       diffview = true,
     },
+    console_timeout = 5000,
   },
   keys = {
     { '<leader>gg', function() require('neogit').open() end, desc = 'Git status buffer' },
