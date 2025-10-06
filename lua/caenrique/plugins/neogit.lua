@@ -19,6 +19,7 @@ return {
     },
     integrations = {
       snacks = true,
+      diffview = true,
     },
   },
   keys = {
