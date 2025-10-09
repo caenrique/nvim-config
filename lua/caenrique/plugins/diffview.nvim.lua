@@ -6,9 +6,7 @@ return {
 
     require('diffview').setup({
       hooks = {
-        diff_buf_read = function()
-          vim.opt_local.wrap = false
-        end,
+        diff_buf_read = function() vim.opt_local.wrap = false end,
         view_opened = function(view)
           local utils = require('caenrique.tbl_utils')
           local function post_layout()
@@ -42,7 +40,7 @@ return {
           layout = 'diff2_horizontal',
         },
         merge_tool = {
-          layout = 'diff3_mixed',
+          layout = 'diff1_plain',
         },
       },
       file_panel = {
@@ -90,7 +88,11 @@ return {
       },
     })
 
-    vim.api.nvim_create_user_command('DiffPullRequest', 'DiffviewOpen origin/HEAD...HEAD --imply-local --minimal --no-indent-heuristic', {})
+    vim.api.nvim_create_user_command(
+      'DiffPullRequest',
+      'DiffviewOpen origin/HEAD...HEAD --imply-local --minimal --no-indent-heuristic',
+      {}
+    )
     vim.api.nvim_create_user_command(
       'DiffPullRequestByCommit',
       'DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges',
@@ -101,7 +103,11 @@ return {
     { '<leader>gd', '<cmd>silent DiffviewOpen<CR>', desc = '[G]it [D]iff' },
     { '<leader>gfh', '<cmd>silent DiffviewFileHistory<CR>', desc = '[G]it [F]ile [H]istory' },
     { '<leader>gD', '<cmd>silent DiffPullRequest<CR>', desc = '[G]it [D]iff (pull request)' },
-    { '<leader>gcd', '<cmd>silent DiffPullRequestByCommit<CR>', desc = '[G]it [C]ommit by commit [D]iff (pull request)' },
+    {
+      '<leader>gcd',
+      '<cmd>silent DiffPullRequestByCommit<CR>',
+      desc = '[G]it [C]ommit by commit [D]iff (pull request)',
+    },
   },
   cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffPullRequest', 'DiffPullRequestByCommit' },
 }

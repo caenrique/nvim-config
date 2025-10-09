@@ -7,14 +7,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank() end,
 })
 
+local ignore_filetypes = { 'neo-tree' }
 -- Show which line your cursor is on only on the current window
 vim.api.nvim_create_autocmd({ 'WinEnter', 'InsertLeave' }, {
   group = group,
-  command = 'set cursorline',
+  callback = function()
+    if not vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then vim.wo.cursorline = true end
+  end,
 })
 vim.api.nvim_create_autocmd({ 'WinLeave', 'InsertEnter' }, {
   group = group,
-  command = 'set nocursorline',
+  callback = function()
+    if not vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then vim.wo.cursorline = false end
+  end,
 })
 
 -- keymap for quickfix list to close it qith 'q'

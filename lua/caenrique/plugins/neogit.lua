@@ -6,7 +6,6 @@ return {
   },
   opts = {
     disable_context_highlighting = true,
-    -- graph_style = 'ascii',
     process_spinner = true,
     commit_date_format = vim.fn.strftime('%c'),
     log_date_format = vim.fn.strftime('%c'),
@@ -25,6 +24,7 @@ return {
       kind = 'auto',
       show_staged_diff = false,
     },
+    commit_order = '',
   },
   keys = {
     { '<leader>gg', function() require('neogit').open() end, desc = 'Git status buffer' },

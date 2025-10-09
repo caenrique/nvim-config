@@ -4,7 +4,7 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = require('caenrique.plugins.snacks.dashboard'),
-    explorer = { enabled = true },
+    -- explorer = { enabled = true },
     gitbrowse = {
       url_patterns = {
         ['ghe.siriusxm.com'] = {
@@ -42,8 +42,8 @@ return {
     { '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
     { '<leader>,', function() Snacks.picker.buffers() end, desc = 'Buffers' },
     { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep' },
-    { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
-    { '<leader>E', function() Snacks.explorer.reveal() end, desc = 'File Explorer' },
+    -- { '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
+    -- { '<leader>E', function() Snacks.explorer.reveal() end, desc = 'File Explorer' },
     -- find
     { '<leader>f', function() Snacks.picker.files() end, desc = 'Find Files' },
     -- Grep
