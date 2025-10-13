@@ -28,6 +28,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       virt_text_priority = 10000,
       use_focus = true,
     },
+    current_line_blame_formatter = '  <summary>, <author>, <author_time:%R>',
     -- signs_staged_enable = false,
     -- culhl = true,
     on_attach = function(bufnr)
@@ -43,7 +44,12 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       map('n', ']c', function() gitsigns.nav_hunk('next') end, { desc = 'Next Hunk' })
 
       map('n', '[c', function() gitsigns.nav_hunk('prev') end, { desc = 'Prev Hunk' })
-      map('n', '<leader>K', function() require('gitsigns').preview_hunk_inline() end, { desc = 'Show hunk diff inline' })
+      map(
+        'n',
+        '<leader>K',
+        function() require('gitsigns').preview_hunk_inline() end,
+        { desc = 'Show hunk diff inline' }
+      )
 
       -- Hunk Actions
       map('n', '<leader>hs', gitsigns.stage_hunk)
@@ -52,6 +58,11 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
 
       map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+
+      map('n', '<leader>gcc', function()
+        local blame = vim.b.gitsigns_blame_line_dict
+        vim.cmd.DiffviewOpen(blame.sha)
+      end)
     end,
   },
   specs = {
@@ -62,8 +73,10 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
         custom_section = function()
           local gitstatus = vim.b.gitsigns_status_dict or {}
           local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
-          local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed .. ' ' or ''
-          local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed .. ' ' or ''
+          local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed .. ' '
+            or ''
+          local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed .. ' '
+            or ''
           return add .. changed .. deleted
         end,
       },
