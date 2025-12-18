@@ -31,6 +31,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
     current_line_blame_formatter = '  <summary>, <author>, <author_time:%R>',
     -- signs_staged_enable = false,
     -- culhl = true,
+    gh = true,
     on_attach = function(bufnr)
       local gitsigns = require('gitsigns')
 
@@ -52,35 +53,63 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       )
 
       -- Hunk Actions
-      map('n', '<leader>hs', gitsigns.stage_hunk)
-      map('n', '<leader>hr', gitsigns.reset_hunk)
+      map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[H]unk [S]tage' })
+      map('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[H]unk [R]reset' })
 
-      map('v', '<leader>hs', function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+      map(
+        'v',
+        '<leader>hs',
+        function() gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end,
+        { desc = '[H]unk [S]tage' }
+      )
 
-      map('v', '<leader>hr', function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end)
+      map(
+        'v',
+        '<leader>hr',
+        function() gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end,
+        { desc = '[H]unk [R]reset' }
+      )
 
-      map('n', '<leader>gcc', function()
+      map('n', '<leader>gbC', function()
         local blame = vim.b.gitsigns_blame_line_dict
-        vim.cmd.DiffviewOpen(blame.sha)
-      end)
+        if blame and blame.sha then vim.cmd.DiffviewOpen(blame.sha .. '^!') end
+      end, { desc = 'Blame commit in DiffView' })
+
+      map('n', '<leader>gbc', function()
+        local blame = vim.b.gitsigns_blame_line_dict
+        if blame and blame.sha then
+          require('gitsigns').show_commit(blame.sha, 'vsplit', function()
+            local commit_bufnr = vim.api.nvim_get_current_buf()
+            vim.opt_local.number = false
+            vim.opt_local.wrap = false
+            vim.keymap.set({ 'n', 'v', 'x' }, 'q', '<C-W>q', { desc = 'Close current window', buffer = commit_bufnr })
+            vim.keymap.set(
+              { 'n' },
+              '<leader>gd',
+              '<cmd>DiffviewOpen ' .. blame.sha .. '^!<CR>',
+              { desc = 'Close current window', buffer = commit_bufnr }
+            )
+          end)
+        end
+      end, { desc = 'Blame commit in split window' })
     end,
   },
-  specs = {
-    {
-      'utilyre/barbecue.nvim',
-      name = 'barbecue',
-      opts = {
-        custom_section = function()
-          local gitstatus = vim.b.gitsigns_status_dict or {}
-          local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
-          local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed .. ' '
-            or ''
-          local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed .. ' '
-            or ''
-          return add .. changed .. deleted
-        end,
-      },
-    },
-  },
+  -- specs = {
+  --   {
+  --     'utilyre/barbecue.nvim',
+  --     name = 'barbecue',
+  --     opts = {
+  --       custom_section = function()
+  --         local gitstatus = vim.b.gitsigns_status_dict or {}
+  --         local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
+  --         local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed .. ' '
+  --           or ''
+  --         local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed .. ' '
+  --           or ''
+  --         return add .. changed .. deleted
+  --       end,
+  --     },
+  --   },
+  -- },
   lazy = false,
 }
