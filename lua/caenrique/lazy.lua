@@ -26,6 +26,12 @@ require('lazy').setup({
   spec = {
     -- import your plugins
     { import = 'caenrique.plugins' },
+    { import = 'caenrique.plugins.git' },
+    { import = 'caenrique.plugins.http' },
+    { import = 'caenrique.plugins.lsp' },
+    { import = 'caenrique.plugins.markdown' },
+    { import = 'caenrique.plugins.sessions' },
+    { import = 'caenrique.plugins.ui' },
   },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {

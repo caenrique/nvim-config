@@ -8,12 +8,14 @@ return {
     local current_line = cursor[1]
     local current_buffer = vim.api.nvim_get_current_buf()
 
-    for _, mark in ipairs({ unpack(global_marks), unpack(local_marks) }) do
+    local all_marks = require('caenrique.tbl_utils').vec_union(global_marks, local_marks)
+
+    for _, mark in ipairs(all_marks) do
       local buffer = mark.pos[1]
       local line = mark.pos[2]
 
       if buffer == current_buffer and line == current_line then
-        vim.notify('Deleting mark ' .. mark.mark)
+        vim.notify('Deleting mark ' .. mark.mark:sub(2))
         vim.cmd.delmarks(mark.mark:sub(2))
       end
     end

@@ -6,7 +6,12 @@ return {
 
     require('diffview').setup({
       hooks = {
-        diff_buf_read = function() vim.opt_local.wrap = false end,
+        diff_buf_read = function(buf, _)
+          vim.opt_local.wrap = false
+          vim.b[buf].snacks_indent = false
+        end,
+        view_enter = function() require('gitsigns').toggle_signs(false) end,
+        view_leave = function() require('gitsigns').toggle_signs(true) end,
         view_opened = function(view)
           local utils = require('caenrique.tbl_utils')
           local function post_layout()
@@ -16,14 +21,14 @@ return {
             view.winopts.diff2.a = utils.tbl_union_extend(view.winopts.diff2.a, {
               winhl = {
                 'DiffChange:DiffDelete',
-                'DiffText:DiffDeleteText',
+                'DiffText:GitSignsDeleteInline',
               },
             })
             -- right
             view.winopts.diff2.b = utils.tbl_union_extend(view.winopts.diff2.b, {
               winhl = {
                 'DiffChange:DiffAdd',
-                'DiffText:DiffAddText',
+                'DiffText:GitSignsAddInline',
               },
             })
           end
@@ -38,10 +43,15 @@ return {
           winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
           -- Config for changed files, and staged files in diff views.
           layout = 'diff2_horizontal',
+          disable_diagnostics = true,
         },
         merge_tool = {
           layout = 'diff1_plain',
         },
+      },
+      default_args = {
+        DiffviewOpen = { '--untracked-files=no', '--imply-local' },
+        DiffviewFileHistory = { '--base=LOCAL' },
       },
       file_panel = {
         listing_style = 'list', -- One of 'list' or 'tree'

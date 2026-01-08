@@ -20,10 +20,11 @@ return {
         'rust-analyzer',
         'terraform-ls',
         'jdtls',
+        'lemminx',
       },
     })
 
-    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls', 'terraformls' })
+    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls', 'terraformls', 'lemminx' })
 
     -- pkl-lsp config
     vim.g.pkl_neovim = {

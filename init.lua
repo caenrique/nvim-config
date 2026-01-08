@@ -18,14 +18,16 @@ vim.opt.diffopt = {
   'closeoff',
   'filler',
   'linematch:60',
-  'algorithm:histogram',
-  'inline:simple',
-  'indent-heuristic',
+  -- 'algorithm:myers',
+  'inline:word',
+  'iwhiteeol',
+  -- 'indent-heuristic',
 }
 
 vim.opt_global.fillchars:append({
   eob = ' ',
   fold = ' ',
+  diff = '╱',
 })
 
 vim.opt.foldlevel = 99
@@ -82,10 +84,16 @@ vim.opt.inccommand = 'split'
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Enable experimental tui featues
+-- require('vim._extui').enable({ enable = true, msg = { target = 'msg' } })
+
 require('caenrique.lazy') -- setup for lazy.nvim package manager
+
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 vim.cmd.colorscheme('catppuccin')
 
 -- vim.keymap.set('n', '<leader>r', require('caenrique.config.scala-cli-test-runner').run_test_file)
-vim.keymap.set('n', '<leader>Tw', require('caenrique.scala-cli-test-runner').run_tests_workspace)
-vim.keymap.set('n', '<leader>Ts', require('caenrique.scala-cli-test-runner').run_test_file)
+-- vim.keymap.set('n', '<leader>Tw', require('caenrique.scala-cli-test-runner').run_tests_workspace)
+-- vim.keymap.set('n', '<leader>Ts', require('caenrique.scala-cli-test-runner').run_test_file)

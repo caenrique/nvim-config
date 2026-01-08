@@ -19,6 +19,7 @@ return { -- Highlight, edit, and navigate code
       'vimdoc',
       'scala',
       'pkl',
+      'tmux',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

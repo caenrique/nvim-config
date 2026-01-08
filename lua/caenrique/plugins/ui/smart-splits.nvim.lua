@@ -1,7 +1,7 @@
 return {
   'mrjones2014/smart-splits.nvim',
   opts = {
-    log_level = 'debug',
+    -- log_level = 'debug',
     cursor_follows_swapped_bufs = true,
   },
   lazy = false,

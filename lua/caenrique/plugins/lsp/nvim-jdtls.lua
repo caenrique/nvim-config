@@ -13,16 +13,17 @@ return {
               {
                 name = 'JavaSE-1.8',
                 path = '/Users/cesar.enrique/.sdkman/candidates/java/8.0.462-amzn',
+                default = true,
               },
               {
                 name = 'JavaSE-21',
                 path = '/Users/cesar.enrique/.sdkman/candidates/java/21.0.8-amzn',
-                default = true,
+                default = false,
               },
-              {
-                name = 'JavaSE-17',
-                path = '/Users/cesar.enrique/.sdkman/candidates/java/17.0.14-amzn',
-              },
+              -- {
+              --   name = 'JavaSE-17',
+              --   path = '/Users/cesar.enrique/.sdkman/candidates/java/17.0.14-amzn',
+              -- },
             },
           },
         },

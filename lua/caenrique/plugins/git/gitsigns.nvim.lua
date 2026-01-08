@@ -2,6 +2,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
   'lewis6991/gitsigns.nvim',
   enabled = true,
   opts = {
+
     attach_to_untracked = true,
     signs = {
       add = { text = '▌' }, -- adjust these so they are not so thick due to my font

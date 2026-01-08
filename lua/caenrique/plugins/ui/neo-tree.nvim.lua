@@ -12,19 +12,44 @@ return {
     lazy = false, -- neo-tree will lazily load itself
     keys = {
       { '<leader>e', function() vim.cmd('Neotree toggle') end, desc = 'File Explorer' },
+      { '<leader>E', function() vim.cmd('Neotree toggle position=current') end, desc = 'File Explorer' },
       { '<leader>ge', function() vim.cmd('Neotree toggle source=git_status') end, desc = 'Tree-like Git Status' },
     },
     opts = {
       close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = '', -- or "" to use 'winborder' on Neovim v0.11+
+      default_component_configs = {
+        git_status = {
+          symbols = {
+            -- Change type
+            added = '',
+            deleted = '✖',
+            modified = '',
+            renamed = '󰁕',
+            -- Status type
+            untracked = '',
+            ignored = '',
+            unstaged = '󰄱',
+            staged = '',
+            conflict = '',
+          },
+        },
+      },
       window = {
         width = 45,
         mappings = {
-          ['<space>'] = nil,
+          -- Add git mappings
+          ['gs'] = 'git_add_file',
+          ['gS'] = 'git_add_all',
+          ['gu'] = 'git_unstage_file',
+          ['gx'] = 'git_revert_file',
+          ['ge'] = function() vim.cmd('Neotree toggle source=git_status') end,
+          -- ['gd'] = function() vim.cmd('DiffViewOpen toggle source=git_status') end,
+          ['<space>'] = '',
           ['<M-p>'] = {
             'toggle_preview',
             config = {
-              use_float = true,
+              use_float = false,
               use_snacks_image = true,
               use_image_nvim = true,
             },
@@ -34,6 +59,8 @@ return {
           ['<C-v>'] = 'open_vsplit',
           ['<C-t>'] = 'open_tabnew',
           ['<S-CR>'] = 'open_with_window_picker',
+          ['<C-CR>'] = 'expand_all_subnodes',
+          ['P'] = '',
         },
       },
       filesystem = {
@@ -45,15 +72,24 @@ return {
         window = {
           mappings = {
             ['<M-h>'] = 'toggle_hidden',
-            ['H'] = nil,
-            ['f'] = nil,
+            ['H'] = '',
+            ['f'] = '',
           },
         },
       },
       git_status = {
         group_empty_dirs = true, -- when true, empty folders will be grouped together
         window = {
-          rosition = 'left',
+          position = 'left',
+          mappings = {
+            ['gU'] = '',
+            ['gS'] = '',
+            ['ga'] = '',
+            ['gc'] = '',
+            ['gg'] = '',
+            ['gp'] = '',
+            ['gr'] = '',
+          },
         },
       },
     },

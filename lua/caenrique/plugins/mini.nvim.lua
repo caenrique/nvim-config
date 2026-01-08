@@ -3,13 +3,27 @@ return { -- Collection of various small independent plugins/modules
   config = function()
     require('mini.surround').setup()
     require('mini.icons').setup()
+    MiniIcons.mock_nvim_web_devicons()
 
-    -- set use_icons to true if you have a Nerd Font
     require('mini.statusline').setup({
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
           local git = MiniStatusline.section_git({ trunc_width = 40 })
+          local gitsigns = function()
+            local icon = ' '
+            local gitstatus = vim.b.gitsigns_status_dict or {}
+            local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
+            local changed = gitstatus.changed
+                and gitstatus.changed ~= 0
+                and '%#@diff.delta#~' .. gitstatus.changed .. ' '
+              or ''
+            local deleted = gitstatus.removed
+                and gitstatus.removed ~= 0
+                and '%#@diff.minus#-' .. gitstatus.removed .. ' '
+              or ''
+            return add .. changed .. deleted
+          end
           local diagnostics = MiniStatusline.section_diagnostics({
             trunc_width = 75,
           })
@@ -55,9 +69,10 @@ return { -- Collection of various small independent plugins/modules
 
           return MiniStatusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
-            { hl = 'MiniStatuslineDevinfo', strings = { git } },
+            -- { hl = 'MiniStatuslineDevinfo', strings = { projectname() } },
+            { hl = '', strings = { git } },
             '%<', -- Mark general truncate point
-            { hl = 'MiniStatuslineFilename', strings = { projectname } },
+            { hl = '', strings = { gitsigns() } },
             '%=', -- End left alignment
             { hl = 'MiniStatuslineFilename', strings = { search() } },
             { hl = '@diff.plus', strings = { lsp_servers() } },

@@ -10,6 +10,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>cl', vim.lsp.codelens.run, '[C]ode [L]ens Run', { 'n' })
     map('<leader>rn', vim.lsp.buf.rename, '[R]e[N]ame', { 'n', 'x' })
     map('gd', Snacks.picker.lsp_definitions, '[G]oto [D]efinition')
+    map('gD', function()
+      vim.cmd('vsplit')
+      Snacks.picker.lsp_definitions()
+    end, '[G]oto [D]efinition in a vertical split')
     map('<leader>r', Snacks.picker.lsp_references, '[R]eferences', { 'n', 'x' })
     map('gi', Snacks.picker.lsp_implementations, 'Goto Implementation')
     map('gy', Snacks.picker.lsp_type_definitions, 'Goto T[y]pe Definition')
@@ -53,11 +57,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
           vim.api.nvim_clear_autocmds({ group = 'kickstart-lsp-highlight', buffer = event2.buf })
         end,
       })
-    end
-
-    -- LSP Document symbols for breadcrumbs at the winbar
-    if client and client.server_capabilities.documentSymbolProvider then
-      require('nvim-navic').attach(client, event.buf)
     end
 
     -- LSP folds

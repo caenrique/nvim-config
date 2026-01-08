@@ -21,6 +21,7 @@ vim.keymap.set('n', 'mf', 'mF')
 
 vim.keymap.set({ 'n', 'x' }, '<leader>p', '"*p')
 vim.keymap.set({ 'n', 'x' }, '<leader>y', '"*y')
+vim.keymap.set('n', '<C-y>', '<cmd>let @*=@"<CR>')
 
 vim.keymap.set('n', 'dm', require('caenrique.delete-mark').delete_marks)
 
