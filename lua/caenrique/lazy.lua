@@ -25,13 +25,15 @@ vim.g.maplocalleader = '\\'
 require('lazy').setup({
   spec = {
     -- import your plugins
-    { import = 'caenrique.plugins' },
+    { import = 'caenrique.plugins.completion' },
     { import = 'caenrique.plugins.git' },
     { import = 'caenrique.plugins.http' },
     { import = 'caenrique.plugins.lsp' },
     { import = 'caenrique.plugins.markdown' },
     { import = 'caenrique.plugins.sessions' },
     { import = 'caenrique.plugins.ui' },
+    { import = 'caenrique.plugins.ux' },
+    { import = 'caenrique.plugins' },
   },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {
@@ -47,5 +49,5 @@ require('lazy').setup({
   -- colorscheme that will be used when installing plugins.
   -- install = { colorscheme = { 'catppuccin' } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })

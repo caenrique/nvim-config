@@ -5,13 +5,15 @@ return { -- Collection of various small independent plugins/modules
     require('mini.icons').setup()
     MiniIcons.mock_nvim_web_devicons()
 
+    vim.g.fileInfoEnabled = false
+
     require('mini.statusline').setup({
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
           local git = MiniStatusline.section_git({ trunc_width = 40 })
+
           local gitsigns = function()
-            local icon = ' '
             local gitstatus = vim.b.gitsigns_status_dict or {}
             local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
             local changed = gitstatus.changed
@@ -28,26 +30,13 @@ return { -- Collection of various small independent plugins/modules
             trunc_width = 75,
           })
 
-          local projectname = function(_)
-            local icon = ' '
-            local cwd = vim.fn.getcwd(0)
-            cwd = vim.fn.fnamemodify(cwd, ':~')
-
-            local _, _, domain, org, dir = cwd:find('~/Projects/([^/]+)/([^/]+)/([^/]+)')
-
-            if domain and org and dir then
-              if domain == 'ghe.siriusxm.com' then
-                cwd = org .. '/' .. dir
-              else
-                cwd = domain .. '/' .. org .. '/' .. dir
-              end
+          local function fileinfo()
+            if vim.g.fileInfoEnabled == true then
+              return ' ' .. MiniStatusline.section_fileinfo({ trunc_width = 120 })
+            else
+              return ''
             end
-
-            local trail = cwd:sub(-1) == '/' and '' or '/'
-            return icon .. cwd .. trail
           end
-
-          local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
 
           local lsp_servers = function()
             local names = {}
@@ -57,7 +46,9 @@ return { -- Collection of various small independent plugins/modules
 
             return #names > 0 and ' ' .. table.concat(names, ' ') or ''
           end
-          local location = 'Ln %l, Col %v'
+
+          local location = '%P, Ln %l, Col %v'
+
           local search = function()
             local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
             if search == '' then
@@ -69,7 +60,6 @@ return { -- Collection of various small independent plugins/modules
 
           return MiniStatusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
-            -- { hl = 'MiniStatuslineDevinfo', strings = { projectname() } },
             { hl = '', strings = { git } },
             '%<', -- Mark general truncate point
             { hl = '', strings = { gitsigns() } },
@@ -77,15 +67,15 @@ return { -- Collection of various small independent plugins/modules
             { hl = 'MiniStatuslineFilename', strings = { search() } },
             { hl = '@diff.plus', strings = { lsp_servers() } },
             { hl = '@text.note', strings = { diagnostics } },
-            { hl = 'MiniStatuslineFileinfo', strings = { location, fileinfo } },
+            {
+              hl = 'MiniStatuslineFileinfo',
+              strings = { location, fileinfo() },
+            },
           })
         end,
       },
       use_icons = vim.g.have_nerd_font,
     })
     vim.o.laststatus = 3
-
-    -- ... and there is more!
-    --  Check out: https://github.com/echasnovski/mini.nvim
   end,
 }

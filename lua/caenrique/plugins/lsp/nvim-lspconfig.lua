@@ -21,10 +21,29 @@ return {
         'terraform-ls',
         'jdtls',
         'lemminx',
+        'html-lsp',
       },
     })
 
-    vim.lsp.enable({ 'lua_ls', 'yamlls', 'jsonls', 'markdown_oxide', 'ts_ls', 'terraformls', 'lemminx' })
+    --Enable (broadcasting) snippet capability for completion
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+    vim.lsp.config('html', {
+      capabilities = capabilities,
+    })
+
+    vim.lsp.enable({
+      'lua_ls',
+      'yamlls',
+      'jsonls',
+      'markdown_oxide',
+      'ts_ls',
+      'terraformls',
+      'lemminx',
+      'pkl_ls',
+      'html',
+    })
 
     -- pkl-lsp config
     vim.g.pkl_neovim = {

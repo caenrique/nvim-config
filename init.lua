@@ -85,7 +85,7 @@ vim.opt.inccommand = 'split'
 vim.opt.scrolloff = 10
 
 -- Enable experimental tui featues
--- require('vim._extui').enable({ enable = true, msg = { target = 'msg' } })
+require('vim._extui').enable({ enable = true, msg = { target = 'msg' } })
 
 require('caenrique.lazy') -- setup for lazy.nvim package manager
 
