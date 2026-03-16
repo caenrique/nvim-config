@@ -3,6 +3,7 @@ return {
   ---@type snacks.Config
   opts = {
     indent = {
+      enabled = false,
       indent = {
         enabled = true,
         hl = 'SnacksIndentBlank', ---@type string|string[] hl group for scopes

@@ -2,6 +2,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.o.sessionoptions = 'help,winsize,folds,skiprtp'
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -79,20 +81,24 @@ vim.o.swapfile = false
 vim.o.undofile = true
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+vim.o.inccommand = 'split'
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.o.scrolloff = 10
 
+vim.o.winborder = 'rounded'
+
+vim.o.grepprg =
+  'rg --vimgrep --color=never --no-heading --smart-case --max-columns=500 --max-columns-preview --glob=!.bare --glob=!.git'
 -- Enable experimental tui featues
-require('vim._extui').enable({ enable = true, msg = { target = 'msg' } })
+require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } })
 
 require('caenrique.lazy') -- setup for lazy.nvim package manager
 
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme('catppuccin-nvim')
 
 -- vim.keymap.set('n', '<leader>r', require('caenrique.config.scala-cli-test-runner').run_test_file)
 -- vim.keymap.set('n', '<leader>Tw', require('caenrique.scala-cli-test-runner').run_tests_workspace)

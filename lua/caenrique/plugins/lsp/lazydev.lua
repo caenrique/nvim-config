@@ -3,7 +3,7 @@ return {
     'folke/lazydev.nvim',
     ft = 'lua', -- only load on lua files
     dependencies = {
-      { 'DrKJeff16/wezterm-types', lazy = true },
+      -- { 'DrKJeff16/wezterm-types', lazy = true },
     },
     opts = {
       library = {
@@ -16,7 +16,7 @@ return {
         'render-markdown.nvim',
         'nvim-dap-view',
         'smart-splits.nvim',
-        'wezterm-types',
+        -- 'wezterm-types',
       },
     },
   },

@@ -1,11 +1,25 @@
 -- Change diagnostic symbols in the sign column (gutter)
 if vim.g.have_nerd_font then
-  local signs = { ERROR = '', WARN = '', INFO = '', HINT = '󱠂' }
-  local diagnostic_signs = {}
-  for type, icon in pairs(signs) do
-    diagnostic_signs[vim.diagnostic.severity[type]] = icon
-  end
-  vim.diagnostic.config({ signs = { text = diagnostic_signs }, virtual_text = true, underline = true })
+  -- local signs = { '', '', '', '󱠂' }
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = 'E',
+        [vim.diagnostic.severity.WARN] = 'W',
+        [vim.diagnostic.severity.INFO] = 'I',
+        [vim.diagnostic.severity.HINT] = 'H',
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+        [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+        [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+        [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+      },
+    },
+    severity_sort = true,
+    virtual_text = true,
+    underline = true,
+  })
 end
 
 -- Diagnostic keymaps

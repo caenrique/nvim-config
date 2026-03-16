@@ -28,3 +28,60 @@ vim.keymap.set('n', 'dm', require('caenrique.delete-mark').delete_marks)
 vim.keymap.set('n', 'th', '<cmd>tabprev<cr>', { desc = 'Go to the [T]ab to the left' })
 vim.keymap.set('n', 'tl', '<cmd>tabnext<cr>', { desc = 'Go to the [T]ab to the right' })
 vim.keymap.set('n', 'td', '<cmd>tabclose<cr>', { desc = '[T]ab [D]delete' })
+
+vim.api.nvim_create_autocmd('Filetype', {
+  pattern = 'qf',
+  callback = function(opts)
+    -- if getwininfo(win_getid())[0]['loclist'] == 1
+    local isLocal = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1
+
+    if isLocal then
+      vim.g.caenrique_loclist_open = true
+    else
+      vim.g.caenrique_quickfix_open = true
+    end
+    -- vim.notify('Opening the quickfix window')
+
+    vim.api.nvim_create_autocmd('BufWinLeave', {
+      buffer = opts.buf,
+      once = true,
+      callback = function()
+        if isLocal then
+          vim.g.caenrique_loclist_open = false
+        else
+          vim.g.caenrique_quickfix_open = false
+        end
+        -- vim.notify('Closing the quickfix window')
+        return true -- Delete the autocmd. One off command
+      end,
+    })
+  end,
+})
+
+vim.keymap.set('n', '<leader>q', function()
+  if vim.g.caenrique_quickfix_open == true then
+    vim.cmd.cclose()
+  else
+    vim.cmd.copen()
+  end
+end, { desc = 'Toggle the quickfix list' })
+
+vim.keymap.set('n', '<leader>l', function()
+  if vim.g.caenrique_loclist_open == true then
+    vim.cmd.lclose()
+  else
+    vim.cmd.lopen()
+  end
+end, { desc = 'Toggle the quickfix list' })
+
+vim.keymap.set('n', '<leader>r', function()
+  local word = vim.fn.expand('<cword>')
+  return ':%s/' .. word .. '//g<left><left>'
+end, { expr = true })
+
+vim.keymap.set('x', '<leader>r', ':s#<c-r>/##g<left><left>')
+
+vim.keymap.set('n', '<leader>R', function()
+  local word = vim.fn.expand('<cword>')
+  return ':s/' .. word .. '//g<left><left>'
+end, { expr = true })

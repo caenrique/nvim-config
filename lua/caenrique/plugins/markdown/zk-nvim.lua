@@ -45,7 +45,9 @@ return {
     --- Create a new note
     --- @param params PrivateCreateNoteParams
     local function _create_note(params)
-      if params.title == '' then return end
+      if params.title == '' then
+        return
+      end
 
       local cleaned_title = params.title:gsub('%s+#.*$', '')
 
@@ -60,9 +62,15 @@ return {
         commandOptions.insertLinkAtLocation = util.get_lsp_location_from_selection()
       end
 
-      if params.edit ~= nil then commandOptions.edit = params.edit end
-      if params.type ~= nil then commandOptions.group = params.type end
-      if params.insertLink ~= nil and not params.insertLink then commandOptions.insertLinkAtLocation = nil end
+      if params.edit ~= nil then
+        commandOptions.edit = params.edit
+      end
+      if params.type ~= nil then
+        commandOptions.group = params.type
+      end
+      if params.insertLink ~= nil and not params.insertLink then
+        commandOptions.insertLinkAtLocation = nil
+      end
 
       if params.content ~= nil then
         commandOptions.content = table.concat(params.content, '\n')
@@ -76,12 +84,16 @@ return {
         table.insert(tags, tag)
       end
 
-      if next(tags) ~= nil then commandOptions.extra = { tags = table.concat(tags, ' ') } end
+      if next(tags) ~= nil then
+        commandOptions.extra = { tags = table.concat(tags, ' ') }
+      end
 
       vim.notify(vim.inspect(commandOptions))
 
       local path = nil
-      if params.type == NOTE_TYPE.daily then path = vim.fn.expand('~') .. '/Notes/daily' end
+      if params.type == NOTE_TYPE.daily then
+        path = vim.fn.expand('~') .. '/Notes/daily'
+      end
 
       vim.notify(path)
 

@@ -1,9 +1,9 @@
-vim.env.LAZY_STDPATH = '.repro'
-load(vim.fn.system('curl -s https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua'))()
-
-require('lazy.minit').repro({
-  spec = {
-    { 'folke/snacks.nvim', opts = {} },
-    -- add any other plugins here
-  },
+vim.pack.add({
+  'https://github.com/comfysage/artio.nvim',
 })
+
+require('vim._core.ui2').enable({ enable = true, msg = { target = 'msg' } })
+require('artio').setup()
+
+vim.g.mapleader = ' '
+vim.keymap.set('n', '<leader>af', '<Plug>(artio-files)')

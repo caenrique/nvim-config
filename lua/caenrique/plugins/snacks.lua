@@ -2,7 +2,7 @@ return {
   'folke/snacks.nvim',
   lazy = false,
   opts = {
-    input = { enabled = true },
+    -- input = { enabled = true },
     notifier = { timeout = 3000 },
     -- scope = { enabled = false }, -- investigate this more. might be useful
   },

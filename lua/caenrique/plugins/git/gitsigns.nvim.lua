@@ -1,5 +1,7 @@
 return { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  'lewis6991/gitsigns.nvim',
+  -- 'lewis6991/gitsigns.nvim',
+  'fredrikaverpil/gitsigns.nvim',
+  branch = 'feat/toggle-inline-preview',
   enabled = true,
   opts = {
 
@@ -73,7 +75,9 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 
       map('n', '<leader>gbC', function()
         local blame = vim.b.gitsigns_blame_line_dict
-        if blame and blame.sha then vim.cmd.DiffviewOpen(blame.sha .. '^!') end
+        if blame and blame.sha then
+          vim.cmd.DiffviewOpen(blame.sha .. '^!')
+        end
       end, { desc = 'Blame commit in DiffView' })
 
       map('n', '<leader>gbc', function()
