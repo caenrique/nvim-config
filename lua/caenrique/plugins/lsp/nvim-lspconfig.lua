@@ -4,7 +4,7 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim', opts = {} },
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
+    -- { 'j-hui/fidget.nvim', opts = {} },
   },
   config = function()
     require('mason-tool-installer').setup({

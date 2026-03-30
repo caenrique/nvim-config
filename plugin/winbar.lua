@@ -21,7 +21,27 @@ function _G.Winbar()
     end
   end
 
-  local diagnostics = vim.diagnostic.status(bufnr)
+  local gethighlight = function(diagnostics)
+    local min = vim.diagnostic.severity.HINT
+    for _, v in ipairs(diagnostics) do
+      if v.severity < min then
+        min = v.severity
+      end
+    end
+
+    local highlights = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+    }
+
+    return highlights[min]
+  end
+
+  local diagnostics = vim.diagnostic.status(bufnr) ~= ''
+      and vim.diagnostic.status(bufnr) .. ' %#' .. gethighlight(vim.diagnostic.get(bufnr)) .. '# '
+    or ''
 
   local function gitsigns()
     local gitstatus = vim.b[bufnr].gitsigns_status_dict or {}
@@ -32,7 +52,7 @@ function _G.Winbar()
   end
 
   -- TODO: Exclude filetype/buftype
-  return icon .. ' ' .. filename() .. ' ' .. gitsigns() .. '%=' .. diagnostics
+  return ' ' .. icon .. ' ' .. filename() .. ' ' .. gitsigns() .. '%=' .. diagnostics
 end
 
 vim.api.nvim_create_autocmd({ 'TermOpen', 'BufWinEnter' }, {

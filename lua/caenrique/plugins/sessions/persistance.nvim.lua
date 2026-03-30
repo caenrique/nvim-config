@@ -31,5 +31,8 @@ return {
       require('persistence').stop()
     end)
     vim.keymap.set('n', '<leader>Sl', function() require('persistence').load() end)
+
+    -- Restart and load session
+    vim.api.nvim_create_user_command('Restart', "restart lua require('persistence').load()", {})
   end,
 }

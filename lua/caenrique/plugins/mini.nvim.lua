@@ -1,5 +1,8 @@
 return { -- Collection of various small independent plugins/modules
   'echasnovski/mini.nvim',
+  dependencies = {
+    'linrongbin16/lsp-progress.nvim',
+  },
   config = function()
     -- require('mini.surround').setup()
     require('mini.icons').setup()
@@ -7,36 +10,47 @@ return { -- Collection of various small independent plugins/modules
 
     vim.g.fileInfoEnabled = false
 
+    require('lsp-progress').setup({
+      spinner = { '', '', '', '', '', '', '', '' },
+      console_log = true,
+      format = function(client_messages)
+        local width = 120
+        local value = ''
+        if #client_messages > 0 then
+          if #client_messages[1] > width then
+            value = string.sub(client_messages[1], 1, width - 3) .. '...'
+          else
+            value = client_messages[1]
+          end
+        end
+
+        if #client_messages > 1 then
+          value = value .. '[' .. tostring(#client_messages - 1) .. ' more]'
+        end
+        return value
+      end,
+    })
+
+    -- listen lsp-progress event and refresh lualine
+    local group = vim.api.nvim_create_augroup('status-line-refresh-progress-messages', { clear = true })
+    vim.api.nvim_create_autocmd('User', {
+      group = group,
+      pattern = 'LspProgressStatusUpdated',
+      callback = function() vim.cmd.redrawstatus() end,
+    })
+
     require('mini.statusline').setup({
       content = {
         active = function()
           local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
           local git = MiniStatusline.section_git({ trunc_width = 40 })
-
-          local gitsigns = function()
-            local gitstatus = vim.b.gitsigns_status_dict or {}
-            local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
-            local changed = gitstatus.changed
-                and gitstatus.changed ~= 0
-                and '%#@diff.delta#~' .. gitstatus.changed .. ' '
-              or ''
-            local deleted = gitstatus.removed
-                and gitstatus.removed ~= 0
-                and '%#@diff.minus#-' .. gitstatus.removed .. ' '
-              or ''
-            return add .. changed .. deleted
-          end
-          local diagnostics = MiniStatusline.section_diagnostics({
-            trunc_width = 75,
-          })
-
-          local function fileinfo()
-            if vim.g.fileInfoEnabled == true then
-              return ' ' .. MiniStatusline.section_fileinfo({ trunc_width = 120 })
-            else
-              return ''
-            end
-          end
+          -- local function fileinfo()
+          --   if vim.g.fileInfoEnabled == true then
+          --     return ' ' .. MiniStatusline.section_fileinfo({ trunc_width = 120 })
+          --   else
+          --     return ''
+          --   end
+          -- end
 
           local lsp_servers = function()
             local names = {}
@@ -44,7 +58,7 @@ return { -- Collection of various small independent plugins/modules
               table.insert(names, server.name)
             end
 
-            return #names > 0 and ' ' .. table.concat(names, ' ') or ''
+            return #names > 0 and ' ' .. table.concat(names, ' ') or ''
           end
 
           local location = '%P, Ln %l, Col %v'
@@ -58,19 +72,22 @@ return { -- Collection of various small independent plugins/modules
             end
           end
 
+          local progress = function() return require('lsp-progress').progress() end
+
           return MiniStatusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
-            { hl = '', strings = { git } },
-            '%<', -- Mark general truncate point
-            { hl = '', strings = { gitsigns() } },
-            '%=', -- End left alignment
-            { hl = 'MiniStatuslineFilename', strings = { search() } },
+            -- { hl = '', strings = { gitsigns() } },
             { hl = '@diff.plus', strings = { lsp_servers() } },
-            { hl = '@text.note', strings = { diagnostics } },
-            {
-              hl = 'MiniStatuslineFileinfo',
-              strings = { location, fileinfo() },
-            },
+            '%<', -- Mark general truncate point
+            { hl = 'MiniStarterInactive', strings = { progress() } },
+            '%=', -- End left alignment
+            { hl = '', strings = { git } },
+            { hl = 'MiniStatuslineFilename', strings = { search() } },
+            -- { hl = '@text.note', strings = { diagnostics } },
+            -- {
+            --   hl = 'MiniStatuslineFileinfo',
+            --   strings = { location, fileinfo() },
+            -- },
           })
         end,
       },

@@ -13,6 +13,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       topdelete = { text = '▔' },
       -- changedelete = { text = '~' },
       untracked = { text = '╎' },
+      fold = { enable = true },
     },
     signs_staged = {
       add = { text = '▌' }, -- adjust these so they are not so thick due to my font
@@ -48,6 +49,19 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       map('n', ']c', function() gitsigns.nav_hunk('next') end, { desc = 'Next Hunk' })
 
       map('n', '[c', function() gitsigns.nav_hunk('prev') end, { desc = 'Prev Hunk' })
+
+      map(
+        'n',
+        '<leader>gtd',
+        function() gitsigns.toggle_inline_preview() end,
+        { desc = 'Toggle inline diff for this buffer' }
+      )
+      map(
+        'n',
+        '<leader>gtD',
+        function() gitsigns.toggle_inline_preview(nil, true) end,
+        { desc = 'Toggle inline diff for globally' }
+      )
       map(
         'n',
         '<leader>K',

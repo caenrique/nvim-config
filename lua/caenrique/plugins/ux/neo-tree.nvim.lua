@@ -50,8 +50,8 @@ return {
             'toggle_preview',
             config = {
               use_float = false,
-              use_snacks_image = true,
-              use_image_nvim = true,
+              use_snacks_image = false,
+              use_image_nvim = false,
             },
           },
           ['l'] = 'focus_preview',

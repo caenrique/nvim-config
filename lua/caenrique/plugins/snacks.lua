@@ -10,4 +10,7 @@ return {
     { '<leader>N', function() Snacks.notifier.show_history() end, desc = 'Notification History' },
     { '<leader>gbl', function() Snacks.git.blame_line() end, desc = 'Blame line' },
   },
+  init = function()
+    vim.ui.select = require('snacks').picker.select
+  end,
 }
