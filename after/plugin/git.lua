@@ -1,10 +1,43 @@
-return { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  -- 'lewis6991/gitsigns.nvim',
-  'fredrikaverpil/gitsigns.nvim',
-  branch = 'feat/toggle-inline-preview',
-  enabled = true,
+Cesar.require('neogit', {
   opts = {
+    disable_context_highlighting = true,
+    process_spinner = false,
+    commit_date_format = vim.fn.strftime('%c'),
+    log_date_format = vim.fn.strftime('%c'),
+    auto_refresh = true,
+    -- kind = 'split_below',
+    kind = 'tab',
+    git_services = {
+      ['github.com'] = {
+        pull_request = 'https://${host}/${owner}/${repository}/compare/${branch_name}?expand=1',
+        commit = 'https://${host}/${owner}/${repository}/commit/${oid}',
+        tree = 'https://${host}/${owner}/${repository}/tree/${branch_name}',
+      },
+      ['ghe.siriusxm.com'] = {
+        pull_request = 'https://${host}/${owner}/${repository}/compare/${branch_name}?expand=1',
+        commit = 'https://${host}/${owner}/${repository}/commit/${oid}',
+        tree = 'https://${host}/${owner}/${repository}/tree/${branch_name}',
+      },
+    },
+    integrations = {
+      snacks = true,
+      diffview = true,
+    },
+    console_timeout = 5000,
+    commit_editor = {
+      kind = 'auto',
+      show_staged_diff = false,
+    },
+    commit_order = '',
+  },
+  after = function()
+    vim.keymap.set('n', '<leader>gs', require('neogit').open, { desc = 'Git status buffer' })
+  end
+})
 
+
+Cesar.require('gitsigns', {
+  opts = {
     attach_to_untracked = true,
     signs = {
       add = { text = '▌' }, -- adjust these so they are not so thick due to my font
@@ -112,23 +145,5 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
         end
       end, { desc = 'Blame commit in split window' })
     end,
-  },
-  -- specs = {
-  --   {
-  --     'utilyre/barbecue.nvim',
-  --     name = 'barbecue',
-  --     opts = {
-  --       custom_section = function()
-  --         local gitstatus = vim.b.gitsigns_status_dict or {}
-  --         local add = gitstatus.added and gitstatus.added ~= 0 and '%#@diff.plus#+' .. gitstatus.added .. ' ' or ''
-  --         local changed = gitstatus.changed and gitstatus.changed ~= 0 and '%#@diff.delta#~' .. gitstatus.changed .. ' '
-  --           or ''
-  --         local deleted = gitstatus.removed and gitstatus.removed ~= 0 and '%#@diff.minus#-' .. gitstatus.removed .. ' '
-  --           or ''
-  --         return add .. changed .. deleted
-  --       end,
-  --     },
-  --   },
-  -- },
-  lazy = false,
-}
+  }
+})

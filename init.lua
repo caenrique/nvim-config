@@ -4,6 +4,8 @@ vim.g.maplocalleader = ' '
 
 vim.o.sessionoptions = 'help,winsize,folds,skiprtp'
 
+vim.o.completeopt = 'menu,popup,fuzzy,noinsert'
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -87,19 +89,26 @@ vim.o.inccommand = 'split'
 vim.o.scrolloff = 10
 
 vim.o.winborder = 'rounded'
+vim.o.laststatus = 3
 
-vim.o.grepprg =
-  'rg --vimgrep --color=never --no-heading --smart-case --max-columns=500 --max-columns-preview --glob=!.bare --glob=!.git'
 -- Enable experimental tui featues
-require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } })
+require('vim._core.ui2').enable({ enable = true })
 
-require('caenrique.lazy') -- setup for lazy.nvim package manager
-
+-- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
-vim.cmd.colorscheme('catppuccin-nvim')
+if vim.fn.executable 'rg' == 1 then
+  function _G.RgFindFiles(cmdarg, _)
+    local fnames = vim.fn.systemlist('rg --files --hidden --color=never --glob="!.git"')
+    if #cmdarg == 0 then
+      return fnames
+    else
+      return vim.fn.matchfuzzy(fnames, cmdarg)
+    end
+  end
 
--- vim.keymap.set('n', '<leader>r', require('caenrique.config.scala-cli-test-runner').run_test_file)
--- vim.keymap.set('n', '<leader>Tw', require('caenrique.scala-cli-test-runner').run_tests_workspace)
--- vim.keymap.set('n', '<leader>Ts', require('caenrique.scala-cli-test-runner').run_test_file)
+  vim.o.grepprg =
+  'rg --vimgrep --hidden --color=never --no-heading --smart-case --max-columns=500 --max-columns-preview --glob=!.bare --glob=!.git'
+  vim.o.findfunc = 'v:lua.RgFindFiles'
+end

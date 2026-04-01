@@ -1,5 +1,5 @@
-vim.keymap.set('n', '<C-o>', '<CMD>colder<CR>', { desc = 'Previous quickfix list', buffer = true })
-vim.keymap.set('n', '<C-i>', '<CMD>cnewer<CR>', { desc = 'Previous quickfix list', buffer = true })
+vim.keymap.set('n', '<C-o>', '<CMD>silent colder<CR>', { desc = 'Previous quickfix list', buffer = true })
+vim.keymap.set('n', '<C-i>', '<CMD>silent cnewer<CR>', { desc = 'Previous quickfix list', buffer = true })
 
 vim.keymap.set('n', 'dd', function()
   local qflist = vim.fn.getqflist()
@@ -9,7 +9,7 @@ vim.keymap.set('n', 'dd', function()
 
   local line = vim.fn.line('.')
   table.remove(qflist, line)
-  vim.fn.setqflist({}, ' ', { items = qflist })
+  vim.fn.setqflist({}, 'r', { items = qflist })
 
   local new_count = #qflist
 
@@ -24,6 +24,6 @@ end, {
 })
 
 -- keymap for quickfix list to close it qith 'q'
-vim.keymap.set('n', 'q', '<CMD>cclose<CR>', { buffer = true })
+vim.keymap.set('n', 'q', '<CMD>cclose|lclose<CR>', { buffer = true })
 
 vim.wo.cursorline = true

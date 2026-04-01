@@ -32,7 +32,6 @@ vim.keymap.set('n', 'td', '<cmd>tabclose<cr>', { desc = '[T]ab [D]delete' })
 vim.api.nvim_create_autocmd('Filetype', {
   pattern = 'qf',
   callback = function(opts)
-    -- if getwininfo(win_getid())[0]['loclist'] == 1
     local isLocal = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1
 
     if isLocal then
@@ -40,7 +39,6 @@ vim.api.nvim_create_autocmd('Filetype', {
     else
       vim.g.caenrique_quickfix_open = true
     end
-    -- vim.notify('Opening the quickfix window')
 
     vim.api.nvim_create_autocmd('BufWinLeave', {
       buffer = opts.buf,
