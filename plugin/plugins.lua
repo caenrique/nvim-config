@@ -52,8 +52,10 @@ vim.pack.add({
   'gh:folke/snacks.nvim', -- A collection of QoL plugins for Neovim
   'gh:echasnovski/mini.nvim', -- Collection of various small independent plugins/modules
 
-
+  -- UI/UX
   'gh:mrjones2014/smart-splits.nvim',
-
   'gh:folke/which-key.nvim',
+
+  -- Markdonw
+  'gh:opdavies/toggle-checkbox.nvim',
 })

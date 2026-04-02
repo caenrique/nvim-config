@@ -3,6 +3,16 @@ Cesar.require('snacks', {
     -- input = { enabled = true },
     notifier = { timeout = 3000 },
     -- scope = { enabled = false }, -- investigate this more. might be useful
+    gitbrowse = {
+      url_patterns = {
+        ['ghe.siriusxm.com'] = {
+          branch = '/tree/{branch}',
+          file = '/blob/{branch}/{file}#L{line_start}-L{line_end}',
+          permalink = '/blob/{commit}/{file}#L{line_start}-L{line_end}',
+          commit = '/commit/{commit}',
+        },
+      },
+    },
     statuscolumn = {
       left = { 'mark', 'git' }, -- priority of signs on the left (high to low)
       right = { 'fold' }, -- priority of signs on the right (high to low)
@@ -39,6 +49,7 @@ Cesar.require('snacks', {
   after = function()
     vim.keymap.set('n', '<leader>N', Snacks.notifier.show_history, { desc = 'Notification History' })
     vim.keymap.set('n', '<leader>gbl', Snacks.git.blame_line, { desc = 'Blame line' })
+    vim.keymap.set('n', '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Browse file on Remote' })
 
     vim.ui.select = require('snacks').picker.select
   end

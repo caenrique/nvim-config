@@ -95,6 +95,10 @@
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "gh:folke/snacks.nvim"
     },
+    "toggle-checkbox.nvim": {
+      "rev": "58f958a2dcfb974963d4bb772ad8c3d8a1c62774",
+      "src": "gh:opdavies/toggle-checkbox.nvim"
+    },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "gh:tpope/vim-fugitive"
