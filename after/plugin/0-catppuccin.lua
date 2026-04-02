@@ -1,45 +1,46 @@
 Cesar.require('catppuccin', {
   opts = {
-    custom_highlights = function(colors)
-      local util = require('catppuccin.utils.colors')
-      local diff_green = '#2ea043'
-
-      return {
-        DiffAdd = { bg = util.blend(diff_green, colors.base, 0.2) },
-        DiffDelete = { bg = util.blend(colors.red, colors.base, 0.15) },
-        DiffChange = { bg = util.blend(colors.blue, colors.base, 0.15) },
-        DiffText = { bg = util.blend(colors.blue, colors.base, 0.5), fg = colors.text },
-
-        DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
-
-        SnacksIndentScope = { fg = colors.blue },
-        SnacksIndentBlank = { fg = util.blend('#FFFFFF', colors.base, 0.1) },
-
-        GitSignsChange = { fg = colors.blue },
-        GitSignsChangeInline = { bg = util.blend(diff_green, colors.base, 0.5), fg = colors.text },
-        GitSignsAddInline = { bg = util.blend(diff_green, colors.base, 0.5), fg = colors.text },
-        GitSignsDeleteInline = { bg = util.blend(colors.red, colors.base, 0.5), fg = colors.text },
-
-        BlinkCmpGhostText = { fg = util.darken(colors.text, 0.5), bg = colors.base },
-      }
-    end,
-    integrations = {
-      gitsigns = true,
-      native_lsp = {
-        enabled = true,
-        virtual_text = {
-          errors = { 'italic' },
-          hints = { 'italic' },
-          warnings = { 'italic' },
-          information = { 'italic' },
-        },
-        underlines = {
-          errors = { 'undercurl' },
-          hints = { 'undercurl' },
-          warnings = { 'undercurl' },
-          information = { 'undercurl' },
-        },
+    lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+      virtual_text = {
+        errors = { "italic" },
+        hints = { "italic" },
+        warnings = { "italic" },
+        information = { "italic" },
+        ok = { "italic" },
       },
+      underlines = {
+        errors = { "undercurl" },
+        hints = { "undercurl" },
+        warnings = { "undercurl" },
+        information = { "undercurl" },
+        ok = { "undercurl" },
+      },
+      inlay_hints = {
+        background = true,
+      },
+    },
+    highlight_overrides = {
+      all = function(colors)
+        local util = require('catppuccin.utils.colors')
+
+        return {
+          DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
+          GitSignsChange = { fg = colors.blue },
+          GitSignsChangeInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
+          GitSignsAddInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
+          GitSignsDeleteInline = { bg = util.blend(colors.red, colors.base, 0.5), fg = colors.text },
+        }
+      end,
+    },
+    integrations = {
+      neotree = true,
+      diffview = true,
+      window_picker = true,
+      snacks = {
+        enabled = true,
+        indent_scope_color = "blue"
+      },
+      which_key = true,
     },
   },
   after = function()

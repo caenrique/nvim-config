@@ -42,8 +42,6 @@ vim.opt.foldtext = ''
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
-vim.o.cmdheight = 0
-
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -89,10 +87,12 @@ vim.o.inccommand = 'split'
 vim.o.scrolloff = 10
 
 vim.o.winborder = 'rounded'
+
 vim.o.laststatus = 3
+vim.o.cmdheight = 0
 
 -- Enable experimental tui featues
-require('vim._core.ui2').enable({ enable = true })
+require('vim._core.ui2').enable({ enable = true, msg = { targets = 'msg', msg = { timeout = 2000 } } })
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])

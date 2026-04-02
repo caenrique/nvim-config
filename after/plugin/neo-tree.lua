@@ -84,7 +84,7 @@ Cesar.require('neo-tree', {
     },
   },
   after = function()
-    vim.keymap.set('n', '<leader>e', function() vim.cmd('Neotree toggle') end, { desc = 'File Explorer' })
+    vim.keymap.set('n', '<leader>e', function() vim.cmd('Neotree toggle') end, { desc = 'ToFile Explorer' })
     vim.keymap.set(
       'n',
       '<leader>E',

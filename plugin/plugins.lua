@@ -29,6 +29,7 @@ vim.pack.add({
   'gh:tpope/vim-fugitive', -- Git integration. Specifically I'm interested in the :G command
   'gh:NeogitOrg/neogit',
   { src = 'gh:fredrikaverpil/gitsigns.nvim', version = 'feat/toggle-inline-preview' },
+  'gh:sindrets/diffview.nvim',
 
   -- LSP
   'gh:linrongbin16/lsp-progress.nvim', -- Display lsp progress messages in the statusline
@@ -53,4 +54,6 @@ vim.pack.add({
 
 
   'gh:mrjones2014/smart-splits.nvim',
+
+  'gh:folke/which-key.nvim',
 })

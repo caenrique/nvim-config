@@ -64,6 +64,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client and client.server_capabilities.codeLensProvider then
       vim.lsp.codelens.enable(true)
     end
+
+    if client and client.server_capabilities.inlayHintProvider then
+      vim.keymap.set('n', '<leader>th', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
+      end, { buf = event.buf, desc = 'Toggle Inlay Hints' })
+    end
+
+
+    vim.api.nvim_create_autocmd('LspProgress', { buffer = event.buf, callback = function(ev)
+      local value = ev.data.params.value
+      local client_name = vim.lsp.get_client_by_id(ev.data.client_id).config.name
+      vim.api.nvim_echo({ { value.message or 'done' } }, false, {
+        id = 'lsp.' .. ev.data.client_id,
+        kind = 'progress',
+        source = 'vim.lsp',
+        title = string.format('[%s] %s', client_name, value.title),
+        status = value.kind ~= 'end' and 'running' or 'success',
+        percent = value.percentage,
+      })
+    end,
+    })
   end,
 })
 

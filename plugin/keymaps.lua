@@ -1,6 +1,6 @@
 -- Debug keymaps to evaluate lua code of the whole file or visual selection
-vim.keymap.set('n', 'g==', '<cmd>source %<CR>')
-vim.keymap.set('x', 'g==', ":'<,'>source<CR>")
+vim.keymap.set('n', 'g==', '<cmd>source %<CR>', { desc = 'Source current buffer' })
+vim.keymap.set('x', 'g==', ":'<,'>source<CR>", { desc = 'Source current selection' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -19,11 +19,13 @@ vim.keymap.set('n', 'md', 'mD')
 vim.keymap.set('n', "'f", "'F")
 vim.keymap.set('n', 'mf', 'mF')
 
-vim.keymap.set({ 'n', 'x' }, '<leader>p', '"*p')
-vim.keymap.set({ 'n', 'x' }, '<leader>y', '"*y')
-vim.keymap.set('n', '<C-y>', '<cmd>let @*=@"<CR>')
+vim.keymap.set({ 'n', 'x' }, '<leader>p', '"*p', { desc = 'Paste from system clipboard' })
+vim.keymap.set({ 'n', 'x' }, '<leader>y', '"*y', { desc = 'Yank to system clipboard' })
+vim.keymap.set('n', '<C-y>', '<cmd>let @*=@"<CR>',
+  { desc = 'Copy the contents of the last used register to the system clipboard' })
 
-vim.keymap.set('n', 'dm', require('caenrique.delete-mark').delete_marks)
+vim.keymap.set('n', 'dm', require('caenrique.delete-mark').delete_marks,
+  { desc = 'Delete all marks in the current buffer' })
 
 vim.keymap.set('n', 'th', '<cmd>tabprev<cr>', { desc = 'Go to the [T]ab to the left' })
 vim.keymap.set('n', 'tl', '<cmd>tabnext<cr>', { desc = 'Go to the [T]ab to the right' })
@@ -70,16 +72,17 @@ vim.keymap.set('n', '<leader>l', function()
   else
     vim.cmd.lopen()
   end
-end, { desc = 'Toggle the quickfix list' })
+end, { desc = 'Toggle the location list' })
 
 vim.keymap.set('n', '<leader>r', function()
   local word = vim.fn.expand('<cword>')
   return ':%s/' .. word .. '//g<left><left>'
-end, { expr = true })
+end, { expr = true, desc = 'Replace word under the cursor in the current buffer' })
 
-vim.keymap.set('x', '<leader>r', ':s#<c-r>/##g<left><left>')
+vim.keymap.set('x', '<leader>r', ':s#<c-r>/##g<left><left>',
+  { desc = 'Replace word on the search register in the current selection' })
 
 vim.keymap.set('n', '<leader>R', function()
   local word = vim.fn.expand('<cword>')
   return ':s/' .. word .. '//g<left><left>'
-end, { expr = true })
+end, { expr = true, desc = 'Replace word under the cursor in the current line' })

@@ -13,6 +13,7 @@ Cesar.require('metals', {
       map('<leader>mi', require('metals').organize_imports, 'Organize [I]mports')
       map('<leader>mtv', require('metals.tvp').toggle_tree_view, 'Toggle [T]ree [V]iew')
       map('<leader>mtr', require('metals.tvp').reveal_in_tree, '[T]ree [R]eveal')
+      vim.keymap.set('n', '<leader>mc', require('metals').commands, { desc = 'Command Palette' })
     end
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -46,6 +47,7 @@ Cesar.require('metals', {
     metals_config.on_attach = function(_, bufnr)
       -- require('metals').setup_dap()
       metals_keymaps(bufnr)
+      vim.lsp.inlay_hint.enable(false, { bufnr = bufnr }) -- Disable inlay hints for Scala fiels since it is too noisy
     end
 
     metals_config.cmd_env = {
@@ -59,6 +61,5 @@ Cesar.require('metals', {
       group = nvim_metals_group,
     })
 
-    vim.keymap.set('n', '<leader>mc', require('metals').commands, { desc = 'Command palette for Metals' })
   end,
 })

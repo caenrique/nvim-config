@@ -17,7 +17,7 @@ Cesar.require('snacks', {
       -- refresh = 50, -- refresh at most every 50ms
     },
     indent = {
-      enabled = false,
+      enabled = true,
       indent = {
         enabled = true,
         hl = 'SnacksIndentBlank', ---@type string|string[] hl group for scopes
