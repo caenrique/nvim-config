@@ -5,8 +5,9 @@ M.log_level = vim.log.levels.WARN
 
 --- Require a lua module if is available. Don't fail if it isn't.
 ---@param module string
----@param opts {opts?:table, after?:function, func?:string}
+---@param opts {opts?:table, after?:function, func?:string, enable?:boolean}
 function M.require(module, opts)
+  if opts.enable ~= nil and opts.enable == false then return end
   local ok, err = pcall(require, module)
   if ok then
     if opts.opts then

@@ -2,6 +2,23 @@ vim.diagnostic.config({
   severity_sort = true,
   virtual_text = true,
   underline = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '󰛨',
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+    },
+  },
 })
 
 -- Diagnostic keymaps

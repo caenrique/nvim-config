@@ -13,19 +13,6 @@ Cesar.require('snacks', {
         },
       },
     },
-    statuscolumn = {
-      left = { 'mark', 'git' }, -- priority of signs on the left (high to low)
-      right = { 'fold' }, -- priority of signs on the right (high to low)
-      folds = {
-        open = true, -- show open fold icons
-        git_hl = false, -- use Git Signs hl for fold icons
-      },
-      git = {
-        -- patterns to match Git signs
-        patterns = { 'GitSign', 'MiniDiffSign' },
-      },
-      -- refresh = 50, -- refresh at most every 50ms
-    },
     indent = {
       enabled = true,
       indent = {
@@ -45,11 +32,84 @@ Cesar.require('snacks', {
             and vim.bo[buf].filetype ~= 'tvp' -- Disable in tvp buffers
       end,
     },
+    picker = {
+      sources = {
+        grep = {
+          finder = 'grep',
+          regex = true,
+          format = 'file',
+          show_empty = true,
+          live = true, -- live grep by default
+          supports_live = true,
+          formatters = {
+            file = {
+              filename_first = true,
+              truncate = 40,
+            },
+          },
+          layout = {
+            hidden = {},
+          },
+        },
+      },
+      formatters = {
+        file = {
+          filename_first = true,
+          truncate = 60,
+        },
+      },
+      layout = {
+        cycle = true,
+        hidden = { 'preview' },
+        --- Use the default layout or vertical if the window is too narrow
+        preset = function() return vim.o.columns > 170 and 'default' or 'vertical' end,
+      },
+      layouts = {
+        vertical = {
+          layout = {
+            backdrop = false,
+            width = 0.8,
+            min_width = 80,
+            height = 0.9,
+            min_height = 30,
+            box = 'vertical',
+            border = 'rounded',
+            title = '{title} {live} {flags}',
+            title_pos = 'center',
+            { win = 'input', height = 1, border = 'none' },
+            { win = 'list', border = 'top' },
+            { win = 'preview', title = '{preview}', height = 0.5, border = 'top' },
+          },
+        },
+      },
+    },
   },
   after = function()
     vim.keymap.set('n', '<leader>N', Snacks.notifier.show_history, { desc = 'Notification History' })
     vim.keymap.set('n', '<leader>gbl', Snacks.git.blame_line, { desc = 'Blame line' })
     vim.keymap.set('n', '<leader>gB', function() Snacks.gitbrowse() end, { desc = 'Browse file on Remote' })
+
+    -- Top Pickers
+    vim.keymap.set('n', '<leader>f', function() Snacks.picker.files() end, { desc = 'Find Files' })
+    vim.keymap.set('n', '<leader>/', function() Snacks.picker.grep() end, { desc = 'Grep' })
+    vim.keymap.set('n', '<leader>,', function() Snacks.picker.buffers() end, { desc = 'Buffers' })
+    vim.keymap.set('n', '<leader><space>', function() Snacks.picker.resume() end, { desc = 'Smart Find Files' })
+    vim.keymap.set('n', '<leader>sb', function() Snacks.picker.grep_buffers() end, { desc = 'Grep Open Buffers' })
+    vim.keymap.set({ 'x', 'v', 'n' }, '<leader>sw', function() Snacks.picker.grep_word() end, { desc = 'Grep selection' })
+    vim.keymap.set('n', '<leader>s"', function() Snacks.picker.registers() end, { desc = 'Registers' })
+    vim.keymap.set('n', '<leader>sr', function() Snacks.picker.recent() end, { desc = 'Recent' })
+    vim.keymap.set('n', '<leader>s/', function() Snacks.picker.search_history() end, { desc = 'Search History' })
+    vim.keymap.set('n', '<leader>sc', function() Snacks.picker.commands() end, { desc = 'Commands' })
+    vim.keymap.set('n', '<leader>sN', function() Snacks.picker.notifications() end, { desc = 'Notification History' })
+    vim.keymap.set('n', '<leader>sd', function() Snacks.picker.diagnostics() end, { desc = 'Diagnostics' })
+    vim.keymap.set('n', '<leader>sh', function() Snacks.picker.help() end, { desc = 'Help Pages' })
+    vim.keymap.set('n', '<leader>sH', function() Snacks.picker.highlights() end, { desc = 'Highlights' })
+    vim.keymap.set('n', '<leader>si', function() Snacks.picker.icons() end, { desc = 'Icons' })
+    vim.keymap.set('n', '<leader>sj', function() Snacks.picker.jumps() end, { desc = 'Jumps' })
+    vim.keymap.set('n', '<leader>sk', function() Snacks.picker.keymaps() end, { desc = 'Keymaps' })
+    vim.keymap.set('n', '<leader>sm', function() Snacks.picker.marks() end, { desc = 'Marks' })
+    vim.keymap.set('n', '<leader>sq', function() Snacks.picker.qflist() end, { desc = 'Quickfix List' })
+    vim.keymap.set('n', '<leader>sR', function() Snacks.picker.resume() end, { desc = 'Resume' })
 
     vim.ui.select = require('snacks').picker.select
   end

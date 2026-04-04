@@ -86,3 +86,5 @@ vim.keymap.set('n', '<leader>R', function()
   local word = vim.fn.expand('<cword>')
   return ':s/' .. word .. '//g<left><left>'
 end, { expr = true, desc = 'Replace word under the cursor in the current line' })
+
+vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })

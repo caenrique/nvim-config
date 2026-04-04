@@ -48,6 +48,7 @@ Cesar.require('mini.statusline', {
 })
 
 Cesar.require('mini.pick', {
+  enable = false,
   opts = {
     mappings = {
       quickfix = {
@@ -62,8 +63,37 @@ Cesar.require('mini.pick', {
     },
   },
   after = function()
-    vim.keymap.set('n', '<leader>/', MiniPick.builtin.grep_live, { desc = 'Grep files' })
 
+    MiniPick.setup()
+
+    local files = function()
+      MiniPick.builtin.files({}, {
+        source = {
+          show = function(bufid, items_to_show, query) MiniPick.default_show(bufid, items_to_show, query,
+              { use_icons = true, item_to_string =
+              function(x)
+                local file, dir = vim.fs.basename(x), vim.fs.dirname(x)
+                local text = dir ~= '.' and string.format('%s %s', file, dir) or file
+                local highlights = {
+                  { hl = 'MiniPickNormal', from = 0, to = file:len() },
+                }
+
+                if text ~= file then
+                  table.insert(highlights, { hl = 'NonText', from = file:len() + 1, to = text:len() })
+                end
+
+                return {
+                  text = text,
+                  highlights = highlights,
+                }
+              end })
+          end
+        }
+      })
+    end
+
+    vim.keymap.set('n', '<leader>/', MiniPick.builtin.grep_live, { desc = 'Grep files' })
     vim.keymap.set('n', '<leader>f', MiniPick.builtin.files, { desc = 'Find files' })
+    vim.keymap.set('n', '<leader>of', files, { desc = 'Experimental Find files' })
   end,
 })

@@ -30,7 +30,6 @@ vim.opt.diffopt = {
 
 vim.opt_global.fillchars:append({
   eob = ' ',
-  fold = ' ',
   diff = '╱',
 })
 

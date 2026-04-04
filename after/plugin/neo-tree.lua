@@ -2,9 +2,9 @@ Cesar.require('neo-tree', {
   opts = {
     close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = '', -- or "" to use 'winborder' on Neovim v0.11+
-    -- source_selector = {
-    --   winbar = true,
-    -- },
+    source_selector = {
+      winbar = true,
+    },
     default_component_configs = {
       git_status = {
         symbols = {
@@ -30,7 +30,11 @@ Cesar.require('neo-tree', {
         ['gS'] = 'git_add_all',
         ['gu'] = 'git_unstage_file',
         ['gx'] = 'git_revert_file',
-        ['ge'] = function() vim.cmd('Neotree toggle source=git_status') end,
+        ['<tab>'] = 'git_toggle_file_stage',
+        ['<S-tab>'] = function(state)
+          vim.print(vim.inspect(state))
+        end,
+        -- ['ge'] = function() vim.cmd('Neotree toggle source=git_status') end,
         -- ['gd'] = function() vim.cmd('DiffViewOpen toggle source=git_status') end,
         ['<space>'] = '',
         ['<M-p>'] = {

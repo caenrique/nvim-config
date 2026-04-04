@@ -24,6 +24,9 @@ Cesar.require('catppuccin', {
         local util = require('catppuccin.utils.colors')
 
         return {
+          NeogitDiffDeleteInline = { bg = util.blend(colors.red, colors.base, 0.5), fg = colors.text },
+          NeogitDiffAddInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
+
           DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
           GitSignsChange = { fg = colors.blue },
           GitSignsChangeInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
