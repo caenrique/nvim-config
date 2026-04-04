@@ -22,16 +22,17 @@ Cesar.require('catppuccin', {
     highlight_overrides = {
       all = function(colors)
         local util = require('catppuccin.utils.colors')
+        vim.print(vim.inspect(colors))
 
         return {
-          NeogitDiffDeleteInline = { bg = util.blend(colors.red, colors.base, 0.5), fg = colors.text },
-          NeogitDiffAddInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
+          NeogitDiffDeleteInline = { bg = util.blend(colors.red, colors.base, 0.4), fg = colors.red },
+          NeogitDiffAddInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
 
           DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
           GitSignsChange = { fg = colors.blue },
-          GitSignsChangeInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
-          GitSignsAddInline = { bg = util.blend(colors.green, colors.base, 0.5), fg = colors.text },
-          GitSignsDeleteInline = { bg = util.blend(colors.red, colors.base, 0.5), fg = colors.text },
+          GitSignsChangeInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
+          GitSignsAddInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
+          GitSignsDeleteInline = { bg = util.blend(colors.red, colors.base, 0.4), fg = colors.red },
         }
       end,
     },

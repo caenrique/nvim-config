@@ -58,4 +58,11 @@ vim.pack.add({
 
   -- Markdonw
   'gh:opdavies/toggle-checkbox.nvim',
+
+  -- Quickfix
+  'gh:kevinhwang91/nvim-bqf',
+  'gh:yorickpeterse/nvim-pqf',
 })
+
+require('bqf').setup()
+require('pqf').setup({ max_filename_length = 100, })

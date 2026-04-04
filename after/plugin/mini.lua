@@ -9,6 +9,17 @@ Cesar.require('mini.statusline', {
       active = function()
         local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
 
+        local positionString = '%l:%v'
+        local vstart, vend = vim.fn.getpos('v'), vim.fn.getpos('.')
+
+        if vstart and vend then
+          if vim.fn.mode() == 'v' then
+            positionString = string.format('[Selection] %s:%s-%s:%s', vstart[2], vstart[3], vend[2], vend[3])
+          elseif vim.fn.mode() == 'V' then
+            positionString = string.format('[Line Selection] %s-%s', vstart[2], vend[2])
+          end
+        end
+
         local section_git = function(args)
           local summary = vim.g.gitsigns_head
           if MiniStatusline.is_truncated(args.trunc_width) or summary == nil then return '' end
@@ -38,6 +49,8 @@ Cesar.require('mini.statusline', {
           { hl = '@diff.plus', strings = { lsp_servers() } },
           { hl = 'MiniStatuslineFilename', strings = { search() } },
           '%<', -- Mark general truncate point
+          '%=', -- End left alignment
+          { hl = 'NonText', strings = { positionString, '%p%%' } },
           '%=', -- End left alignment
           { hl = '', strings = { section_git({ trunc_width = 40 }) } },
         })

@@ -5,12 +5,12 @@
       "src": "gh:ribru17/blink-cmp-spell"
     },
     "blink.cmp": {
-      "rev": "451168851e8e2466bc97ee3e026c3dcb9141ce07",
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "gh:saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
     "catppuccin": {
-      "rev": "a7788416689dbefea659d9e9415c87926b0ba5d8",
+      "rev": "16408d203973da7e43fab87c6f9d3bf7fa98fa8b",
       "src": "gh:catppuccin/nvim"
     },
     "colorful-menu.nvim": {
@@ -51,32 +51,40 @@
       "src": "gh:williamboman/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "3923662bf3d6ca49a9503f8d7196ea0450983e6a",
+      "rev": "402ee6c6ec8ea44b22330446c8fb4e615fd3953e",
       "src": "gh:echasnovski/mini.nvim"
     },
     "neo-tree.nvim": {
-      "rev": "9d6826582a3e8c84787bd7355df22a2812a1ad59",
+      "rev": "84c75e7a7e443586f60508d12fc50f90d9aee14e",
       "src": "gh:nvim-neo-tree/neo-tree.nvim",
       "version": "3.0.0 - 4.0.0"
     },
     "neogit": {
-      "rev": "4681c1fdac1b730592ae195576e87406f7255750",
+      "rev": "5a7fca171e3ad07380745d573d791e95268b8f3f",
       "src": "gh:NeogitOrg/neogit"
     },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "gh:MunifTanjim/nui.nvim"
     },
+    "nvim-bqf": {
+      "rev": "c282a62bec6c0621a1ef5132aa3f4c9fc4dcc2c7",
+      "src": "gh:kevinhwang91/nvim-bqf"
+    },
     "nvim-lspconfig": {
-      "rev": "8e2084bf5e40c79c1f42210a6ef96a0a4793a763",
+      "rev": "9ccd58a7949091c0cc2777d4e92a45a209c808c1",
       "src": "gh:neovim/nvim-lspconfig"
     },
     "nvim-metals": {
       "rev": "48b9d29a4e1370495db4d4b5ccbc17b285bc98eb",
       "src": "gh:scalameta/nvim-metals"
     },
+    "nvim-pqf": {
+      "rev": "148ee2ca8b06d83fd9bf6f9b9497724ad39a07d6",
+      "src": "gh:yorickpeterse/nvim-pqf"
+    },
     "nvim-treesitter": {
-      "rev": "7caec274fd19c12b55902a5b795100d21531391f",
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "gh:nvim-treesitter/nvim-treesitter"
     },
     "nvim-window-picker": {
@@ -88,7 +96,7 @@
       "src": "gh:nvim-lua/plenary.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "12426763591f06b865c20990d8423345ea96d44f",
+      "rev": "0bd02161ee5c5378bf4133fcedf53d1fc4179e1d",
       "src": "gh:mrjones2014/smart-splits.nvim"
     },
     "snacks.nvim": {

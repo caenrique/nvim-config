@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- - 'tagfunc' is set to |vim.lsp.tagfunc()|. This enables features like go-to-definition, |:tjump|, and keymaps like |CTRL-]|, |CTRL-W_]|, |CTRL-W_}| to utilize the language server.
     -- - 'formatexpr' is set to |vim.lsp.formatexpr()|, so you can format lines via |gq| if the language server supports it.
     -- - |K| is mapped to |vim.lsp.buf.hover()| unless 'keywordprg' is customized or a custom keymap for `K` exists.
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = event.buf, desc = 'LSP: go to definition' })
 
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
