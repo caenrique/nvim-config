@@ -9,12 +9,10 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
     else
       vim.wo.statuscolumn = '%s%=%l %C '
     end
-
-    vim.wo.signcolumn = 'auto:1'
-    vim.wo.foldcolumn = 'auto'
   end,
 })
 
+-- vim.o.signcolumn = 'yes:1'
 vim.o.foldcolumn = '1'
 vim.opt_global.fillchars:append({
   fold = ' ',

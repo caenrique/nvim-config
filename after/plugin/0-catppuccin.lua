@@ -20,8 +20,8 @@ Cesar.require('catppuccin', {
           NeogitDiffDeleteInline = { bg = util.blend(colors.red, colors.base, 0.4), fg = colors.red },
           NeogitDiffAddInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
 
-          DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
-          GitSignsChangeInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
+          -- DiffviewDiffDeleteDim = { fg = util.blend(colors.text, colors.base, 0.2) },
+          GitSignsChangeInline = { bg = util.blend(colors.yellow, colors.base, 0.4), fg = colors.yellow },
           GitSignsAddInline = { bg = util.blend(colors.green, colors.base, 0.4), fg = colors.green },
           GitSignsDeleteInline = { bg = util.blend(colors.red, colors.base, 0.4), fg = colors.red },
         }

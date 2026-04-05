@@ -39,23 +39,6 @@ Cesar.require('neogit', {
 Cesar.require('gitsigns', {
   opts = {
     attach_to_untracked = true,
-    signs = {
-      add = { text = '▌' }, -- adjust these so they are not so thick due to my font
-      change = { text = '▌' }, -- adjust these so they are not so thick due to my font
-      delete = { text = '▁' },
-      topdelete = { text = '▔' },
-      -- changedelete = { text = '~' },
-      untracked = { text = '╎' },
-      fold = { enable = true },
-    },
-    signs_staged = {
-      add = { text = '▌' }, -- adjust these so they are not so thick due to my font
-      change = { text = '▌' }, -- adjust these so they are not so thick due to my font
-      delete = { text = '▁' },
-      topdelete = { text = '▔' },
-      -- changedelete = { text = '~' },
-      untracked = { text = '┆' },
-    },
     current_line_blame = true,
     current_line_blame_opts = {
       virt_text = true,
@@ -157,131 +140,163 @@ Cesar.require('gitsigns', {
   }
 })
 
-local inlay_hint_last_state = {}
-Cesar.require('diffview', {
+Cesar.require('codediff', {
   opts = {
-    hooks = {
-      diff_buf_read = function(buf, _)
-        vim.opt_local.wrap = false
-        vim.b[buf].snacks_indent = false
-        inlay_hint_last_state[buf] = vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
-        vim.lsp.inlay_hint.enable(false, { bufnr = buf })
-      end,
-      view_enter = function()
-        vim.print('View Enter')
-        inlay_hint_last_state = {}
-        Cesar.with('gitsigns', { callback = function(gitsigns) gitsigns.toggle_signs(false) end })
-      end,
-      view_leave = function()
-        for buf, state in pairs(inlay_hint_last_state) do
-          if vim.api.nvim_buf_is_valid(buf) then
-            vim.lsp.inlay_hint.enable(state, { bufnr = buf })
-          end
-        end
-        Cesar.with('gitsigns', { callback = function(gitsigns) gitsigns.toggle_signs(true) end })
-      end,
-      view_opened = function(view)
-        local utils = require('caenrique.tbl_utils')
-        local function post_layout()
-          utils.tbl_ensure(view, 'winopts.diff2.a')
-          utils.tbl_ensure(view, 'winopts.diff2.b')
-          -- left
-          view.winopts.diff2.a = utils.tbl_union_extend(view.winopts.diff2.a, {
-            winhl = {
-              'DiffChange:DiffDelete',
-              'DiffText:GitSignsDeleteInline',
-            },
-          })
-          -- right
-          view.winopts.diff2.b = utils.tbl_union_extend(view.winopts.diff2.b, {
-            winhl = {
-              'DiffChange:DiffAdd',
-              'DiffText:GitSignsAddInline',
-            },
-          })
-        end
-
-        view.emitter:on('post_layout', post_layout)
-        post_layout()
-      end,
-    }, -- See ':h diffview-config-hooks'
-    enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-    view = {
-      default = {
-        winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
-        -- Config for changed files, and staged files in diff views.
-        layout = 'diff2_horizontal',
-        disable_diagnostics = true,
-      },
-      merge_tool = {
-        layout = 'diff1_plain',
-      },
+    diff = {
+      layout = 'inline',
+      compute_moves = true,
     },
-    default_args = {
-      DiffviewOpen = { '--untracked-files=no', '--imply-local' },
-      DiffviewFileHistory = { '--base=LOCAL' },
-    },
-    file_panel = {
-      listing_style = 'list', -- One of 'list' or 'tree'
-      win_config = { -- See |diffview-config-win_config|
-        position = 'left',
-        width = 50,
-        win_opts = {},
-      },
+    explorer = {
+      view_mode = 'tree'
     },
     keymaps = {
-      file_panel = {
-        { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
-        { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
-        -- { 'n', '<tab>', require('diffview.actions').toggle_stage_entry },
-      },
-      file_history_panel = {
-        { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
-        { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
-      },
       view = {
-        -- Find how to make these silent
-        { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
-        { 'n', '<tab>', require('diffview.actions').select_next_entry,
-          { desc = 'Open the diff for the next file', silent = true } },
-        {
-          'n',
-          '<s-tab>',
-          require('diffview.actions').select_prev_entry,
-          { desc = 'Open the diff for the previous file', silent = true },
-        },
-        { 'n', '<C-[>', require('diffview.actions').prev_conflict },
-        { 'n', '<C-]>', require('diffview.actions').next_conflict },
-        { 'n', '<leader>o', require('diffview.actions').conflict_choose('ours') },
-        { 'n', '<leader>t', require('diffview.actions').conflict_choose('theirs') },
-        { 'n', '<leader>b', require('diffview.actions').conflict_choose('base') },
-        { 'n', '<leader>a', require('diffview.actions').conflict_choose('all') },
-        { 'n', '<leader>x', require('diffview.actions').conflict_choose('none') },
-        { 'n', '<leader>O', require('diffview.actions').conflict_choose_all('ours') },
-        { 'n', '<leader>T', require('diffview.actions').conflict_choose_all('theirs') },
-        { 'n', '<leader>B', require('diffview.actions').conflict_choose_all('base') },
-        { 'n', '<leader>A', require('diffview.actions').conflict_choose_all('all') },
-        { 'n', '<leader>X', require('diffview.actions').conflict_choose_all('none') },
-        { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
+        toggle_explorer = '<leader>e',
+        toggle_layout = '<M-l>'
+      },
+      explorer = {
+        toggle_staged = '<tab>',
       },
     },
   },
   after = function()
-    vim.api.nvim_create_user_command(
-      'DiffPullRequest',
-      'DiffviewOpen origin/HEAD...HEAD --imply-local --minimal --no-indent-heuristic',
-      {}
-    )
-    vim.api.nvim_create_user_command(
-      'DiffPullRequestByCommit',
-      'DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges',
-      {}
-    )
-
-    vim.keymap.set('n', '<leader>gd', '<cmd>silent DiffviewOpen<CR>', { desc = '[G]it [D]iff' })
-    vim.keymap.set('n', '<leader>gfh', '<cmd>silent DiffviewFileHistory<CR>', { desc = '[G]it [F]ile [H]istory' })
-    vim.keymap.set('n', '<leader>gD', '<cmd>silent DiffPullRequest<CR>', { desc = '[G]it [D]iff (pull request)' })
-    vim.keymap.set('n', '<leader>gcd', '<cmd>silent DiffPullRequestByCommit<CR>',
-      { desc = '[G]it [C]ommit by commit [D]iff (pull request)', })
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "CodeDiffOpen",
+      callback = function(args)
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(args.data.tabpage)) do
+          vim.wo[win].cursorline = false
+          vim.wo[win].signcolumn = 'no'
+        end
+      end,
+    })
   end,
 })
+
+-- local inlay_hint_last_state = {}
+-- Cesar.require('diffview', {
+--   opts = {
+--     hooks = {
+--       diff_buf_read = function(buf, _)
+--         vim.opt_local.wrap = false
+--         vim.b[buf].snacks_indent = false
+--         inlay_hint_last_state[buf] = vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
+--         vim.lsp.inlay_hint.enable(false, { bufnr = buf })
+--       end,
+--       view_enter = function()
+--         vim.print('View Enter')
+--         inlay_hint_last_state = {}
+--         Cesar.with('gitsigns', { callback = function(gitsigns) gitsigns.toggle_signs(false) end })
+--       end,
+--       view_leave = function()
+--         for buf, state in pairs(inlay_hint_last_state) do
+--           if vim.api.nvim_buf_is_valid(buf) then
+--             vim.lsp.inlay_hint.enable(state, { bufnr = buf })
+--           end
+--         end
+--         Cesar.with('gitsigns', { callback = function(gitsigns) gitsigns.toggle_signs(true) end })
+--       end,
+--       view_opened = function(view)
+--         local utils = require('caenrique.tbl_utils')
+--         local function post_layout()
+--           utils.tbl_ensure(view, 'winopts.diff2.a')
+--           utils.tbl_ensure(view, 'winopts.diff2.b')
+--           -- left
+--           view.winopts.diff2.a = utils.tbl_union_extend(view.winopts.diff2.a, {
+--             winhl = {
+--               'DiffChange:DiffDelete',
+--               'DiffText:GitSignsDeleteInline',
+--             },
+--           })
+--           -- right
+--           view.winopts.diff2.b = utils.tbl_union_extend(view.winopts.diff2.b, {
+--             winhl = {
+--               'DiffChange:DiffAdd',
+--               'DiffText:GitSignsAddInline',
+--             },
+--           })
+--         end
+--
+--         view.emitter:on('post_layout', post_layout)
+--         post_layout()
+--       end,
+--     }, -- See ':h diffview-config-hooks'
+--     enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
+--     view = {
+--       default = {
+--         winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
+--         -- Config for changed files, and staged files in diff views.
+--         layout = 'diff2_horizontal',
+--         disable_diagnostics = true,
+--       },
+--       merge_tool = {
+--         layout = 'diff1_plain',
+--       },
+--     },
+--     default_args = {
+--       DiffviewOpen = { '--untracked-files=no', '--imply-local' },
+--       DiffviewFileHistory = { '--base=LOCAL' },
+--     },
+--     file_panel = {
+--       listing_style = 'list', -- One of 'list' or 'tree'
+--       win_config = { -- See |diffview-config-win_config|
+--         position = 'left',
+--         width = 50,
+--         win_opts = {},
+--       },
+--     },
+--     keymaps = {
+--       file_panel = {
+--         { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
+--         { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
+--         -- { 'n', '<tab>', require('diffview.actions').toggle_stage_entry },
+--       },
+--       file_history_panel = {
+--         { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
+--         { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
+--       },
+--       view = {
+--         -- Find how to make these silent
+--         { 'n', 'q', '<cmd>DiffviewClose<CR>', { silent = true } },
+--         { 'n', '<tab>', require('diffview.actions').select_next_entry,
+--           { desc = 'Open the diff for the next file', silent = true } },
+--         {
+--           'n',
+--           '<s-tab>',
+--           require('diffview.actions').select_prev_entry,
+--           { desc = 'Open the diff for the previous file', silent = true },
+--         },
+--         { 'n', '<C-[>', require('diffview.actions').prev_conflict },
+--         { 'n', '<C-]>', require('diffview.actions').next_conflict },
+--         { 'n', '<leader>o', require('diffview.actions').conflict_choose('ours') },
+--         { 'n', '<leader>t', require('diffview.actions').conflict_choose('theirs') },
+--         { 'n', '<leader>b', require('diffview.actions').conflict_choose('base') },
+--         { 'n', '<leader>a', require('diffview.actions').conflict_choose('all') },
+--         { 'n', '<leader>x', require('diffview.actions').conflict_choose('none') },
+--         { 'n', '<leader>O', require('diffview.actions').conflict_choose_all('ours') },
+--         { 'n', '<leader>T', require('diffview.actions').conflict_choose_all('theirs') },
+--         { 'n', '<leader>B', require('diffview.actions').conflict_choose_all('base') },
+--         { 'n', '<leader>A', require('diffview.actions').conflict_choose_all('all') },
+--         { 'n', '<leader>X', require('diffview.actions').conflict_choose_all('none') },
+--         { 'n', '<leader>e', require('diffview.actions').toggle_files, { desc = 'Toggle the file panel.' } },
+--       },
+--     },
+--   },
+--   after = function()
+--     vim.api.nvim_create_user_command(
+--       'DiffPullRequest',
+--       'DiffviewOpen origin/HEAD...HEAD --imply-local --minimal --no-indent-heuristic',
+--       {}
+--     )
+--     vim.api.nvim_create_user_command(
+--       'DiffPullRequestByCommit',
+--       'DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges',
+--       {}
+--     )
+--
+--     vim.keymap.set('n', '<leader>gd', '<cmd>silent DiffviewOpen<CR>', { desc = '[G]it [D]iff' })
+--     vim.keymap.set('n', '<leader>gfh', '<cmd>silent DiffviewFileHistory<CR>', { desc = '[G]it [F]ile [H]istory' })
+--     vim.keymap.set('n', '<leader>gD', '<cmd>silent DiffPullRequest<CR>', { desc = '[G]it [D]iff (pull request)' })
+--     vim.keymap.set('n', '<leader>gcd', '<cmd>silent DiffPullRequestByCommit<CR>',
+--       { desc = '[G]it [C]ommit by commit [D]iff (pull request)', })
+--   end,
+-- })

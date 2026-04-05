@@ -88,6 +88,8 @@ vim.keymap.set('n', '<leader>R', function()
 end, { expr = true, desc = 'Replace word under the cursor in the current line' })
 
 vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })
+vim.keymap.set('n', '<C-I>', '<C-I>', { noremap = true })
+vim.keymap.set('n', '<C-M>', '<C-M>', { noremap = true })
 
 vim.keymap.set({ "x" }, "v", function()
   if vim.treesitter.get_parser(nil, nil, { error = false }) then

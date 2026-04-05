@@ -30,6 +30,7 @@ vim.pack.add({
   'gh:NeogitOrg/neogit',
   { src = 'gh:fredrikaverpil/gitsigns.nvim', version = 'feat/toggle-inline-preview' },
   'gh:sindrets/diffview.nvim',
+  'gh:esmuellert/codediff.nvim',
 
   -- LSP
   'gh:linrongbin16/lsp-progress.nvim', -- Display lsp progress messages in the statusline
