@@ -88,3 +88,19 @@ vim.keymap.set('n', '<leader>R', function()
 end, { expr = true, desc = 'Replace word under the cursor in the current line' })
 
 vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })
+
+vim.keymap.set({ "x" }, "v", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_parent(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(vim.v.count1)
+  end
+end, { desc = 'Incremental Selection: select parent' })
+
+vim.keymap.set({ "x" }, "V", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_child(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(-vim.v.count1)
+  end
+end, { desc = 'Incremental Selection: select child' })

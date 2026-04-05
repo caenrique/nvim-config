@@ -50,7 +50,7 @@ Cesar.require('lspconfig', {
 
 Cesar.require('conform', {
   opts = {
-    notify_on_error = false,
+    notify_on_error = true,
     format_on_save = function(bufnr)
       if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
         return
@@ -84,4 +84,18 @@ Cesar.require('conform', {
       desc = 'Re-enable autoformat-on-save',
     })
   end
+})
+
+Cesar.require('fidget', {
+  opts = {
+    progress = {
+      ignore_done_already = true,
+      ignore_empty_message = true,
+    },
+    display = {
+      render_limit = 10, -- How many LSP messages to show at once
+      done_ttl = 2, -- How long a message should persist after completion
+      done_icon = "✔", -- Icon shown when all LSP progress tasks are complete
+    },
+  }
 })

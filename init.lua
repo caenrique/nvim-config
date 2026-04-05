@@ -91,7 +91,7 @@ vim.o.laststatus = 3
 vim.o.cmdheight = 0
 
 -- Enable experimental tui featues
-require('vim._core.ui2').enable({ enable = true, msg = { targets = 'msg', msg = { timeout = 2000 } } })
+require('vim._core.ui2').enable({ enable = true, msg = { targets = 'cmd', msg = { timeout = 2000 } } })
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])

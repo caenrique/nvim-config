@@ -27,20 +27,26 @@ Cesar.require('metals', {
 
     metals_config.capabilities = capabilities
     metals_config.init_options.statusBarProvider = 'off'
+    metals_config.init_options.globSyntax = "vscode"
     metals_config.settings = {
       excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
       enableSemanticHighlighting = true,
       defaultBspToBuildTool = true,
       autoImportBuild = 'all',
-      superMethodLensesEnabled = true,
+      superMethodLensesEnabled = false,
       inlayHints = {
         byNameParameters = { enable = true },
+        namedParameters = { enable = true },
         hintsInPatternMatch = { enable = true },
         implicitArguments = { enable = true },
         implicitConversions = { enable = true },
         inferredTypes = { enable = true },
         typeParameters = { enable = true },
+        hintsXRayMode = { enable = true },
+        closingLabels = { enable = true },
       },
+      enableIndentOnPaste = true,
+      enableBestEffort = true,
       -- serverVersion = '1.4.2+80-2b937bb1-SNAPSHOT',
     }
 
@@ -61,5 +67,12 @@ Cesar.require('metals', {
       group = nvim_metals_group,
     })
 
+    -- Use this to add a way to toggle different features of inlay hints
+    --
+    -- for _, client in ipairs(vim.lsp.get_clients({ name = "rust-analyzer" })) do
+    --     client.notify("workspace/didChangeConfiguration",
+    --         { settings = ... }
+    --     )
+    -- end
   end,
 })

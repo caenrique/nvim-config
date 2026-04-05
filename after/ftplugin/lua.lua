@@ -1,7 +1,5 @@
-local ok, lazydev = pcall(require, 'lazydev')
-
-if ok then
-  lazydev.setup({
+Cesar.require('lazydev', {
+  opts = {
     library = {
       -- See the configuration section for more details
       -- Load luvit types when the `vim.uv` word is found
@@ -12,7 +10,9 @@ if ok then
       'render-markdown.nvim',
       'nvim-dap-view',
       'smart-splits.nvim',
+      'mini.nvim',
+      'gitsings.nvim',
       -- 'wezterm-types',
     },
-  })
-end
+  }
+})

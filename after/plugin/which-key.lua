@@ -18,9 +18,9 @@ Cesar.require('which-key', {
     },
   },
   after = function()
-    vim.keymap.set('n', '<C-;>', function() require('which-key').show({ global = false }) end,
+    vim.keymap.set({ 'n', 'x' }, '<C-;>', function() require('which-key').show({ global = false }) end,
       { desc = 'Buffer Local Keymaps (which-key)', })
-    vim.keymap.set('n', '<C-Space>', function() require('which-key').show({ global = true }) end,
+    vim.keymap.set({ 'n', 'x' }, '<C-Space>', function() require('which-key').show({ global = true }) end,
       { desc = 'Keymaps (which-key)', })
   end,
 })

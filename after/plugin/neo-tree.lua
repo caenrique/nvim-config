@@ -31,11 +31,6 @@ Cesar.require('neo-tree', {
         ['gu'] = 'git_unstage_file',
         ['gx'] = 'git_revert_file',
         ['<tab>'] = 'git_toggle_file_stage',
-        ['<S-tab>'] = function(state)
-          vim.print(vim.inspect(state))
-        end,
-        -- ['ge'] = function() vim.cmd('Neotree toggle source=git_status') end,
-        -- ['gd'] = function() vim.cmd('DiffViewOpen toggle source=git_status') end,
         ['<space>'] = '',
         ['<M-p>'] = {
           'toggle_preview',
@@ -45,10 +40,8 @@ Cesar.require('neo-tree', {
             use_image_nvim = false,
           },
         },
-        -- ['<M-i>'] = 'toggle_hidden',
         ['H'] = '',
         ['f'] = '',
-        ['l'] = 'focus_preview',
         ['<C-s>'] = 'open_split',
         ['<C-v>'] = 'open_vsplit',
         ['<C-t>'] = 'open_tabnew',
@@ -88,12 +81,12 @@ Cesar.require('neo-tree', {
     },
   },
   after = function()
-    vim.keymap.set('n', '<leader>e', function() vim.cmd('Neotree toggle') end, { desc = 'ToFile Explorer' })
+    vim.keymap.set('n', '<leader>e', function() vim.cmd('Neotree toggle') end, { desc = 'Toggle File Explorer' })
     vim.keymap.set(
       'n',
       '<leader>E',
       function() vim.cmd('Neotree toggle position=current') end,
-      { desc = 'File Explorer' }
+      { desc = 'File Explorer in current window' }
     )
     vim.keymap.set(
       'n',

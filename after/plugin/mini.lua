@@ -46,67 +46,15 @@ Cesar.require('mini.statusline', {
         return MiniStatusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
           -- { hl = '', strings = { gitsigns() } },
-          { hl = '@diff.plus', strings = { lsp_servers() } },
+          { hl = '', strings = { section_git({ trunc_width = 40 }) } },
           { hl = 'MiniStatuslineFilename', strings = { search() } },
           '%<', -- Mark general truncate point
           '%=', -- End left alignment
           { hl = 'NonText', strings = { positionString, '%p%%' } },
-          '%=', -- End left alignment
-          { hl = '', strings = { section_git({ trunc_width = 40 }) } },
+          { hl = '@diff.plus', strings = { lsp_servers() } },
         })
       end,
     },
     use_icons = vim.g.have_nerd_font,
   }
-})
-
-Cesar.require('mini.pick', {
-  enable = false,
-  opts = {
-    mappings = {
-      quickfix = {
-        char = "<C-q>",
-        func = function()
-          local all_items = MiniPick.get_picker_items()
-          local marked = MiniPick.get_picker_matches().marked
-          local choose = vim.tbl_isempty(marked) and all_items or marked
-          MiniPick.default_choose_marked(choose, { list_type = "quickfix" })
-        end,
-      },
-    },
-  },
-  after = function()
-
-    MiniPick.setup()
-
-    local files = function()
-      MiniPick.builtin.files({}, {
-        source = {
-          show = function(bufid, items_to_show, query) MiniPick.default_show(bufid, items_to_show, query,
-              { use_icons = true, item_to_string =
-              function(x)
-                local file, dir = vim.fs.basename(x), vim.fs.dirname(x)
-                local text = dir ~= '.' and string.format('%s %s', file, dir) or file
-                local highlights = {
-                  { hl = 'MiniPickNormal', from = 0, to = file:len() },
-                }
-
-                if text ~= file then
-                  table.insert(highlights, { hl = 'NonText', from = file:len() + 1, to = text:len() })
-                end
-
-                return {
-                  text = text,
-                  highlights = highlights,
-                }
-              end })
-          end
-        }
-      })
-    end
-
-    vim.keymap.set('n', '<leader>/', MiniPick.builtin.grep_live, { desc = 'Grep files' })
-    vim.keymap.set('n', '<leader>f', MiniPick.builtin.files, { desc = 'Find files' })
-    vim.keymap.set('n', '<leader>of', files, { desc = 'Experimental Find files' })
-  end,
 })

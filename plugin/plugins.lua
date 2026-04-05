@@ -55,8 +55,9 @@ vim.pack.add({
   -- UI/UX
   'gh:mrjones2014/smart-splits.nvim',
   'gh:folke/which-key.nvim',
+  "gh:j-hui/fidget.nvim",
 
-  -- Markdonw
+  -- Markdown
   'gh:opdavies/toggle-checkbox.nvim',
 
   -- Quickfix
