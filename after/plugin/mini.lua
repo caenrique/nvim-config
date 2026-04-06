@@ -14,9 +14,11 @@ Cesar.require('mini.statusline', {
 
         if vstart and vend then
           if vim.fn.mode() == 'v' then
+            -- TODO: compute character count of the selection
             positionString = string.format('[Selection] %s:%s-%s:%s', vstart[2], vstart[3], vend[2], vend[3])
           elseif vim.fn.mode() == 'V' then
-            positionString = string.format('[Line Selection] %s-%s', vstart[2], vend[2])
+            positionString = string.format('[Line Selection] %s-%s (%s lines)', vstart[2], vend[2],
+              math.abs(vstart[2] - vend[2]) + 1)
           end
         end
 
@@ -56,5 +58,10 @@ Cesar.require('mini.statusline', {
       end,
     },
     use_icons = vim.g.have_nerd_font,
-  }
+  },
+  after = function()
+    vim.api.nvim_create_autocmd('ModeChanged', {
+      command = 'redrawstatus',
+    })
+  end,
 })
