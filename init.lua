@@ -2,8 +2,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.sessionoptions = 'help,winsize,folds,skiprtp'
-
 vim.o.completeopt = 'menu,popup,fuzzy,noinsert'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal

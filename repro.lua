@@ -1,20 +1,17 @@
 vim.pack.add({
-  "https://github.com/nvim-lua/plenary.nvim",
-  "https://github.com/MunifTanjim/nui.nvim",
-  {
-    src = 'https://github.com/nvim-neo-tree/neo-tree.nvim',
-    version = vim.version.range('3')
-  },
+  'gh:esmuellert/codediff.nvim',
 })
 
-require('neo-tree').setup({
-  source_selector = {
-    winbar = true,
-  },
-  filesystem = {
-    group_empty_dirs = true,
+require('codediff').setup({
+  keymaps = {
+    view = {
+      toggle_explorer = '<leader>e',
+    },
+    -- explorer = {
+    -- toggle_explorer = '<leader>e',
+    -- },
   },
 })
 
 vim.g.mapleader = ' '
-vim.keymap.set('n', '<leader>e', function() vim.cmd('Neotree toggle') end, { desc = 'ToFile Explorer' })
+vim.keymap.set('n', '<leader>gd', '<cmd>CodeDiff<CR>', { desc = 'Open Diff view' })

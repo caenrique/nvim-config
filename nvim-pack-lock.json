@@ -10,7 +10,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "catppuccin": {
-      "rev": "16408d203973da7e43fab87c6f9d3bf7fa98fa8b",
+      "rev": "df2a1f9f3392d688397e945544a30aec8fc9b4c7",
       "src": "gh:catppuccin/nvim"
     },
     "codediff.nvim": {
@@ -38,9 +38,8 @@
       "src": "gh:rafamadriz/friendly-snippets"
     },
     "gitsigns.nvim": {
-      "rev": "0dfc11955361d348b9c330e9dd4b83c7fbf09466",
-      "src": "gh:fredrikaverpil/gitsigns.nvim",
-      "version": "'feat/toggle-inline-preview'"
+      "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
+      "src": "gh:fredrikaverpil/gitsigns.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
@@ -80,7 +79,7 @@
       "src": "gh:kevinhwang91/nvim-bqf"
     },
     "nvim-lspconfig": {
-      "rev": "9ccd58a7949091c0cc2777d4e92a45a209c808c1",
+      "rev": "a776085e04f7b15d0b59fae2244df07d98360ab4",
       "src": "gh:neovim/nvim-lspconfig"
     },
     "nvim-metals": {
