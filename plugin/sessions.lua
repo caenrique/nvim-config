@@ -1,11 +1,9 @@
 local group = vim.api.nvim_create_augroup('caenrique.sessions', { clear = true })
 local sessions_dir = vim.fs.joinpath(vim.fn.stdpath('data'), 'sessions')
 
-
 -- folds: manually created folds, opened/closed folds and local fold options
 -- help: the help window
 -- skiprtp: exclude 'runtimepath' and 'packpath' from the options
--- terminal: include terminal windows where the command can be restored
 -- winsize: window sizes
 vim.o.sessionoptions = 'help,winsize,folds,skiprtp'
 

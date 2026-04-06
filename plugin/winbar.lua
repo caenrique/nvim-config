@@ -10,14 +10,17 @@ function _G.Winbar()
   end
 
   local function filename()
+    local full = vim.b[bufnr].caenrique_winbar_full_path or false
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    local bufname = full and vim.fs.relpath(vim.fn.getcwd(), name) or vim.fs.basename(name)
     if vim.bo[bufnr].modified then
-      return '%#NeoTreeModified#%t %m'
+      return '%#NeoTreeModified#' .. bufname .. ' %m'
     elseif vim.bo[bufnr].filetype == 'help' then
       return '%h %#Normal#%t'
     elseif not vim.bo[bufnr].modifiable then
-      return '%#Normal#%t %m'
+      return '%#Normal#' .. bufname .. ' %m'
     else
-      return '%#Normal#%t'
+      return '%#Normal#' .. bufname
     end
   end
 
@@ -41,7 +44,7 @@ function _G.Winbar()
 
   local diagnostics = vim.diagnostic.status(bufnr) ~= ''
       and vim.diagnostic.status(bufnr) .. ' %#' .. gethighlight(vim.diagnostic.get(bufnr)) .. '# '
-    or ''
+      or ''
 
   local function gitsigns()
     local gitstatus = vim.b[bufnr].gitsigns_status_dict or {}
@@ -51,7 +54,6 @@ function _G.Winbar()
     return add .. changed .. deleted
   end
 
-  -- TODO: Exclude filetype/buftype
   return ' ' .. icon .. ' ' .. filename() .. ' ' .. gitsigns() .. '%=' .. diagnostics
 end
 
@@ -68,3 +70,12 @@ vim.api.nvim_create_autocmd({ 'TermOpen', 'BufWinEnter' }, {
     end
   end,
 })
+
+vim.keymap.set('n', '<leader>tp', function()
+  if vim.b.caenrique_winbar_full_path ~= nil then
+    vim.b.caenrique_winbar_full_path = not vim.b.caenrique_winbar_full_path
+  else
+    vim.b.caenrique_winbar_full_path = true
+  end
+  vim.cmd.redrawstatus()
+end, { desc = 'Toggle full path / basename in winbar' })
