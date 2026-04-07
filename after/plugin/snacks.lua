@@ -1,7 +1,7 @@
 Cesar.require('snacks', {
   opts = {
     -- input = { enabled = true },
-    notifier = { timeout = 3000 },
+    -- notifier = { timeout = 3000 },
     -- scope = { enabled = false }, -- investigate this more. might be useful
     gitbrowse = {
       url_patterns = {
