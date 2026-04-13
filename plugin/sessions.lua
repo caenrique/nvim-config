@@ -41,6 +41,10 @@ vim.api.nvim_create_autocmd('VimLeavePre', {
 vim.api.nvim_create_autocmd('VimEnter', {
   group = group,
   callback = function()
+    if vim.fn.argc() > 0 then
+      return
+    end
+
     if vim.uv.fs_stat(session_path()) then
       vim.schedule(function() vim.cmd.source(session_path()) end)
     end

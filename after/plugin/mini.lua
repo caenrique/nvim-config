@@ -49,9 +49,9 @@ Cesar.require('mini.statusline', {
           { hl = mode_hl, strings = { mode } },
           -- { hl = '', strings = { gitsigns() } },
           { hl = '', strings = { section_git({ trunc_width = 40 }) } },
-          { hl = 'MiniStatuslineFilename', strings = { search() } },
-          '%<', -- Mark general truncate point
+          '%<', -- Mark too truncate point
           '%=', -- End left alignment
+          { hl = 'MiniStatuslineFilename', strings = { search() } },
           { hl = 'NonText', strings = { positionString, '%p%%' } },
           { hl = '@diff.plus', strings = { lsp_servers() } },
         })

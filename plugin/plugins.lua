@@ -15,6 +15,7 @@ vim.pack.add({
   'gh:NeogitOrg/neogit', -- An interactive and powerful Git interface for Neovim, inspired by Magit.
   'gh:fredrikaverpil/gitsigns.nvim', -- Git integration for buffers.
   'gh:esmuellert/codediff.nvim', -- VSCode-style diff rendering.
+  'gh:sindrets/diffview.nvim', -- Diff
 
   -- LSP
   'gh:linrongbin16/lsp-progress.nvim', -- Display lsp progress messages in the statusline.
@@ -48,8 +49,31 @@ vim.pack.add({
   -- Quickfix
   'gh:kevinhwang91/nvim-bqf', -- Better quickfix window in Neovim.
   'gh:yorickpeterse/nvim-pqf', -- Prettier quickfix/location list windows for NeoVim.
+  -- 'gh:retran/meow.yarn.nvim', -- Call/Type hieracky explorer. Not very useful in scala or lua right now
+  'gh:hong4rc/copy-path.nvim',
 })
 
+require('copy-path').setup({
+  -- Keymap to open the picker, or false to disable (default: "<leader>fP")
+  picker_keymap = "<leader>cp",
+
+  -- Keymap bindings per kind. Set to false to disable a keymap.
+  keymaps = {
+    relative    = false, -- src/foo/Bar.tsx
+    full        = false, -- /home/user/project/src/foo/Bar.tsx
+    filename    = false, -- Bar.tsx
+    line        = false, -- src/foo/Bar.tsx:42
+    github_line = "<leader>cg", -- https://github.com/.../Bar.tsx#L42
+    line_full   = false, -- disabled by default
+    stem        = false, -- disabled by default
+    extension   = false, -- disabled by default
+    dir_full    = false, -- disabled by default
+    dir_rel     = false, -- disabled by default
+    github      = "<leader>cG", -- disabled by default
+  },
+})
+
+-- require('meow.yarn').setup()
 require('bqf').setup()
 require('pqf').setup({ max_filename_length = 100, })
 
@@ -62,7 +86,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
       if not ev.data.active then
         vim.cmd.packadd('nvim-treesitter')
       end
-      vim.cmd.TSUpdate()
+      require('nvim-treesitter').update()
     end
   end,
 })

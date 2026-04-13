@@ -25,6 +25,10 @@
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "gh:stevearc/conform.nvim"
     },
+    "copy-path.nvim": {
+      "rev": "ffffff63de2a782c358e40a38c06fd1f44580679",
+      "src": "gh:hong4rc/copy-path.nvim"
+    },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "gh:sindrets/diffview.nvim"
@@ -41,6 +45,10 @@
       "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
       "src": "gh:fredrikaverpil/gitsigns.nvim"
     },
+    "inline-diff.nvim": {
+      "rev": "00cc027fe599e7b560849bee52826b6622860970",
+      "src": "gh:cvlmtg/inline-diff.nvim"
+    },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "gh:folke/lazydev.nvim"
@@ -56,6 +64,10 @@
     "mason.nvim": {
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "gh:williamboman/mason.nvim"
+    },
+    "meow.yarn.nvim": {
+      "rev": "507250e4c452d119cc46c7ca763b9acc72b3e20f",
+      "src": "gh:retran/meow.yarn.nvim"
     },
     "mini.nvim": {
       "rev": "402ee6c6ec8ea44b22330446c8fb4e615fd3953e",

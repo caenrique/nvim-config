@@ -4,7 +4,7 @@ vim.keymap.set('x', 'g==', ":'<,'>source<CR>", { desc = 'Source current selectio
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch | redrawstatus <CR>')
 
 -- Make global marks accesible in the home row
 vim.keymap.set('n', "'a", "'A")
